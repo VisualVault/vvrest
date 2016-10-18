@@ -1,6 +1,5 @@
 import requests
 import json
-import pprint
 
 class Document():
 	# get documents by query

@@ -9,7 +9,8 @@ Python Requests Library (http://docs.python-requests.org/en/master/)
 WELCOME TO THE PYTHON VISUALVAULT REST API CLIENT LIBRARY
 
 * This application serves as a method for accessing the Visual Vault REST API while using PYTHON.
-* See examples.py for how to access each method (DETAILED DOCUMENTATION COMING SOON TO README.md)
+* See examples.py for how to access each method (DETAILED DOCUMENTATION COMING SOON TO README.md).
+* Add the vvPyRest folder to your project and reference it like examples.py does.
 
 NOTE:
 
