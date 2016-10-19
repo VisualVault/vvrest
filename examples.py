@@ -48,6 +48,12 @@ print docsRequest.getDocuments(vault,'folderPath = \'/pythonTest\'')
 print docsRequest.getDocumentsId(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7')
 print docsRequest.getDocumentsIdRev(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7')
 print docsRequest.getDocumentsIdRevId(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7','d7acc9cc-5995-e611-a6bd-e094676f83f7')
+print docsRequest.getDocumentsFields(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7')
+print docsRequest.getDocumentsFieldsId(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7','8f191f63-5cc0-e511-a698-e094676f83f7')
+print docsRequest.getDocumentsIdRevFields(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7','d7acc9cc-5995-e611-a6bd-e094676f83f7')
+print docsRequest.getDocumentsIdRevFieldsId(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7','d7acc9cc-5995-e611-a6bd-e094676f83f7','8f191f63-5cc0-e511-a698-e094676f83f7')
+print docsRequest.updateDocumentFields(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7','{\'testFIELD\':\'changed value\',\'testFIELD2\':\'new value\'}')
+print docsRequest.updateDocumentFieldsId(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7','8f191f63-5cc0-e511-a698-e094676f83f7','indexfield value')
 print docsRequest.newDoc(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7',1,'documentName','description','0','fileName.txt')
 
 # EMAILS
