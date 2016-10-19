@@ -70,6 +70,10 @@ print filesRequest.fileUpload(vault,'9908d3ee-5a95-e611-a6bd-e094676f83f7','docu
 
 print foldersRequest.getFolderByPath(vault,'pythonTest')
 print foldersRequest.getFolderById(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7')
+print foldersRequest.getSubFolders(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7')
+print foldersRequest.getFolderDocs(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7')
+print foldersRequest.getFolderFields(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7')
+print foldersRequest.getFolderFieldId(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7','586e5e0a-da54-e611-a6b4-e094676f83f7')
 
 # FORMS
 
