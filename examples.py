@@ -2,6 +2,7 @@
 
 from vvPyRest import Vault
 from vvPyRest import Document
+from vvPyRest import Email
 from vvPyRest import File
 from vvPyRest import Folder
 from vvPyRest import Form
@@ -31,6 +32,7 @@ vault = Vault(url,customerAlias,databaseAlias,clientId,clientSecret,userName,pas
 
 # vault request objects
 docsRequest = Document()
+emailsRequest = Email()
 filesRequest = File()
 foldersRequest = Folder()
 formsRequest = Form()
@@ -47,6 +49,10 @@ print docsRequest.getDocumentsId(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7')
 print docsRequest.getDocumentsIdRev(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7')
 print docsRequest.getDocumentsIdRevId(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7','d7acc9cc-5995-e611-a6bd-e094676f83f7')
 print docsRequest.newDoc(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7',1,'documentName','description','0','fileName.txt')
+
+# EMAILS
+
+print emailsRequest.sendEmail(vault,'test@test.com,test2@aol.com','ccRecipient@test.com,cc2@test.com','this is the subject','I am the message body. Hello World!')
 
 # FILES
 
