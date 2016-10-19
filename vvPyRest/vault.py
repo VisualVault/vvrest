@@ -41,6 +41,18 @@ class Vault():
 		expirationDate = date + datetime.timedelta(seconds=expires)
 		return expirationDate
 
+	# void method that refreshes the refresh token from the vault.token object
+	def refreshToken(self):
+		tokenUrl = '/oauth/token'
+		requestUrl = self.url + tokenUrl
+		headers = {'Content-Type':'application/json'}
+		payload = {'client_id':self.clientId,'client_secret':self.clientSecret,'refresh_token':self.token.refresh_token,'grant_type':'refresh_token'}
+		r = requests.post(requestUrl,data=payload,headers=headers).json()
+		access_token = r['access_token']
+		token_expiration = self.setExpiration(r['expires_in'])
+		refresh_token = r['refresh_token']
+		self.token = Token(access_token,token_expiration,refresh_token)
+
 
 
 
