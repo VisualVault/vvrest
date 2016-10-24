@@ -74,6 +74,10 @@ print foldersRequest.getSubFolders(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7')
 print foldersRequest.getFolderDocs(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7')
 print foldersRequest.getFolderFields(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7')
 print foldersRequest.getFolderFieldId(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7','586e5e0a-da54-e611-a6b4-e094676f83f7')
+print foldersRequest.getFolderFieldOptions(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7','71065c2b-5dc0-e511-a698-e094676f83f7')
+print foldersRequest.newFolder(vault,'newFolderName','new folder description',True)
+print foldersRequest.newSubFolder(vault,'5213460c-0e9a-e611-a6bd-e094676f83f7','subFolderName','new sub folder description',True)
+print foldersRequest.updateFolderField(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7','5e1353e2-fa15-e611-a6a6-e094676f83f7','00000000-0000-0000-0000-000000000000','','',False,'new default')
 
 # FORMS
 

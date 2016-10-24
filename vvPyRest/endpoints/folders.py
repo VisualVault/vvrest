@@ -49,3 +49,38 @@ class Folder():
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()
 		return r
+
+	# get drop down list indexfield type select options
+	def getFolderFieldOptions(self,vault,folderId,fieldId):
+		endpoint = 'folders/' + folderId + '/indexfields/' + fieldId + '/selectoptions'
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		r = requests.get(requestUrl,headers=headers).json()
+		return r
+
+	# create a new folder
+	def newFolder(self,vault,name,description,allowRevs):
+		endpoint = 'folders'
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		payload = {'name':name,'description':description, 'allowRevisions':allowRevs}
+		r = requests.post(requestUrl,data=payload,headers=headers).json()
+		return r
+
+	# create a new sub folder
+	def newSubFolder(self,vault,folderId,name,description,allowRevs):
+		endpoint = 'folders/' + folderId
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		payload = {'name':name,'description':description, 'allowRevisions':allowRevs}
+		r = requests.post(requestUrl,data=payload,headers=headers).json()
+		return r
+
+	# update folder index field
+	def updateFolderField(self,vault,folderId,fieldId,queryId,queryValueField,queryDisplayField,required,defaultValue):
+		endpoint = 'folders/' + folderId + '/indexfields/' + fieldId
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		payload = {'dropDownListId':fieldId,'queryId':queryId,'queryValueField':queryValueField,'queryDisplayField':queryDisplayField,'required':required,'defaultValue':defaultValue}
+		r = requests.put(requestUrl,data=payload,headers=headers).json()
+		return r
