@@ -6,6 +6,7 @@ from vvPyRest import Email
 from vvPyRest import File
 from vvPyRest import Folder
 from vvPyRest import Form
+from vvPyRest import Group
 from vvPyRest import Site
 from vvPyRest import User
 
@@ -36,6 +37,7 @@ emailsRequest = Email()
 filesRequest = File()
 foldersRequest = Folder()
 formsRequest = Form()
+groupsRequest = Group()
 sitesRequest = Site()
 usersRequest = User()
 
@@ -94,6 +96,9 @@ print formsRequest.relateProject(vault,'28e9d4e5-27ed-e511-a6a2-e094676f83f7','3
 print formsRequest.unrelateForm(vault,'28e9d4e5-27ed-e511-a6a2-e094676f83f7','3b112af2-15c9-e511-a699-e094676f83f7')
 print formsRequest.unrelateDoc(vault,'28e9d4e5-27ed-e511-a6a2-e094676f83f7','03cdf522-5b95-e611-a6bd-e094676f83f7')
 print formsRequest.unrelateProject(vault,'28e9d4e5-27ed-e511-a6a2-e094676f83f7','3132ea41-52cb-e511-a699-e094676f83f7')
+
+# GROUPS
+print groupsRequest.getGroups(vault)
 
 # SITES
 
