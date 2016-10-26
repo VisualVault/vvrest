@@ -18,6 +18,14 @@ class Form():
 		r = requests.get(requestUrl,headers=headers).json()
 		return r
 
+	# get form template fields by id
+	def getFormTemplateFields(self,vault,formId):
+		endpoint = 'formtemplates/' + formId + '/fields'
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		r = requests.get(requestUrl,headers=headers).json()
+		return r
+
 	# get form instances of a form template
 	def getFormInstances(self,vault,formId):
 		endpoint = 'formtemplates/' + formId + '/forms'
@@ -37,6 +45,15 @@ class Form():
 	# fill in a form
 	def postForm(self,vault,id,fieldsDict):
 		endpoint = 'formtemplates/' + id + '/forms'
+		requestUrl = vault.baseUrl + endpoint
+		fields = fieldsDict
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		r = requests.post(requestUrl,headers=headers,data=fields).json()
+		return r
+
+	# fill in a revision of existing form
+	def postRevForm(self,vault,id,revId,fieldsDict):
+		endpoint = 'formtemplates/' + id + '/forms/' + revId
 		requestUrl = vault.baseUrl + endpoint
 		fields = fieldsDict
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}

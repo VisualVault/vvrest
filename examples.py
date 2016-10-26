@@ -83,9 +83,11 @@ print foldersRequest.updateFolderField(vault,'a31b63b1-5995-e611-a6bd-e094676f83
 
 print formsRequest.getAllFormTemplates(vault)
 print formsRequest.getFormTemplateId(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')
+print formsRequest.getFormTemplateFields(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')
 print formsRequest.getFormInstances(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')
 print formsRequest.getFormInstancesBySearch(vault,'c812d92e-d075-e611-a6b6-e094676f83f7','instanceName=\'rounders-000026\'&fields=field1,field2,field3')
 print formsRequest.postForm(vault,'c812d92e-d075-e611-a6b6-e094676f83f7',{'field1':'5','field2':True,'field3':5})
+print formsRequest.postRevForm(vault,'c812d92e-d075-e611-a6b6-e094676f83f7','171a6fc6-9c9b-e611-a6be-e094676f83f7',{'field1':'20','field2':False})
 
 # SITES
 
