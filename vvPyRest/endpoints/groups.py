@@ -52,3 +52,11 @@ class Group():
 		r = requests.put(requestUrl,data=payload,headers=headers).json()
 		return r
 
+	# add user to a group
+	def addUserToGroup(self,vault,groupId,userId):
+		endpoint = '/groups/' + groupId + '/users/' + userId
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		r = requests.put(requestUrl,headers=headers).json()
+		return r
+
