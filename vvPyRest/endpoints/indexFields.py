@@ -10,3 +10,30 @@ class IndexField():
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()
 		return r
+
+	# create an index field definition
+	def postIndexField(self,vault,label,description,fieldType,queryId,dropDownListId,queryValueField,queryDisplayField,required,defaultValue):
+		endpoint = 'indexFields'
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		payload = {'label':label,'description':description,'fieldType':fieldType,'queryId':queryId,'dropDownListId':dropDownListId,'queryValueField':queryValueField,'queryDisplayField':queryDisplayField,'required':required,'defaultValue':defaultValue}
+		r = requests.post(requestUrl,headers=headers,data=payload).json()
+		return r
+
+	# update an index field definition
+	def putIndexField(self,vault,id,label,description,queryId,dropDownListId,queryValueField,queryDisplayField,required,defaultValue):
+		endpoint = 'indexFields/' + id
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		payload = {'label':label,'description':description,'queryId':queryId,'dropDownListId':dropDownListId,'queryValueField':queryValueField,'queryDisplayField':queryDisplayField,'required':required,'defaultValue':defaultValue}
+		r = requests.put(requestUrl,headers=headers,data=payload).json()
+		return r
+
+	# relate index field to folder
+	def relateIndexField(self,vault,fieldId,folderId):
+		endpoint = 'indexFields/' + fieldId + '/folders/' + folderId
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		payload = {}
+		r = requests.put(requestUrl,headers=headers,data=payload).json()
+		return r

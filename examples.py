@@ -109,6 +109,9 @@ print groupsRequest.updateGroup(vault,'e8cd0f29-ac9b-e611-a6be-e094676f83f7','ne
 
 # IndexFields
 print indexFieldRequest.getIndexFields(vault,"label = 'AAA'")
+print indexFieldRequest.postIndexField(vault,'apiTestLabel','test description',1,'00000000-0000-0000-0000-000000000000','00000000-0000-0000-0000-000000000000','','',False,'&&default value&&')
+print indexFieldRequest.putIndexField(vault,'61f55ae3-36cd-e611-a6c1-e094676f83f7','newApiTestLabel','new test description','00000000-0000-0000-0000-000000000000','00000000-0000-0000-0000-000000000000','','',True,'&&new default value&&')
+print indexFieldRequest.relateIndexField(vault,'61f55ae3-36cd-e611-a6c1-e094676f83f7','c71b45c5-0ecd-e611-a6c1-e094676f83f7')
 
 # SITES
 
