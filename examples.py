@@ -7,6 +7,7 @@ from vvPyRest import File
 from vvPyRest import Folder
 from vvPyRest import Form
 from vvPyRest import Group
+from vvPyRest import IndexField
 from vvPyRest import Site
 from vvPyRest import User
 
@@ -38,6 +39,7 @@ filesRequest = File()
 foldersRequest = Folder()
 formsRequest = Form()
 groupsRequest = Group()
+indexFieldRequest = IndexField()
 sitesRequest = Site()
 usersRequest = User()
 
@@ -104,6 +106,9 @@ print groupsRequest.getGroupUsers(vault,'abb50248-e8e6-e511-a69e-e094676f83f7')
 print groupsRequest.getGroupUser(vault,'abb50248-e8e6-e511-a69e-e094676f83f7','3fcce17d-7b31-e611-a6ab-e094676f83f7')
 print groupsRequest.newGroup(vault,'theGroupName','group description','b3941561-83bf-e511-a698-e094676f83f7')
 print groupsRequest.updateGroup(vault,'e8cd0f29-ac9b-e611-a6be-e094676f83f7','newGroupName','new description')
+
+# IndexFields
+print indexFieldRequest.getIndexFields(vault,"label = 'AAA'")
 
 # SITES
 
