@@ -84,3 +84,12 @@ class Folder():
 		payload = {'dropDownListId':fieldId,'queryId':queryId,'queryValueField':queryValueField,'queryDisplayField':queryDisplayField,'required':required,'defaultValue':defaultValue}
 		r = requests.put(requestUrl,data=payload,headers=headers).json()
 		return r
+
+	# reassign folder workflow relations
+	def reassignWorkflowRelations(self,vault,folderId,wfId,eventType,applyToChildren,includeThisFolder):
+		endpoint = 'folders/' + folderId + '/workflow/reassignrelations'
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		payload = {'wfId':wfId,'eventType':eventType,'applyToChildren':applyToChildren,'includeThisFolder':includeThisFolder}
+		r = requests.put(requestUrl,data=payload,headers=headers).json()
+		return r
