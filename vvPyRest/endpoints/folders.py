@@ -87,7 +87,7 @@ class Folder():
 
 	# reassign folder workflow relations
 	def reassignWorkflowRelations(self,vault,folderId,wfId,eventType,applyToChildren,includeThisFolder):
-		endpoint = 'folders/' + folderId + '/workflow/reassignrelations'
+		endpoint = 'folders/' + folderId + '/workflowassignments'
 		requestUrl = vault.baseUrl + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		payload = {'wfId':wfId,'eventType':eventType,'applyToChildren':applyToChildren,'includeThisFolder':includeThisFolder}
