@@ -77,11 +77,11 @@ class Folder():
 		return r
 
 	# update folder index field
-	def updateFolderField(self,vault,folderId,fieldId,queryId,queryValueField,queryDisplayField,required,defaultValue):
+	def updateFolderField(self,vault,folderId,fieldId,dropDownListId,queryId,queryValueField,queryDisplayField,required,defaultValue):
 		endpoint = 'folders/' + folderId + '/indexfields/' + fieldId
 		requestUrl = vault.baseUrl + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		payload = {'dropDownListId':fieldId,'queryId':queryId,'queryValueField':queryValueField,'queryDisplayField':queryDisplayField,'required':required,'defaultValue':defaultValue}
+		payload = {'dropDownListId':dropDownListId,'queryId':queryId,'queryValueField':queryValueField,'queryDisplayField':queryDisplayField,'required':required,'defaultValue':defaultValue}
 		r = requests.put(requestUrl,data=payload,headers=headers).json()
 		return r
 
