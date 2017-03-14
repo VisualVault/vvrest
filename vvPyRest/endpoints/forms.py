@@ -108,9 +108,9 @@ class Form():
 		r = requests.put(requestUrl,headers=headers).json()
 		return r
 
-
-
-
-
-
-
+	# embedded form url
+	def embedForm(self,vault,webToken,formId):
+		login = vault.url + '/vvlogin?token=' + webToken
+		returnUrl = '&returnUrl=~%2fFormDetails%3fformid%3d' + formId + '%26hidemenu%3Dtrue'
+		request = login + returnUrl
+		return request
