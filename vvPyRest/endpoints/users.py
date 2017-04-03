@@ -26,3 +26,12 @@ class User():
 		payload = {'userId':userId,'firstName':fName,'lastName':lName,'emailaddress':email,'password':password}
 		r = requests.post(requestUrl,headers=headers,data=payload).json()
 		return r
+
+	# update a user
+	def putUser(self,vault,userId,fieldsDict):
+		endpoint = 'users/'
+		requestUrl = vault.baseUrl + endpoint + userId
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		payload = fieldsDict
+		r = requests.put(requestUrl,headers=headers,data=payload).json()
+		return r

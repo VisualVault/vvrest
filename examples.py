@@ -124,6 +124,8 @@ print sitesRequest.getSitesUsers(vault,'b3941561-83bf-e511-a698-e094676f83f7')
 
 print usersRequest.getUsers(vault)
 print usersRequest.getUserToken(vault,'65dcb4a6-fdb3-e511-a694-e094676f83f7')
+print usersRequest.postUser(vault,'3adcb4a6-fdb3-e511-a694-e094676f83f7','user.py','python','user','test@aol.com','p')
+print usersRequest.putUser(vault,'5aecb42d-ffc8-e511-a699-e094676f83f7',{'enabled': True,'lastname':'new name'})
 
 
 
