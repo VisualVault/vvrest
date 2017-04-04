@@ -10,6 +10,14 @@ class User():
 		r = requests.get(requestUrl,headers=headers).json()		
 		return r
 
+	# get user
+	def getUser(self,vault,userId):
+		endpoint = 'users/' + userId
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		r = requests.get(requestUrl,headers=headers).json()
+		return r
+
 	# get a user webtoken
 	def getUserToken(self,vault,userId):
 		endpoint = 'users/' + userId + '/webToken'
