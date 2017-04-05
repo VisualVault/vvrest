@@ -86,7 +86,7 @@ print foldersRequest.reassignWorkflowRelations(vault,'39AE342E-0DEE-E611-A6C4-E0
 
 # FORMS
 
-print formsRequest.getAllFormTemplates(vault)
+print formsRequest.getAllFormTemplates(vault,'name = \'TestForm\'')
 print formsRequest.getFormTemplateId(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')
 print formsRequest.getFormTemplateFields(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')
 print formsRequest.getFormInstances(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')

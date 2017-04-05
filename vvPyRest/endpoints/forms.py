@@ -3,8 +3,11 @@ import json
 
 class Form():
 	# get all form templates
-	def getAllFormTemplates(self,vault):
-		endpoint = 'formtemplates'
+	def getAllFormTemplates(self,vault,q):
+		if len(q) > 0:
+			endpoint = 'formtemplates?q=' + q
+		else:
+			endpoint = 'formtemplates'
 		requestUrl = vault.baseUrl + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()
