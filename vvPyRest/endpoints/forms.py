@@ -117,3 +117,11 @@ class Form():
 		returnUrl = '&returnUrl=~%2fFormDetails%3fformid%3d' + formId + '%26hidemenu%3Dtrue'
 		request = login + returnUrl
 		return request
+
+	# get related docs
+	def getRelatedDocs(self,vault,formId,qs):
+		endpoint = 'forminstance/' + formId + "/documents?" + qs
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		r = requests.get(requestUrl,headers=headers).json()
+		return r

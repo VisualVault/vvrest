@@ -46,7 +46,6 @@ usersRequest = User()
 ##################### REQUESTS ##########################
 
 # DOCUMENTS
-
 print docsRequest.deleteDoc(vault,'c267d3c0-5a95-e611-a6bd-e094676f83f7')
 print docsRequest.getDocuments(vault,'folderPath = \'/pythonTest\'')
 print docsRequest.getDocumentsId(vault,'cb80c6cc-5995-e611-a6bd-e094676f83f7')
@@ -61,17 +60,14 @@ print docsRequest.updateDocumentFieldsId(vault,'cb80c6cc-5995-e611-a6bd-e094676f
 print docsRequest.newDoc(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7',1,'documentName','description','0','fileName.txt')
 
 # EMAILS
-
 print emailsRequest.sendEmail(vault,'test@test.com,test2@aol.com','ccRecipient@test.com,cc2@test.com','this is the subject','I am the message body. Hello World!')
 
 # FILES
-
 print filesRequest.fileDownload(vault,'03cdf522-5b95-e611-a6bd-e094676f83f7','VISUALVAULT\docs\pythonTest\django.txt')
 print filesRequest.fileDownloadBySearch(vault,'[testFIELD]=\'the value\'','VISUALVAULT\docs\pythonTest\django2.txt')
 print filesRequest.fileUpload(vault,'9908d3ee-5a95-e611-a6bd-e094676f83f7','documentName','1','change reason','Released','{\'testFIELD\':\'the value\'}','django.txt','VISUALVAULT\docs\django.txt')
 
 # FOLDERS
-
 print foldersRequest.getFolderByPath(vault,'pythonTest')
 print foldersRequest.getFolderById(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7')
 print foldersRequest.getSubFolders(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7')
@@ -85,7 +81,6 @@ print foldersRequest.updateFolderField(vault,'a31b63b1-5995-e611-a6bd-e094676f83
 print foldersRequest.reassignWorkflowRelations(vault,'39AE342E-0DEE-E611-A6C4-E094676F83F7','38BE68CD-12EE-E611-A6C4-E094676F83F7',1,True,False)
 
 # FORMS
-
 print formsRequest.getAllFormTemplates(vault,'name = \'TestForm\'')
 print formsRequest.getFormTemplateId(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')
 print formsRequest.getFormTemplateFields(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')
@@ -100,6 +95,7 @@ print formsRequest.unrelateForm(vault,'28e9d4e5-27ed-e511-a6a2-e094676f83f7','3b
 print formsRequest.unrelateDoc(vault,'28e9d4e5-27ed-e511-a6a2-e094676f83f7','03cdf522-5b95-e611-a6bd-e094676f83f7')
 print formsRequest.unrelateProject(vault,'28e9d4e5-27ed-e511-a6a2-e094676f83f7','3132ea41-52cb-e511-a699-e094676f83f7')
 print formsRequest.embedForm(vault,'db261fc6-fb08-e711-a6c5-e094676f83f7','823634bb-8552-e611-a6b4-e094676f83f7')
+print formsRequest.getRelatedDocs(vault,'66a6acba-121b-e711-a6c9-e094676f83f7','indexFields=include')
 
 # GROUPS
 print groupsRequest.getGroups(vault)
@@ -116,12 +112,10 @@ print indexFieldRequest.putIndexField(vault,'61f55ae3-36cd-e611-a6c1-e094676f83f
 print indexFieldRequest.relateIndexField(vault,'61f55ae3-36cd-e611-a6c1-e094676f83f7','c71b45c5-0ecd-e611-a6c1-e094676f83f7')
 
 # SITES
-
 print sitesRequest.getSites(vault)
 print sitesRequest.getSitesUsers(vault,'b3941561-83bf-e511-a698-e094676f83f7')
 
 # USERS
-
 print usersRequest.getUsers(vault)
 print usersRequest.getUser(vault,'7280297a-5519-e611-a6a8-e094676f83f7')
 print usersRequest.getUserToken(vault,'65dcb4a6-fdb3-e511-a694-e094676f83f7')
