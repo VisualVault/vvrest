@@ -30,8 +30,8 @@ class Form():
 		return r
 
 	# get form instances of a form template
-	def getFormInstances(self,vault,formId):
-		endpoint = 'formtemplates/' + formId + '/forms'
+	def getFormInstances(self,vault,formId,qs):
+		endpoint = 'formtemplates/' + formId + '/forms?' + qs
 		requestUrl = vault.baseUrl + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()
