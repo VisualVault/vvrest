@@ -3,8 +3,8 @@ import json
 
 class User():
 	# gets all users
-	def getUsers(self,vault):
-		endpoint = 'users'
+	def getUsers(self,vault,q):
+		endpoint = 'users?q=' + q
 		requestUrl = vault.baseUrl + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()		

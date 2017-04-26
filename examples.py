@@ -114,23 +114,12 @@ print indexFieldRequest.relateIndexField(vault,'61f55ae3-36cd-e611-a6c1-e094676f
 # SITES
 print sitesRequest.getSites(vault)
 print sitesRequest.getSitesUsers(vault,'b3941561-83bf-e511-a698-e094676f83f7')
+print sitesRequest.postSite(vault,'testing3','test desc')
+print sitesRequest.postSiteUser(vault,'60c10915-2c25-e711-a95c-dd47132d4e4a','test.jones2','firstName','lastName','jimmy@gmail.com','password')
 
 # USERS
-print usersRequest.getUsers(vault)
+print usersRequest.getUsers(vault,"userid='test@test.com'")
 print usersRequest.getUser(vault,'7280297a-5519-e611-a6a8-e094676f83f7')
 print usersRequest.getUserToken(vault,'65dcb4a6-fdb3-e511-a694-e094676f83f7')
 print usersRequest.postUser(vault,'3adcb4a6-fdb3-e511-a694-e094676f83f7','user.py','python','user','test@aol.com','p')
 print usersRequest.putUser(vault,'5aecb42d-ffc8-e511-a699-e094676f83f7',{'enabled': True,'lastname':'new name'})
-
-
-
-
-
-
-
-
-
-
-
-
-
