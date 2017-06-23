@@ -3,8 +3,8 @@ import json
 
 class Group():
 	# gets all groups
-	def getGroups(self,vault):
-		endpoint = 'groups'
+	def getGroups(self,vault,q):
+		endpoint = 'groups?q=' + q
 		requestUrl = vault.baseUrl + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()

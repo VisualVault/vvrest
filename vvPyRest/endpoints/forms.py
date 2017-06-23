@@ -21,6 +21,25 @@ class Form():
 		r = requests.get(requestUrl,headers=headers).json()
 		return r
 
+	# get form template form
+	def getFormTemplateForm(self,vault,templateId,formId,qs):
+		endpoint = 'formtemplates/' + templateId + '/forms/' + formId + '?' + qs
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		r = requests.get(requestUrl,headers=headers).json()
+		return r
+
+	# get form instance pdf
+	def getFormPDF(self,vault,templateId,formId,filePath):
+		endpoint = 'formtemplates/' + templateId + '/forms/' + formId + '/PDF'
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		r = requests.get(requestUrl,headers=headers,stream=True)	
+		file = open(filePath,'wb')
+		data = r.raw.read()
+		file.write(data)	
+		return r
+
 	# get form template fields by id
 	def getFormTemplateFields(self,vault,formId):
 		endpoint = 'formtemplates/' + formId + '/fields'
@@ -121,6 +140,14 @@ class Form():
 	# get related docs
 	def getRelatedDocs(self,vault,formId,qs):
 		endpoint = 'forminstance/' + formId + "/documents?" + qs
+		requestUrl = vault.baseUrl + endpoint
+		headers = {'Authorization':'Bearer ' + vault.token.access_token}
+		r = requests.get(requestUrl,headers=headers).json()
+		return r
+
+	# get related forms
+	def getRelatedForms(self,vault,formId,qs):
+		endpoint = 'forminstance/' + formId + "/forms?" + qs
 		requestUrl = vault.baseUrl + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()

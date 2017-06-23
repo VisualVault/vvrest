@@ -60,7 +60,7 @@ print docsRequest.updateDocumentFieldsId(vault,'cb80c6cc-5995-e611-a6bd-e094676f
 print docsRequest.newDoc(vault,'a31b63b1-5995-e611-a6bd-e094676f83f7',1,'documentName','description','0','fileName.txt')
 
 # EMAILS
-print emailsRequest.sendEmail(vault,'test@test.com,test2@aol.com','ccRecipient@test.com,cc2@test.com','this is the subject','I am the message body. Hello World!')
+print emailsRequest.sendEmail(vault,'test@test.com,test2@aol.com','ccRecipient@test.com,cc2@test.com','this is the subject','I am the message body. Hello World!',True,['726288b1-3c13-e711-a6c8-e094676f83f4'])
 
 # FILES
 print filesRequest.fileDownload(vault,'03cdf522-5b95-e611-a6bd-e094676f83f7','VISUALVAULT\docs\pythonTest\django.txt')
@@ -83,6 +83,8 @@ print foldersRequest.reassignWorkflowRelations(vault,'39AE342E-0DEE-E611-A6C4-E0
 # FORMS
 print formsRequest.getAllFormTemplates(vault,'name = \'TestForm\'')
 print formsRequest.getFormTemplateId(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')
+print formsRequest.getFormTemplateForm(vault,'711bc512-39e7-e611-a955-0e991883dbaa','8ce628f3-1655-e711-a960-dd47132d4eaa','fields=Signature')
+print formsRequest.getFormPDF(vault,'67aeeda5-3155-e711-a6cc-e094676f83f4','ce99d471-4055-e711-a6cc-e094676f83f4','/path/pdfs/a.pdf')
 print formsRequest.getFormTemplateFields(vault,'c812d92e-d075-e611-a6b6-e094676f83f7')
 print formsRequest.getFormInstances(vault,'c812d92e-d075-e611-a6b6-e094676f83f7','fields=DocumentType')
 print formsRequest.getFormInstancesBySearch(vault,'c812d92e-d075-e611-a6b6-e094676f83f7','instanceName=\'rounders-000026\'&fields=field1,field2,field3')
@@ -96,9 +98,10 @@ print formsRequest.unrelateDoc(vault,'28e9d4e5-27ed-e511-a6a2-e094676f83f7','03c
 print formsRequest.unrelateProject(vault,'28e9d4e5-27ed-e511-a6a2-e094676f83f7','3132ea41-52cb-e511-a699-e094676f83f7')
 print formsRequest.embedForm(vault,'db261fc6-fb08-e711-a6c5-e094676f83f7','823634bb-8552-e611-a6b4-e094676f83f7')
 print formsRequest.getRelatedDocs(vault,'66a6acba-121b-e711-a6c9-e094676f83f7','indexFields=include')
+print formsRequest.getRelatedForms(vault,'c7e16f53-c04b-e711-a95f-dd47132d4eaa',"q=[instanceName]='TEST-00000064'")
 
 # GROUPS
-print groupsRequest.getGroups(vault)
+print groupsRequest.getGroups(vault,'')
 print groupsRequest.getGroup(vault,'abb50248-e8e6-e511-a69e-e094676f83f7')
 print groupsRequest.getGroupUsers(vault,'abb50248-e8e6-e511-a69e-e094676f83f7')
 print groupsRequest.getGroupUser(vault,'abb50248-e8e6-e511-a69e-e094676f83f7','3fcce17d-7b31-e611-a6ab-e094676f83f7')
