@@ -1,7 +1,7 @@
 import requests
 import json
 import datetime
-from token import Token
+from .token import Token
 
 # Vault Object
 class Vault():
