@@ -5,7 +5,7 @@ class Group():
 	# gets all groups
 	def getGroups(self,vault,q):
 		endpoint = 'groups?q=' + q
-		requestUrl = vault.baseUrl + endpoint
+		requestUrl = vault.base_url + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()
 		return r
@@ -13,7 +13,7 @@ class Group():
 	# get a group by id
 	def getGroup(self,vault,id):
 		endpoint = 'groups/' + id
-		requestUrl = vault.baseUrl + endpoint
+		requestUrl = vault.base_url + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()
 		return r
@@ -21,7 +21,7 @@ class Group():
 	# get a groups users
 	def getGroupUsers(self,vault,id):
 		endpoint = 'groups/' + id + '/users'
-		requestUrl = vault.baseUrl + endpoint
+		requestUrl = vault.base_url + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()
 		return r
@@ -29,7 +29,7 @@ class Group():
 	# get a user of a group
 	def getGroupUser(self,vault,id,userId):
 		endpoint = 'groups/' + id + '/users/' + userId
-		requestUrl = vault.baseUrl + endpoint
+		requestUrl = vault.base_url + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.get(requestUrl,headers=headers).json()		
 		return r
@@ -37,7 +37,7 @@ class Group():
 	# create a new group
 	def newGroup(self,vault,name,description,siteId):
 		endpoint = 'groups'
-		requestUrl = vault.baseUrl + endpoint
+		requestUrl = vault.base_url + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		payload = {'name':name,'description':description, 'siteId':siteId}
 		r = requests.post(requestUrl,data=payload,headers=headers).json()
@@ -46,7 +46,7 @@ class Group():
 	# updates group
 	def updateGroup(self,vault,id,name,description):
 		endpoint = 'groups/' + id
-		requestUrl = vault.baseUrl + endpoint
+		requestUrl = vault.base_url + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		payload = {'name':name,'description':description}
 		r = requests.put(requestUrl,data=payload,headers=headers).json()
@@ -55,7 +55,7 @@ class Group():
 	# add user to a group
 	def addUserToGroup(self,vault,groupId,userId):
 		endpoint = '/groups/' + groupId + '/users/' + userId
-		requestUrl = vault.baseUrl + endpoint
+		requestUrl = vault.base_url + endpoint
 		headers = {'Authorization':'Bearer ' + vault.token.access_token}
 		r = requests.put(requestUrl,headers=headers).json()
 		return r
