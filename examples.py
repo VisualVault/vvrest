@@ -1,15 +1,15 @@
-# from vvPyRest import *
+# from vvrest import *
 
-from vvPyRest import Vault
-from vvPyRest import Document
-from vvPyRest import Email
-from vvPyRest import File
-from vvPyRest import Folder
-from vvPyRest import Form
-from vvPyRest import Group
-from vvPyRest import IndexField
-from vvPyRest import Site
-from vvPyRest import User
+from vvrest import Vault
+from vvrest import Document
+from vvrest import Email
+from vvrest import File
+from vvrest import Folder
+from vvrest import Form
+from vvrest import Group
+from vvrest import IndexField
+from vvrest import Site
+from vvrest import User
 
 # Declare your constants as strings here for authorzation to request your access token.
 # This token will automatically be requested and hard coded into the helper methods throughout the application. 
