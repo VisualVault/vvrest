@@ -1,10 +1,8 @@
-# vvPyRest
+## vvrest
 A Python Client Library for accessing the VisualVault REST API
 
 REQUIREMENTS:
-
-Python Version 2.7 and
-Python Requests Library (http://docs.python-requests.org/en/master/)
+`python3` and `requests` (http://docs.python-requests.org/en/master/)
 
 WELCOME TO THE PYTHON VISUALVAULT REST API CLIENT LIBRARY
 
