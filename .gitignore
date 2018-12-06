@@ -1,4 +1,2 @@
 *.pyc
-test.py
-create.py
-settings.json
+.idea
