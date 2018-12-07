@@ -1,102 +1,194 @@
 import requests
-import json
+from ..constants import DOCUMENTS_URL, REVISIONS_URL, INDEXFIELDS_URL
 
-class Document():
-	# get documents by query
-	def getDocuments(self,vault,q):
-		endpoint = 'documents?q=' + q
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
 
-	# get a document by passing in a documentId
-	def getDocumentsId(self,vault,id):
-		endpoint = 'documents/' + id
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+class Document:
+    def __init__(self, vault):
+        """
+        :param vault: Vault
+        """
+        self.vault = vault
 
-	# get all revisions of a document by id
-	def getDocumentsIdRev(self,vault,id):
-		endpoint = 'documents/' + id + '/revisions'
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+    def get_documents(self, query_string):
+        """
+        get documents by query string parameter
+        :param query_string: string, example: "folderPath = '/pythonTest'"
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '?q=' + query_string
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
 
-	# get a specefic revision of a document by id and revision id
-	def getDocumentsIdRevId(self,vault,id,revId):
-		endpoint = 'documents/' + id + '/revisions/' + revId
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+        return resp
 
-	# get document indexfields by documentId
-	def getDocumentsFields(self,vault,id):
-		endpoint = 'documents/' + id + '/indexfields'
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+    def get_document_by_id(self, document_id):
+        """
+        get document by documentId
+        :param document_id: string UUID(version=4)
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
 
-	# get a document indexfield by documentId and fieldId
-	def getDocumentsFieldsId(self,vault,id,fieldId):
-		endpoint = 'documents/' + id + '/indexfields/' + fieldId
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+        return resp
 
-	# get index fields of a revision of a document by id and revision id
-	def getDocumentsIdRevFields(self,vault,id,revId):
-		endpoint = 'documents/' + id + '/revisions/' + revId + '/indexfields'
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+    def get_document_revisions_by_id(self, document_id):
+        """
+        get revisions of a document by documentId
+        :param document_id: string UUID(version=4)
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
 
-	# get a index field of a revision of a document by id and revision id
-	def getDocumentsIdRevFieldsId(self,vault,id,revId,fieldId):
-		endpoint = 'documents/' + id + '/revisions/' + revId + '/indexfields/' + fieldId
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+        return resp
 
-	# update document indexfields
-	def updateDocumentFields(self,vault,id,fieldsDict):
-		endpoint = 'documents/' + id + '/indexfields'
-		requestUrl = vault.base_url + endpoint
-		fields = {'indexfields':fieldsDict}
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.put(requestUrl,headers=headers,data=fields).json()
-		return r
+    def get_document_revision_by_revision_id(self, document_id, revision_id):
+        """
+        get a specific revision of a document by documentId and revisionId
+        :param document_id: string UUID(version=4)
+        :param revision_id: string UUID(version=4)
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
 
-	# update a document indexfield
-	def updateDocumentFieldsId(self,vault,id,fieldId,value):
-		endpoint = 'documents/' + id + '/indexfields/' + fieldId
-		requestUrl = vault.base_url + endpoint
-		fields = {'value':value}
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.put(requestUrl,headers=headers,data=fields).json()
-		return r
+        return resp
 
-	# upload a new document	
-	def newDoc(self,vault,folderId,docState,name,description,revision,fileName):
-		endpoint = 'documents'
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		payload = {'folderId':folderId,'documentState':docState,'name':name,'description':description, 'revision':revision,'allowNoFile':True,'fileLength':0,'fileName':fileName,'indexFields':'{}'}
-		r = requests.post(requestUrl,data=payload,headers=headers).json()
-		return r
+    def get_document_index_fields(self, document_id):
+        """
+        get indexfields for a document
+        :param document_id: string UUID(version=4)
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
 
-	# delete a document
-	def deleteDoc(self,vault,id):
-		endpoint = 'documents/' + id
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.delete(requestUrl,headers=headers).json()
-		return r
+        return resp
+
+    def get_document_index_fields_by_field_id(self, document_id, field_id):
+        """
+        get a document index field by documentId and fieldId
+        :param document_id: string UUID(version=4)
+        :param field_id: string UUID(version=4)
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL + '/' + field_id
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
+
+        return resp
+
+    def get_document_revision_index_fields(self, document_id, revision_id):
+        """
+        get index fields for a document revision
+        :param document_id: string UUID(version=4)
+        :param revision_id: string UUID(version=4)
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id + '/' + INDEXFIELDS_URL
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
+
+        return resp
+
+    def get_document_revision_fields_by_field_id(self, document_id, revision_id, field_id):
+        """
+        get a index field of a revision of a document by documentId and revisionId
+        :param document_id: string UUID(version=4)
+        :param revision_id: string UUID(version=4)
+        :param field_id: string UUID(version=4)
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id + '/' + INDEXFIELDS_URL + '/' + field_id
+
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
+
+        return resp
+
+    def update_document_index_fields(self, document_id, fields_dict):
+        """
+        update one to many document index fields
+        :param document_id: string UUID(version=4)
+        :param fields_dict: string dict, example: "{'testFIELD': 'changed value', 'testFIELD2': 'new value'}"
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL
+        request_url = self.vault.base_url + endpoint
+        fields = {'indexfields': fields_dict}
+        headers = self.vault.get_auth_headers()
+        resp = requests.put(request_url, headers=headers, data=fields).json()
+
+        return resp
+
+    def update_document_index_field(self, document_id, field_id, value):
+        """
+        updates a document index field
+        :param document_id: string UUID(version=4)
+        :param field_id: string UUID(version=4)
+        :param value: string
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL + '/' + field_id
+        request_url = self.vault.base_url + endpoint
+        fields = {'value': value}
+        headers = self.vault.get_auth_headers()
+        resp = requests.put(request_url, headers=headers, data=fields).json()
+
+        return resp
+
+    def new_document(self, folder_id, document_state, name, description, revision, file_name):
+        """
+        creates a document object with no file attached. first step in file upload process.
+        :param folder_id: string UUID(version=4)
+        :param document_state: int
+        :param name: string
+        :param description: string
+        :param revision: string
+        :param file_name: string
+        :return:
+        """
+        endpoint = DOCUMENTS_URL
+        request_url = self.vault.base_url + endpoint
+
+        payload = {
+            'folderId': folder_id,
+            'documentState': document_state,
+            'name': name,
+            'description': description,
+            'revision': revision,
+            'allowNoFile': True,
+            'fileLength': 0,
+            'fileName': file_name,
+            'indexFields': '{}'
+        }
+
+        headers = self.vault.get_auth_headers()
+        resp = requests.post(request_url, data=payload, headers=headers).json()
+
+        return resp
+
+    def delete_document(self, document_id):
+        """
+        :param document_id: string UUID(version=4)
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.delete(request_url, headers=headers).json()
+
+        return resp

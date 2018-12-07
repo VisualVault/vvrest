@@ -73,3 +73,11 @@ class Vault:
         token_expiration = get_token_expiration(resp['expires_in'])
         refresh_token = resp['refresh_token']
         self.token = Token(access_token, token_expiration, refresh_token)
+
+    def get_auth_headers(self):
+        """
+        :return: dict
+        """
+        headers = {'Authorization': 'Bearer ' + self.token.access_token}
+
+        return headers
