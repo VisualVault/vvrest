@@ -12,7 +12,7 @@ class Document:
     def get_documents(self, query_string):
         """
         get documents by query string parameter
-        :param query_string: string, example: "folderPath = '/pythonTest'"
+        :param query_string: string, example: "folderPath='/test'"
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '?q=' + query_string
@@ -22,10 +22,10 @@ class Document:
 
         return resp
 
-    def get_document_by_id(self, document_id):
+    def get_document(self, document_id):
         """
         get document by documentId
-        :param document_id: string UUID(version=4)
+        :param document_id: string uuid4
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '/' + document_id
@@ -35,10 +35,10 @@ class Document:
 
         return resp
 
-    def get_document_revisions_by_id(self, document_id):
+    def get_document_revisions(self, document_id):
         """
         get revisions of a document by documentId
-        :param document_id: string UUID(version=4)
+        :param document_id: string uuid4
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL
@@ -48,11 +48,11 @@ class Document:
 
         return resp
 
-    def get_document_revision_by_revision_id(self, document_id, revision_id):
+    def get_document_revision(self, document_id, revision_id):
         """
         get a specific revision of a document by documentId and revisionId
-        :param document_id: string UUID(version=4)
-        :param revision_id: string UUID(version=4)
+        :param document_id: string uuid4
+        :param revision_id: string uuid4
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id
@@ -65,7 +65,7 @@ class Document:
     def get_document_index_fields(self, document_id):
         """
         get indexfields for a document
-        :param document_id: string UUID(version=4)
+        :param document_id: string uuid4
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL
@@ -75,11 +75,11 @@ class Document:
 
         return resp
 
-    def get_document_index_fields_by_field_id(self, document_id, field_id):
+    def get_document_index_field(self, document_id, field_id):
         """
         get a document index field by documentId and fieldId
-        :param document_id: string UUID(version=4)
-        :param field_id: string UUID(version=4)
+        :param document_id: string uuid4
+        :param field_id: string uuid4
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL + '/' + field_id
@@ -92,8 +92,8 @@ class Document:
     def get_document_revision_index_fields(self, document_id, revision_id):
         """
         get index fields for a document revision
-        :param document_id: string UUID(version=4)
-        :param revision_id: string UUID(version=4)
+        :param document_id: string uuid4
+        :param revision_id: string uuid4
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id + '/' + INDEXFIELDS_URL
@@ -103,12 +103,12 @@ class Document:
 
         return resp
 
-    def get_document_revision_fields_by_field_id(self, document_id, revision_id, field_id):
+    def get_document_revision_index_field(self, document_id, revision_id, field_id):
         """
         get a index field of a revision of a document by documentId and revisionId
-        :param document_id: string UUID(version=4)
-        :param revision_id: string UUID(version=4)
-        :param field_id: string UUID(version=4)
+        :param document_id: string uuid4
+        :param revision_id: string uuid4
+        :param field_id: string uuid4
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id + '/' + INDEXFIELDS_URL + '/' + field_id
@@ -122,8 +122,8 @@ class Document:
     def update_document_index_fields(self, document_id, fields_dict):
         """
         update one to many document index fields
-        :param document_id: string UUID(version=4)
-        :param fields_dict: string dict, example: "{'testFIELD': 'changed value', 'testFIELD2': 'new value'}"
+        :param document_id: string uuid4
+        :param fields_dict: string dict, example: "{'test': 'changed value'}"
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL
@@ -137,8 +137,8 @@ class Document:
     def update_document_index_field(self, document_id, field_id, value):
         """
         updates a document index field
-        :param document_id: string UUID(version=4)
-        :param field_id: string UUID(version=4)
+        :param document_id: string uuid4
+        :param field_id: string uuid4
         :param value: string
         :return: dict
         """
@@ -153,7 +153,7 @@ class Document:
     def new_document(self, folder_id, document_state, name, description, revision, file_name):
         """
         creates a document object with no file attached. first step in file upload process.
-        :param folder_id: string UUID(version=4)
+        :param folder_id: string uuid4
         :param document_state: int
         :param name: string
         :param description: string
@@ -183,7 +183,7 @@ class Document:
 
     def delete_document(self, document_id):
         """
-        :param document_id: string UUID(version=4)
+        :param document_id: string uuid4
         :return: dict
         """
         endpoint = DOCUMENTS_URL + '/' + document_id
