@@ -31,8 +31,8 @@ clientSecret = 'khN18YAZPe6F3Z0tc2W0HXCb487jm0wgwe6kNffUNf0='
 vault = Vault(url, customerAlias, databaseAlias, clientId, clientSecret)
 
 # vault request objects
-docsRequest = Document()
-emailsRequest = Email()
+docsRequest = Document(vault)
+emailsRequest = Email(vault)
 filesRequest = File()
 foldersRequest = Folder()
 formsRequest = Form()
@@ -56,8 +56,8 @@ docsRequest.new_document('a31b63b1-5995-e611-a6bd-e094676f83f7', 1, 'documentNam
 docsRequest.delete_document('c267d3c0-5a95-e611-a6bd-e094676f83f7')
 
 # EMAILS
-emailsRequest.sendEmail(vault, 'test@test.com,test2@aol.com', 'ccRecipient@test.com,cc2@test.com',
-                        'this is the subject', 'I am the message body. Hello World!', True, ['726288b1-3c13-e711-a6c8-e094676f83f4'])
+emailsRequest.send_email('test@test.com,test2@aol.com', 'ccRecipient@test.com,cc2@test.com', 'this is the subject',
+                         'I am the message body. Hello World!', True, ['726288b1-3c13-e711-a6c8-e094676f83f4'])
 
 # FILES
 filesRequest.fileDownload(vault, '03cdf522-5b95-e611-a6bd-e094676f83f7', 'VISUALVAULT\docs\pythonTest\django.txt')

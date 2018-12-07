@@ -6,3 +6,4 @@ TOKEN_URL = '/oauth/token'  # only route that leads with '/' (does not use Vault
 DOCUMENTS_URL = 'documents'
 REVISIONS_URL = 'revisions'
 INDEXFIELDS_URL = 'indexfields'
+EMAILS_URL = 'emails'
