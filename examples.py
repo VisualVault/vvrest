@@ -33,7 +33,7 @@ vault = Vault(url, customerAlias, databaseAlias, clientId, clientSecret)
 # vault request objects
 docsRequest = Document(vault)
 emailsRequest = Email(vault)
-filesRequest = File()
+filesRequest = File(vault)
 foldersRequest = Folder()
 formsRequest = Form()
 groupsRequest = Group()
@@ -60,10 +60,10 @@ emailsRequest.send_email('test@test.com,test2@aol.com', 'ccRecipient@test.com,cc
                          'I am the message body. Hello World!', True, ['726288b1-3c13-e711-a6c8-e094676f83f4'])
 
 # FILES
-filesRequest.fileDownload(vault, '03cdf522-5b95-e611-a6bd-e094676f83f7', 'VISUALVAULT\docs\pythonTest\django.txt')
-filesRequest.fileDownloadBySearch(vault, '[testFIELD]=\'the value\'', 'VISUALVAULT\docs\pythonTest\django2.txt')
-filesRequest.fileUpload(vault, '9908d3ee-5a95-e611-a6bd-e094676f83f7', 'documentName', '1', 'change reason',
-                        'Released', '{\'testFIELD\':\'the value\'}', 'django.txt', 'VISUALVAULT\docs\django.txt')
+filesRequest.file_download('03cdf522-5b95-e611-a6bd-e094676f83f7', '/test_docs/test_doc.txt')
+filesRequest.file_download_by_search("[testFIELD]='the value'", '/test_docs/test_doc.txt')
+filesRequest.file_upload('9908d3ee-5a95-e611-a6bd-e094676f83f7', 'documentName', '1', 'change reason', 'Released',
+                         "{'testFIELD': 'the value'}", 'django.txt', '/test_docs/test_doc.txt')
 
 # FOLDERS
 foldersRequest.getFolderByPath(vault, 'pythonTest')

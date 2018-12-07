@@ -19,8 +19,7 @@ class Email:
         :param documents: list(string uuid4)
         :return: dict
         """
-        endpoint = EMAILS_URL
-        request_url = self.vault.base_url + endpoint
+        request_url = self.vault.base_url + EMAILS_URL
         headers = self.vault.get_auth_headers()
 
         payload = {
