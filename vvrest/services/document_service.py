@@ -2,7 +2,7 @@ import requests
 from ..constants import DOCUMENTS_URL, REVISIONS_URL, INDEXFIELDS_URL
 
 
-class Document:
+class DocumentService:
     def __init__(self, vault):
         """
         :param vault: Vault

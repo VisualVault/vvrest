@@ -1,7 +1,7 @@
 import requests
 import json
 
-class Form():
+class FormService():
 	# get all form templates
 	def getAllFormTemplates(self,vault,q):
 		if len(q) > 0:

@@ -1,7 +1,7 @@
 import requests
 import json
 
-class Site():
+class SiteService():
 	# gets all sites
 	def getSites(self,vault):
 		endpoint = 'sites'

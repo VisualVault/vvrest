@@ -2,7 +2,7 @@ import requests
 from ..constants import FILES_URL
 
 
-class File:
+class FileService:
     def __init__(self, vault):
         """
         :param vault: Vault

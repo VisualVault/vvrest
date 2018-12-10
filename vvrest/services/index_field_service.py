@@ -1,7 +1,7 @@
 import requests
 import json
 
-class IndexField():
+class IndexFieldService():
 
 	# get all IndexField definitions or pass in query
 	def getIndexFields(self,vault,q):

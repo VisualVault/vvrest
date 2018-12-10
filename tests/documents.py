@@ -1,6 +1,6 @@
 import unittest
 from .utilities import get_vault_object, generate_random_uuid
-from vvrest.services.document_service import Document
+from vvrest.services.document_service import DocumentService
 
 
 class DocumentTest(unittest.TestCase):
@@ -17,9 +17,9 @@ class DocumentTest(unittest.TestCase):
 
     def test_get_documents(self):
         """
-        tests Document.get_documents
+        tests DocumentService.get_documents
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         resp = document_service.get_documents(self.query_string)
         self.assertEqual(resp['meta']['status'], 200)
         documents = resp['data']
@@ -29,18 +29,18 @@ class DocumentTest(unittest.TestCase):
 
     def test_get_document(self):
         """
-        tests Document.get_document
+        tests DocumentService.get_document
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         resp = document_service.get_document(self.document_id)
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['documentId'], self.document_id)
 
     def test_get_document_revisions(self):
         """
-        tests Document.get_document_revisions
+        tests DocumentService.get_document_revisions
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         resp = document_service.get_document_revisions(self.document_id)
         self.assertEqual(resp['meta']['status'], 200)
         documents = resp['data']
@@ -50,9 +50,9 @@ class DocumentTest(unittest.TestCase):
 
     def test_get_document_revision(self):
         """
-        tests Document.get_document_revision
+        tests DocumentService.get_document_revision
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         resp = document_service.get_document_revision(self.document_id, self.revision_id)
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['id'], self.revision_id)
@@ -60,9 +60,9 @@ class DocumentTest(unittest.TestCase):
 
     def test_get_document_index_fields(self):
         """
-        tests Document.get_document_index_fields
+        tests DocumentService.get_document_index_fields
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         resp = document_service.get_document_index_fields(self.document_id)
         self.assertEqual(resp['meta']['status'], 200)
         index_fields = resp['data']
@@ -72,18 +72,18 @@ class DocumentTest(unittest.TestCase):
 
     def test_get_document_index_field(self):
         """
-        tests Document.get_document_index_field
+        tests DocumentService.get_document_index_field
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         resp = document_service.get_document_index_field(self.document_id, self.index_field_id)
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['fieldId'], self.index_field_id)
 
     def test_get_document_revision_index_fields(self):
         """
-        tests Document.get_document_revision_index_fields
+        tests DocumentService.get_document_revision_index_fields
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         resp = document_service.get_document_revision_index_fields(self.document_id, self.revision_id)
         self.assertEqual(resp['meta']['status'], 200)
         index_fields = resp['data']
@@ -93,18 +93,18 @@ class DocumentTest(unittest.TestCase):
 
     def test_get_document_revision_index_field(self):
         """
-        tests Document.get_document_revision_index_field
+        tests DocumentService.get_document_revision_index_field
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         resp = document_service.get_document_revision_index_field(self.document_id, self.revision_id, self.index_field_id)
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['fieldId'], self.index_field_id)
 
     def test_update_document_index_fields(self):
         """
-        tests Document.update_document_index_fields
+        tests DocumentService.update_document_index_fields
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         expected_value = generate_random_uuid()
         fields_dict = str({self.index_field_name: expected_value})
         resp = document_service.update_document_index_fields(self.document_id, fields_dict)
@@ -117,9 +117,9 @@ class DocumentTest(unittest.TestCase):
 
     def test_update_document_index_field(self):
         """
-        tests Document.update_document_index_field
+        tests DocumentService.update_document_index_field
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
         expected_value = generate_random_uuid()
         resp = document_service.update_document_index_field(self.document_id, self.index_field_id, expected_value)
         self.assertEqual(resp['meta']['status'], 200)
@@ -130,9 +130,9 @@ class DocumentTest(unittest.TestCase):
 
     def test_new_document_and_delete_document(self):
         """
-        tests Document.new_document and Document.delete_document
+        tests DocumentService.new_document and DocumentService.delete_document
         """
-        document_service = Document(self.vault)
+        document_service = DocumentService(self.vault)
 
         # new document
         resp = document_service.new_document(self.folder_id, 1, '_test_doc', '_test_doc description', '0', '_test.txt')

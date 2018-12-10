@@ -1,6 +1,6 @@
 import unittest
 from .utilities import get_vault_object
-from vvrest.services.email_service import Email
+from vvrest.services.email_service import EmailService
 
 
 class EmailTest(unittest.TestCase):
@@ -12,9 +12,9 @@ class EmailTest(unittest.TestCase):
 
     def test_send_email_with_out_attachments(self):
         """
-        tests Email.send_email without attachments
+        tests EmailService.send_email without attachments
         """
-        email_service = Email(self.vault)
+        email_service = EmailService(self.vault)
         resp = email_service.send_email(self.email_address, self.email_address, 'unittest subject',
                                         'unittest description', False, [])
 
@@ -22,9 +22,9 @@ class EmailTest(unittest.TestCase):
 
     def test_send_email_with_attachments(self):
         """
-        tests Email.send_email with attachments
+        tests EmailService.send_email with attachments
         """
-        email_service = Email(self.vault)
+        email_service = EmailService(self.vault)
         resp = email_service.send_email(self.email_address, self.email_address, 'unittest subject',
                                         'unittest description', True, [self.document_revision_id])
 

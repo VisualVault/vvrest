@@ -2,7 +2,7 @@ import requests
 from ..constants import EMAILS_URL
 
 
-class Email:
+class EmailService:
     def __init__(self, vault):
         """
         :param vault: Vault

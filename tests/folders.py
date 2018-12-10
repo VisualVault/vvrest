@@ -1,6 +1,6 @@
 import unittest
 from .utilities import get_vault_object, generate_random_uuid
-from vvrest.services.folder_service import Folder
+from vvrest.services.folder_service import FolderService
 
 
 class FolderTest(unittest.TestCase):
@@ -17,9 +17,9 @@ class FolderTest(unittest.TestCase):
 
     def test_get_folder_search(self):
         """
-        tests Folder.get_folder_search
+        tests FolderService.get_folder_search
         """
-        folder_service = Folder(self.vault)
+        folder_service = FolderService(self.vault)
         resp = folder_service.get_folder_search(self.folder_name)
 
         self.assertEqual(resp['meta']['status'], 200)
@@ -28,9 +28,9 @@ class FolderTest(unittest.TestCase):
 
     def test_get_folder(self):
         """
-        tests Folder.get_folder
+        tests FolderService.get_folder
         """
-        folder_service = Folder(self.vault)
+        folder_service = FolderService(self.vault)
         resp = folder_service.get_folder(self.folder_id)
 
         self.assertEqual(resp['meta']['status'], 200)
@@ -39,9 +39,9 @@ class FolderTest(unittest.TestCase):
 
     def test_get_sub_folders(self):
         """
-        tests Folder.get_sub_folders
+        tests FolderService.get_sub_folders
         """
-        folder_service = Folder(self.vault)
+        folder_service = FolderService(self.vault)
         resp = folder_service.get_sub_folders(self.folder_id)
 
         self.assertEqual(resp['meta']['status'], 200)
@@ -51,9 +51,9 @@ class FolderTest(unittest.TestCase):
 
     def test_get_folder_documents(self):
         """
-        tests Folder.get_folder_documents
+        tests FolderService.get_folder_documents
         """
-        folder_service = Folder(self.vault)
+        folder_service = FolderService(self.vault)
         resp = folder_service.get_folder_documents(self.folder_id)
 
         self.assertEqual(resp['meta']['status'], 200)
@@ -63,9 +63,9 @@ class FolderTest(unittest.TestCase):
 
     def test_get_folder_index_fields(self):
         """
-        tests Folder.get_folder_index_fields
+        tests FolderService.get_folder_index_fields
         """
-        folder_service = Folder(self.vault)
+        folder_service = FolderService(self.vault)
         resp = folder_service.get_folder_index_fields(self.folder_id)
 
         self.assertEqual(resp['meta']['status'], 200)
@@ -74,9 +74,9 @@ class FolderTest(unittest.TestCase):
 
     def test_get_folder_index_field(self):
         """
-        tests Folder.get_folder_index_field
+        tests FolderService.get_folder_index_field
         """
-        folder_service = Folder(self.vault)
+        folder_service = FolderService(self.vault)
         resp = folder_service.get_folder_index_field(self.folder_id, self.index_field_id)
 
         self.assertEqual(resp['meta']['status'], 200)
@@ -84,9 +84,9 @@ class FolderTest(unittest.TestCase):
 
     def test_new_folder_and_new_sub_folder(self):
         """
-        tests Folder.new_folder and Folder.new_sub_folder
+        tests FolderService.new_folder and FolderService.new_sub_folder
         """
-        folder_service = Folder(self.vault)
+        folder_service = FolderService(self.vault)
         expected_folder_name = generate_random_uuid()
         expected_folder_description = expected_folder_name + ' description'
         resp = folder_service.new_folder(expected_folder_name, expected_folder_description, True)
@@ -108,9 +108,9 @@ class FolderTest(unittest.TestCase):
 
     def test_update_folder_index_field(self):
         """
-        tests Folder.update_folder_index_field
+        tests FolderService.update_folder_index_field
         """
-        folder_service = Folder(self.vault)
+        folder_service = FolderService(self.vault)
 
         # get original index_field default value
         original_index_field_value = folder_service.get_folder_index_field(self.folder_id, self.index_field_id)['data']['defaultValue']

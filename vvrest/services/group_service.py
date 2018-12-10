@@ -1,7 +1,7 @@
 import requests
 import json
 
-class Group():
+class GroupService():
 	# gets all groups
 	def getGroups(self,vault,q):
 		endpoint = 'groups?q=' + q

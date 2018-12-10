@@ -1,14 +1,14 @@
 # imports
 from vvrest.vault import Vault
-from vvrest.services.document_service import Document
-from vvrest.services.email_service import Email
-from vvrest.services.file_service import File
-from vvrest.services.folder_service import Folder
-from vvrest.services.form_service import Form
-from vvrest.services.group_service import Group
-from vvrest.services.index_field_service import IndexField
-from vvrest.services.site_service import Site
-from vvrest.services.user_service import User
+from vvrest.services.document_service import DocumentService
+from vvrest.services.email_service import EmailService
+from vvrest.services.file_service import FileService
+from vvrest.services.folder_service import FolderService
+from vvrest.services.form_service import FormService
+from vvrest.services.group_service import GroupService
+from vvrest.services.index_field_service import IndexFieldService
+from vvrest.services.site_service import SiteService
+from vvrest.services.user_service import UserService
 
 # Declare your constants as strings here for authorization to request your access token.
 # This token will automatically be requested and hard coded into the helper methods throughout the application.
@@ -30,15 +30,15 @@ clientSecret = 'khN18YAZPe6F3Z0tc2W0HXCb487jm0wgwe6kNffUNf0='
 vault = Vault(url, customerAlias, databaseAlias, clientId, clientSecret)
 
 # vault request objects
-docsRequest = Document(vault)
-emailsRequest = Email(vault)
-filesRequest = File(vault)
-foldersRequest = Folder(vault)
-formsRequest = Form()
-groupsRequest = Group()
-indexFieldRequest = IndexField()
-sitesRequest = Site()
-usersRequest = User()
+docsRequest = DocumentService(vault)
+emailsRequest = EmailService(vault)
+filesRequest = FileService(vault)
+foldersRequest = FolderService(vault)
+formsRequest = FormService()
+groupsRequest = GroupService()
+indexFieldRequest = IndexFieldService()
+sitesRequest = SiteService()
+usersRequest = UserService()
 
 # DOCUMENTS
 docsRequest.get_documents("folderPath = '/pythonTest'")

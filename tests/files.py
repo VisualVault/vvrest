@@ -1,7 +1,7 @@
 import unittest
 import os
 from .utilities import get_vault_object, generate_random_uuid
-from vvrest.services.file_service import File
+from vvrest.services.file_service import FileService
 
 
 class FileTest(unittest.TestCase):
@@ -16,12 +16,12 @@ class FileTest(unittest.TestCase):
 
     def test_file_download(self):
         """
-        tests File.file_download
+        tests FileService.file_download
         """
         files = os.listdir(self.file_path)  # validate file does not exist
         self.assertNotIn(self.file_name, files)
 
-        file_service = File(self.vault)
+        file_service = FileService(self.vault)
         file_service.file_download(self.document_revision_id, self.file_path + '/' + self.file_name)  # download file
 
         files = os.listdir(self.file_path)  # validate file exists
@@ -33,12 +33,12 @@ class FileTest(unittest.TestCase):
 
     def test_file_download_by_search(self):
         """
-        tests File.file_download_by_search
+        tests FileService.file_download_by_search
         """
         files = os.listdir(self.file_path)  # validate file does not exist
         self.assertNotIn(self.file_name, files)
 
-        file_service = File(self.vault)
+        file_service = FileService(self.vault)
         file_service.file_download_by_search("id='" + self.document_revision_id + "'",
                                              self.file_path + '/' + self.file_name)  # download file
 
@@ -51,10 +51,10 @@ class FileTest(unittest.TestCase):
 
     def test_file_upload(self):
         """
-        test File.file_upload
+        test FileService.file_upload
         """
         expected_revision = generate_random_uuid()
-        file_service = File(self.vault)
+        file_service = FileService(self.vault)
         resp = file_service.file_upload(self.document_id, 'unittest', expected_revision, 'unittest change reason',
                                         'Released', '', 'unittest.txt', self.file_path + '/' + self.file_upload_name)
 

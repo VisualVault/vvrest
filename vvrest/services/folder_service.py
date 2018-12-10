@@ -2,7 +2,7 @@ import requests
 from ..constants import FOLDERS_URL, DOCUMENTS_URL, INDEXFIELDS_URL, SELECT_OPTIONS_URL, WORKFLOW_ASSIGNMENTS_URL
 
 
-class Folder:
+class FolderService:
     def __init__(self, vault):
         """
         :param vault: Vault

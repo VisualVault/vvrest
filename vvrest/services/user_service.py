@@ -1,7 +1,7 @@
 import requests
 import json
 
-class User():
+class UserService():
 	# gets all users
 	def getUsers(self,vault,q):
 		endpoint = 'users?q=' + q
