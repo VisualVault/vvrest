@@ -1,7 +1,7 @@
 import os
 import json
 from uuid import uuid4
-from vvrest import Vault
+from vvrest.vault import Vault
 
 
 def get_vault_object():
