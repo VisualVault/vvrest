@@ -3,7 +3,7 @@ from .utilities import get_vault_object, generate_random_uuid
 from vvrest.services.folder_service import FolderService
 
 
-class FolderTest(unittest.TestCase):
+class FolderServiceTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.vault = get_vault_object()

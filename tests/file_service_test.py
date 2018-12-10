@@ -4,7 +4,7 @@ from .utilities import get_vault_object, generate_random_uuid
 from vvrest.services.file_service import FileService
 
 
-class FileTest(unittest.TestCase):
+class FileServiceTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.vault = get_vault_object()

@@ -3,7 +3,7 @@ from .utilities import get_vault_object
 from vvrest.services.email_service import EmailService
 
 
-class EmailTest(unittest.TestCase):
+class EmailServiceTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.vault = get_vault_object()

@@ -3,7 +3,7 @@ from .utilities import get_vault_object, generate_random_uuid
 from vvrest.services.document_service import DocumentService
 
 
-class DocumentTest(unittest.TestCase):
+class DocumentServiceTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.vault = get_vault_object()
