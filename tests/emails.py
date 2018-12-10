@@ -1,6 +1,6 @@
 import unittest
 from .utilities import get_vault_object
-from vvrest.services.emails import Email
+from vvrest.services.email_service import Email
 
 
 class EmailTest(unittest.TestCase):

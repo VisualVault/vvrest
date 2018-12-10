@@ -1,7 +1,7 @@
 import unittest
 import os
 from .utilities import get_vault_object, generate_random_uuid
-from vvrest.services.files import File
+from vvrest.services.file_service import File
 
 
 class FileTest(unittest.TestCase):

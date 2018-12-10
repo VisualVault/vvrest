@@ -1,14 +1,14 @@
 # imports
 from vvrest.vault import Vault
-from vvrest.services.documents import Document
-from vvrest.services.emails import Email
-from vvrest.services.files import File
-from vvrest.services.folders import Folder
-from vvrest.services.forms import Form
-from vvrest.services.groups import Group
-from vvrest.services.indexFields import IndexField
-from vvrest.services.sites import Site
-from vvrest.services.users import User
+from vvrest.services.document_service import Document
+from vvrest.services.email_service import Email
+from vvrest.services.file_service import File
+from vvrest.services.folder_service import Folder
+from vvrest.services.form_service import Form
+from vvrest.services.group_service import Group
+from vvrest.services.index_field_service import IndexField
+from vvrest.services.site_service import Site
+from vvrest.services.user_service import User
 
 # Declare your constants as strings here for authorization to request your access token.
 # This token will automatically be requested and hard coded into the helper methods throughout the application.
