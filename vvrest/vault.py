@@ -1,7 +1,6 @@
-import requests
 from .token import Token
 from .utilities import get_token_expiration
-from .constants import TOKEN_URL, GRANT_TYPE_PASSWORD, GRANT_TYPE_REFRESH
+from .services.auth_service import AuthService
 
 
 class Vault:
@@ -18,26 +17,17 @@ class Vault:
         self.database_alias = database_alias
         self.client_id = client_id
         self.client_secret = client_secret
-        self.token = self.get_token()
+        self.token = self.get_access_token()
         self.base_url = self.get_base_url()
 
-    def get_token(self):
+    def get_access_token(self):
         """
-        handles vv authentication
+        requests access token
         :return: Token
         """
-        request_url = self.url + TOKEN_URL
-        headers = {'Content-Type': 'application/json'}
+        authentication_service = AuthService(self.url, self.customer_alias, self.database_alias, self.client_id, self.client_secret)
 
-        payload = {
-            'client_id': self.client_id,
-            'client_secret': self.client_secret,
-            'username': self.client_id,
-            'password': self.client_secret,
-            'grant_type': GRANT_TYPE_PASSWORD
-        }
-
-        resp = requests.post(request_url, data=payload, headers=headers).json()
+        resp = authentication_service.get_access_token()
         access_token = resp['access_token']
         token_expiration = get_token_expiration(resp['expires_in'])
         refresh_token = resp['refresh_token']
@@ -53,22 +43,14 @@ class Vault:
 
         return base_url
 
-    def refresh_token(self):
+    def refresh_access_token(self):
         """
         void method that refreshes Vault.token
         :return: None
         """
-        request_url = self.url + TOKEN_URL
-        headers = {'Content-Type': 'application/json'}
+        authentication_service = AuthService(self.url, self.customer_alias, self.database_alias, self.client_id, self.client_secret)
 
-        payload = {
-            'client_id': self.client_id,
-            'client_secret': self.client_secret,
-            'refresh_token': self.token.refresh_token,
-            'grant_type': GRANT_TYPE_REFRESH
-        }
-
-        resp = requests.post(request_url, data=payload, headers=headers).json()
+        resp = authentication_service.refresh_access_token(self.token.refresh_token)
         access_token = resp['access_token']
         token_expiration = get_token_expiration(resp['expires_in'])
         refresh_token = resp['refresh_token']
