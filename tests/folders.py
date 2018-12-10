@@ -1,6 +1,6 @@
 import unittest
 from .utilities import get_vault_object, generate_random_uuid
-from vvrest.endpoints.folders import Folder
+from vvrest.services.folders import Folder
 
 
 class FolderTest(unittest.TestCase):

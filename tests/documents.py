@@ -1,6 +1,6 @@
 import unittest
 from .utilities import get_vault_object, generate_random_uuid
-from vvrest.endpoints.documents import Document
+from vvrest.services.documents import Document
 
 
 class DocumentTest(unittest.TestCase):
