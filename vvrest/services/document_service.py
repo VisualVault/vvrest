@@ -1,5 +1,5 @@
 import requests
-from ..constants import DOCUMENTS_URL, REVISIONS_URL, INDEXFIELDS_URL
+from ..constants import DOCUMENTS_URL, REVISIONS_URL, INDEX_FIELDS_URL
 
 
 class DocumentService:
@@ -68,7 +68,7 @@ class DocumentService:
         :param document_id: string uuid4
         :return: dict
         """
-        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEX_FIELDS_URL
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.get(request_url, headers=headers).json()
@@ -82,7 +82,7 @@ class DocumentService:
         :param field_id: string uuid4
         :return: dict
         """
-        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL + '/' + field_id
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEX_FIELDS_URL + '/' + field_id
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.get(request_url, headers=headers).json()
@@ -96,7 +96,7 @@ class DocumentService:
         :param revision_id: string uuid4
         :return: dict
         """
-        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id + '/' + INDEXFIELDS_URL
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id + '/' + INDEX_FIELDS_URL
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.get(request_url, headers=headers).json()
@@ -111,7 +111,7 @@ class DocumentService:
         :param field_id: string uuid4
         :return: dict
         """
-        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id + '/' + INDEXFIELDS_URL + '/' + field_id
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + REVISIONS_URL + '/' + revision_id + '/' + INDEX_FIELDS_URL + '/' + field_id
 
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
@@ -126,7 +126,7 @@ class DocumentService:
         :param fields_dict: string dict, example: "{'test': 'changed value'}"
         :return: dict
         """
-        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEX_FIELDS_URL
         request_url = self.vault.base_url + endpoint
         fields = {'indexfields': fields_dict}
         headers = self.vault.get_auth_headers()
@@ -142,7 +142,7 @@ class DocumentService:
         :param value: string
         :return: dict
         """
-        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEXFIELDS_URL + '/' + field_id
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + INDEX_FIELDS_URL + '/' + field_id
         request_url = self.vault.base_url + endpoint
         fields = {'value': value}
         headers = self.vault.get_auth_headers()

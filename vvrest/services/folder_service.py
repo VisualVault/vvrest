@@ -1,5 +1,5 @@
 import requests
-from ..constants import FOLDERS_URL, DOCUMENTS_URL, INDEXFIELDS_URL, SELECT_OPTIONS_URL, WORKFLOW_ASSIGNMENTS_URL
+from ..constants import FOLDERS_URL, DOCUMENTS_URL, INDEX_FIELDS_URL, SELECT_OPTIONS_URL, WORKFLOW_ASSIGNMENTS_URL
 
 
 class FolderService:
@@ -67,7 +67,7 @@ class FolderService:
         :param folder_id: string uuid4
         :return: dict
         """
-        endpoint = FOLDERS_URL + '/' + folder_id + '/' + INDEXFIELDS_URL
+        endpoint = FOLDERS_URL + '/' + folder_id + '/' + INDEX_FIELDS_URL
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.get(request_url, headers=headers).json()
@@ -81,7 +81,7 @@ class FolderService:
         :param field_id: string uuid4
         :return: dict
         """
-        endpoint = FOLDERS_URL + '/' + folder_id + '/' + INDEXFIELDS_URL + '/' + field_id
+        endpoint = FOLDERS_URL + '/' + folder_id + '/' + INDEX_FIELDS_URL + '/' + field_id
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.get(request_url, headers=headers).json()
@@ -96,7 +96,7 @@ class FolderService:
         :param field_id: string uuid4
         :return: dict
         """
-        endpoint = FOLDERS_URL + '/' + folder_id + '/' + INDEXFIELDS_URL + '/' + field_id + '/' + SELECT_OPTIONS_URL
+        endpoint = FOLDERS_URL + '/' + folder_id + '/' + INDEX_FIELDS_URL + '/' + field_id + '/' + SELECT_OPTIONS_URL
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.get(request_url, headers=headers).json()
