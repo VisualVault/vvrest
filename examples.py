@@ -35,7 +35,7 @@ emailsRequest = EmailService(vault)
 filesRequest = FileService(vault)
 foldersRequest = FolderService(vault)
 formsRequest = FormService(vault)
-groupsRequest = GroupService()
+groupsRequest = GroupService(vault)
 indexFieldRequest = IndexFieldService()
 sitesRequest = SiteService()
 usersRequest = UserService()
@@ -98,12 +98,12 @@ formsRequest.get_related_documents('66a6acba-121b-e711-a6c9-e094676f83f7', 'inde
 formsRequest.get_related_forms('c7e16f53-c04b-e711-a95f-dd47132d4eaa', "q=[instanceName]='TEST-00000064'")
 
 # GROUPS
-groupsRequest.getGroups(vault, '')
-groupsRequest.getGroup(vault, 'abb50248-e8e6-e511-a69e-e094676f83f7')
-groupsRequest.getGroupUsers(vault, 'abb50248-e8e6-e511-a69e-e094676f83f7')
-groupsRequest.getGroupUser(vault, 'abb50248-e8e6-e511-a69e-e094676f83f7', '3fcce17d-7b31-e611-a6ab-e094676f83f7')
-groupsRequest.newGroup(vault, 'theGroupName', 'group description', 'b3941561-83bf-e511-a698-e094676f83f7')
-groupsRequest.updateGroup(vault, 'e8cd0f29-ac9b-e611-a6be-e094676f83f7', 'newGroupName', 'new description')
+groupsRequest.get_groups()
+groupsRequest.get_group('abb50248-e8e6-e511-a69e-e094676f83f7')
+groupsRequest.get_group_users('abb50248-e8e6-e511-a69e-e094676f83f7')
+groupsRequest.get_group_user('abb50248-e8e6-e511-a69e-e094676f83f7', '3fcce17d-7b31-e611-a6ab-e094676f83f7')
+groupsRequest.create_group('theGroupName', 'group description', 'b3941561-83bf-e511-a698-e094676f83f7')
+groupsRequest.update_group('e8cd0f29-ac9b-e611-a6be-e094676f83f7', 'newGroupName', 'new description')
 
 # IndexFields
 indexFieldRequest.getIndexFields(vault, "label = 'AAA'")

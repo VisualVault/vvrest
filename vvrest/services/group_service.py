@@ -1,62 +1,118 @@
 import requests
-import json
+from ..constants import GROUPS_URL, USERS_URL
 
-class GroupService():
-	# gets all groups
-	def getGroups(self,vault,q):
-		endpoint = 'groups?q=' + q
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
 
-	# get a group by id
-	def getGroup(self,vault,id):
-		endpoint = 'groups/' + id
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+class GroupService:
+	def __init__(self, vault):
+		self.vault = vault
 
-	# get a groups users
-	def getGroupUsers(self,vault,id):
-		endpoint = 'groups/' + id + '/users'
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+	def get_groups(self, query=''):
+		"""
+		get all groups or search by query
+		:param query: string, example: TODO: query example
+		:return: dict
+		"""
+		request_url = self.vault.base_url + GROUPS_URL
+		if query:
+			request_url += '?q=' + query
 
-	# get a user of a group
-	def getGroupUser(self,vault,id,userId):
-		endpoint = 'groups/' + id + '/users/' + userId
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()		
-		return r
+		headers = self.vault.get_auth_headers()
+		resp = requests.get(request_url, headers=headers).json()
 
-	# create a new group
-	def newGroup(self,vault,name,description,siteId):
-		endpoint = 'groups'
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		payload = {'name':name,'description':description, 'siteId':siteId}
-		r = requests.post(requestUrl,data=payload,headers=headers).json()
-		return r
+		return resp
 
-	# updates group
-	def updateGroup(self,vault,id,name,description):
-		endpoint = 'groups/' + id
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		payload = {'name':name,'description':description}
-		r = requests.put(requestUrl,data=payload,headers=headers).json()
-		return r
+	def get_group(self, group_id):
+		"""
+		get a group by id
+		:param group_id: string uuid4
+		:return: dict
+		"""
+		endpoint = GROUPS_URL + '/' + group_id
+		request_url = self.vault.base_url + endpoint
+		headers = self.vault.get_auth_headers()
+		resp = requests.get(request_url, headers=headers).json()
 
-	# add user to a group
-	def addUserToGroup(self,vault,groupId,userId):
-		endpoint = '/groups/' + groupId + '/users/' + userId
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.put(requestUrl,headers=headers).json()
-		return r
+		return resp
 
+	def get_group_users(self, group_id):
+		"""
+		get users of a group by id
+		:param group_id: string uuid4
+		:return: dict
+		"""
+		endpoint = GROUPS_URL + '/' + group_id + '/' + USERS_URL
+		request_url = self.vault.base_url + endpoint
+		headers = self.vault.get_auth_headers()
+		resp = requests.get(request_url, headers=headers).json()
+
+		return resp
+
+	def get_group_user(self, group_id, user_id):
+		"""
+		get a user of a group by ids
+		:param group_id: string uuid4
+		:param user_id: string uuid4
+		:return: dict
+		"""
+		endpoint = GROUPS_URL + '/' + group_id + '/' + USERS_URL + '/' + user_id
+		request_url = self.vault.base_url + endpoint
+		headers = self.vault.get_auth_headers()
+		resp = requests.get(request_url, headers=headers).json()
+
+		return resp
+
+	def create_group(self, name, description, site_id):
+		"""
+		create a new group
+		:param name: string
+		:param description: string
+		:param site_id: string uuid4
+		:return: dict
+		"""
+		request_url = self.vault.base_url + GROUPS_URL
+		headers = self.vault.get_auth_headers()
+
+		payload = {
+			'name': name,
+			'description': description,
+			'siteId': site_id
+		}
+
+		resp = requests.post(request_url, data=payload, headers=headers).json()
+
+		return resp
+
+	def update_group(self, group_id, name, description):
+		"""
+		create a new group
+		:param group_id: string uuid4
+		:param name: string
+		:param description: string
+		:return: dict
+		"""
+		endpoint = GROUPS_URL + '/' + group_id
+		request_url = self.vault.base_url + endpoint
+		headers = self.vault.get_auth_headers()
+
+		payload = {
+			'name': name,
+			'description': description
+		}
+
+		resp = requests.put(request_url, data=payload, headers=headers).json()
+
+		return resp
+
+	def add_user_to_group(self, group_id, user_id):
+		"""
+		adds a user to a group
+		:param group_id: string uuid4
+		:param user_id: string uuid4
+		:return: dict
+		"""
+		endpoint = GROUPS_URL + '/' + group_id + '/' + USERS_URL + '/' + user_id
+		request_url = self.vault.base_url + endpoint
+		headers = self.vault.get_auth_headers()
+		resp = requests.put(request_url, headers=headers).json()
+
+		return resp
