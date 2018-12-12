@@ -151,4 +151,4 @@ class DocumentServiceTest(unittest.TestCase):
 
         # validate document does not exist in VV
         # resp = document_service.get_document(document_id)
-        # self.assertEqual(resp['meta']['status'], 404)  # TODO: review with Tod
+        # self.assertEqual(resp['meta']['status'], 404)  # TODO: review

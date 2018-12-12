@@ -69,7 +69,7 @@ class FolderServiceTest(unittest.TestCase):
         resp = folder_service.get_folder_index_fields(self.folder_id)
 
         self.assertEqual(resp['meta']['status'], 200)
-        self.assertEqual(len(resp['data']), 1)
+        self.assertGreater(len(resp['data']), 0)
         self.assertEqual(resp['data'][0]['id'], self.index_field_id)
 
     def test_get_folder_index_field(self):

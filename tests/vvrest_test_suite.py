@@ -5,6 +5,7 @@ from .email_service_test import EmailServiceTest
 from .file_service_test import FileServiceTest
 from .folder_service_test import FolderServiceTest
 from .group_service_test import GroupServiceTest
+from .index_field_service_test import IndexFieldServiceTest
 
 
 class VVRestTestSuite(unittest.TestCase):
@@ -14,6 +15,7 @@ class VVRestTestSuite(unittest.TestCase):
     FileServiceTest()
     FolderServiceTest()
     GroupServiceTest()
+    IndexFieldServiceTest()
 
 
 if __name__ == '__main__':

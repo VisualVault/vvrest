@@ -36,7 +36,7 @@ filesRequest = FileService(vault)
 foldersRequest = FolderService(vault)
 formsRequest = FormService(vault)
 groupsRequest = GroupService(vault)
-indexFieldRequest = IndexFieldService()
+indexFieldRequest = IndexFieldService(vault)
 sitesRequest = SiteService()
 usersRequest = UserService()
 
@@ -106,12 +106,12 @@ groupsRequest.create_group('theGroupName', 'group description', 'b3941561-83bf-e
 groupsRequest.update_group('e8cd0f29-ac9b-e611-a6be-e094676f83f7', 'newGroupName', 'new description')
 
 # IndexFields
-indexFieldRequest.getIndexFields(vault, "label = 'AAA'")
-indexFieldRequest.postIndexField(vault, 'apiTestLabel', 'test description', 1, '00000000-0000-0000-0000-000000000000',
-                                 '00000000-0000-0000-0000-000000000000', '', '', False, '&&default value&&')
-indexFieldRequest.putIndexField(vault, '61f55ae3-36cd-e611-a6c1-e094676f83f7', 'newApiTestLabel', 'new test description',
-                                '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000000', '', '', True, '&&new default value&&')
-indexFieldRequest.relateIndexField(vault, '61f55ae3-36cd-e611-a6c1-e094676f83f7', 'c71b45c5-0ecd-e611-a6c1-e094676f83f7')
+indexFieldRequest.get_index_fields("label = 'AAA'")
+indexFieldRequest.create_index_field('apiTestLabel', 'test description', 1, False, 'default value')
+indexFieldRequest.update_index_field('61f55ae3-36cd-e611-a6c1-e094676f83f7', 'newApiTestLabel', 'new test description',
+                                     '00000000-0000-0000-0000-000000000000', '00000000-0000-0000-0000-000000000000', '',
+                                     '', True, '&&new default value&&')
+indexFieldRequest.relate_index_field_to_folder('61f55ae3-36cd-e611-a6c1-e094676f83f7', 'c71b45c5-0ecd-e611-a6c1-e094676f83f7')
 
 # SITES
 sitesRequest.getSites(vault)
