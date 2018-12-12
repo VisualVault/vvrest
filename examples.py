@@ -37,7 +37,7 @@ foldersRequest = FolderService(vault)
 formsRequest = FormService(vault)
 groupsRequest = GroupService(vault)
 indexFieldRequest = IndexFieldService(vault)
-sitesRequest = SiteService()
+sitesRequest = SiteService(vault)
 usersRequest = UserService()
 
 # DOCUMENTS
@@ -114,10 +114,10 @@ indexFieldRequest.update_index_field('61f55ae3-36cd-e611-a6c1-e094676f83f7', 'ne
 indexFieldRequest.relate_index_field_to_folder('61f55ae3-36cd-e611-a6c1-e094676f83f7', 'c71b45c5-0ecd-e611-a6c1-e094676f83f7')
 
 # SITES
-sitesRequest.getSites(vault)
-sitesRequest.getSitesUsers(vault, 'b3941561-83bf-e511-a698-e094676f83f7')
-sitesRequest.postSite(vault, 'testing3', 'test desc')
-sitesRequest.postSiteUser(vault, '60c10915-2c25-e711-a95c-dd47132d4e4a', 'test.jones2', 'firstName', 'lastName', 'jimmy@gmail.com', 'password')
+sitesRequest.get_sites()
+sitesRequest.get_site('61f55ae3-36cd-e611-a6c1-e094676f83f7')
+sitesRequest.get_site_users('b3941561-83bf-e511-a698-e094676f83f7')
+sitesRequest.create_site('testing3', 'test desc')
 
 # USERS
 usersRequest.getUsers(vault, "userid='test@test.com'")
