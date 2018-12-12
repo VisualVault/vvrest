@@ -120,8 +120,7 @@ sitesRequest.get_site_users('b3941561-83bf-e511-a698-e094676f83f7')
 sitesRequest.create_site('testing3', 'test desc')
 
 # USERS
-usersRequest.getUsers(vault, "userid='test@test.com'")
-usersRequest.getUser(vault, '7280297a-5519-e611-a6a8-e094676f83f7')
-usersRequest.getUserToken(vault, '65dcb4a6-fdb3-e511-a694-e094676f83f7')
-usersRequest.postUser(vault, '3adcb4a6-fdb3-e511-a694-e094676f83f7', 'user.py', 'python', 'user', 'test@aol.com', 'p')
-usersRequest.putUser(vault, '5aecb42d-ffc8-e511-a699-e094676f83f7', {'enabled': True, 'lastname': 'new name'})
+usersRequest.get_users("userid='test@test.com'")
+usersRequest.get_user('7280297a-5519-e611-a6a8-e094676f83f7')
+usersRequest.get_user_web_token('65dcb4a6-fdb3-e511-a694-e094676f83f7')
+usersRequest.update_user('5aecb42d-ffc8-e511-a699-e094676f83f7', {'enabled': True, 'lastName': 'new name'})

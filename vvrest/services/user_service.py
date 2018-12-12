@@ -1,45 +1,88 @@
 import requests
-import json
+from ..constants import USERS_URL, WEB_TOKEN_URL, SITE_ID_URL
 
-class UserService():
-	# gets all users
-	def getUsers(self,vault,q):
-		endpoint = 'users?q=' + q
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()		
-		return r
 
-	# get user
-	def getUser(self,vault,userId):
-		endpoint = 'users/' + userId
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()
-		return r
+class UserService:
+    def __init__(self, vault):
+        self.vault = vault
 
-	# get a user webtoken
-	def getUserToken(self,vault,userId):
-		endpoint = 'users/' + userId + '/webToken'
-		requestUrl = vault.base_url + endpoint
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		r = requests.get(requestUrl,headers=headers).json()		
-		return r
+    def get_users(self, query=''):
+        """
+        get all users or search by query
+        :param query: string, default: empty string, example: "userId='test@test.com'"
+        :return: dict
+        """
+        request_url = self.vault.base_url + USERS_URL
+        if query:
+            request_url += '?q=' + query
 
-	# creates a user
-	def postUser(self,vault,siteId,userId,fName,lName,email,password):
-		endpoint = 'users?siteId='
-		requestUrl = vault.base_url + endpoint + siteId
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		payload = {'userId':userId,'firstName':fName,'lastName':lName,'emailaddress':email,'password':password}
-		r = requests.post(requestUrl,headers=headers,data=payload).json()
-		return r
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
+        return resp
 
-	# update a user
-	def putUser(self,vault,userId,fieldsDict):
-		endpoint = 'users/'
-		requestUrl = vault.base_url + endpoint + userId
-		headers = {'Authorization':'Bearer ' + vault.token.access_token}
-		payload = fieldsDict
-		r = requests.put(requestUrl,headers=headers,data=payload).json()
-		return r
+    def get_user(self, user_id):
+        """
+        get a single user
+        :param user_id: string uuid4
+        :return: dict
+        """
+        endpoint = USERS_URL + '/' + user_id
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
+
+        return resp
+
+    def get_user_web_token(self, user_id):
+        """
+        get a users webToken by userId
+        :param user_id: string uuid4
+        :return: dict
+        """
+        endpoint = USERS_URL + '/' + user_id + '/' + WEB_TOKEN_URL
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
+
+        return resp
+
+    def create_user(self, site_id, user_id, first_name, last_name, email, password):
+        """
+        create a new user  # TODO: write unit test, report possible bug and report 500 errors give away internal errors
+        :param site_id: string uuid4
+        :param user_id: string uuid4
+        :param first_name: string
+        :param last_name: string
+        :param email: string
+        :param password: string
+        :return: dict
+        """
+        endpoint = USERS_URL + SITE_ID_URL + site_id
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+
+        payload = {
+            'userId': user_id,
+            'firstName': first_name,
+            'lastName': last_name,
+            'emailAddress': email,
+            'password': password
+        }
+
+        resp = requests.post(request_url, headers=headers, data=payload).json()
+
+        return resp
+
+    def update_user(self, user_id, fields_dict):
+        """
+        update a user
+        :param user_id: string uuid4
+        :param fields_dict: dict, example: {'enabled': True, 'lastName': 'new name'}
+        :return: dict
+        """
+        endpoint = USERS_URL + '/' + user_id
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.put(request_url, headers=headers, data=fields_dict).json()
+
+        return resp
