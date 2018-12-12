@@ -4,6 +4,7 @@ from .document_service_test import DocumentServiceTest
 from .email_service_test import EmailServiceTest
 from .file_service_test import FileServiceTest
 from .folder_service_test import FolderServiceTest
+from .form_service_test import FormServiceTest
 from .group_service_test import GroupServiceTest
 from .index_field_service_test import IndexFieldServiceTest
 from .site_service_test import SiteServiceTest
@@ -16,6 +17,7 @@ class VVRestTestSuite(unittest.TestCase):
     EmailServiceTest()
     FileServiceTest()
     FolderServiceTest()
+    FormServiceTest()
     GroupServiceTest()
     IndexFieldServiceTest()
     SiteServiceTest()

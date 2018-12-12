@@ -38,7 +38,7 @@ formsRequest = FormService(vault)
 groupsRequest = GroupService(vault)
 indexFieldRequest = IndexFieldService(vault)
 sitesRequest = SiteService(vault)
-usersRequest = UserService()
+usersRequest = UserService(vault)
 
 # DOCUMENTS
 docsRequest.get_documents("folderPath = '/pythonTest'")
