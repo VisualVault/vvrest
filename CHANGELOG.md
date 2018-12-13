@@ -16,6 +16,7 @@ subscriber of the `API` to do with the `FileStream` as they wish.
     - `FileService.file_download_by_search`
 - added/removed `unittests`
 - fix white space / tab issue (PEP8) on `FormService`
+- update `README` with getting started `documentation`
 
 ## v1.0.0
 - `PyPI` packaging
