@@ -57,22 +57,19 @@ class FormService:
 
 		return resp
 
-	def form_instance_pdf_download(self, template_id, instance_id, file_path):
+	def get_form_instance_pdf_file_stream(self, template_id, instance_id):
 		"""
-		downloads a form instance as a PDF to the passed in file_path
+		requests a file stream of a form instance converted to a PDF
 		:param template_id: string uuid4
 		:param instance_id: string uuid4
-		:param file_path: string, example: /test_dir/test_file.pdf
-		:return: None
+		:return: stream
 		"""
 		endpoint = FORM_TEMPLATES_URL + '/' + template_id + '/' + FORMS_URL + '/' + instance_id + '/' + PDF_URL
 		request_url = self.vault.base_url + endpoint
 		headers = self.vault.get_auth_headers()
 		stream = requests.get(request_url, headers=headers, stream=True)
 
-		with open(file_path, 'wb') as file:
-			data = stream.raw.read()
-			file.write(data)
+		return stream
 
 	def get_form_template_fields(self, template_id):
 		"""
