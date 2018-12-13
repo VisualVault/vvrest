@@ -4,3 +4,6 @@ tests/credentials.json
 tests/docs
 venv
 .coverage
+build
+dist
+vvrest.egg-info
