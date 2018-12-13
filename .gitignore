@@ -1,2 +1,6 @@
 *.pyc
 .idea
+tests/credentials.json
+tests/docs
+venv
+.coverage

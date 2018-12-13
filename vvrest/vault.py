@@ -1,82 +1,65 @@
-import requests
-import json
-import datetime
 from .token import Token
-
-# Vault Object
-class Vault():
-	# __init__ constructor
-	def __init__(self,url,customerAlias,databaseAlias,clientId,clientSecret,userName,password):
-		self.url = url
-		self.customerAlias = customerAlias
-		self.databaseAlias = databaseAlias
-		self.clientId = clientId
-		self.clientSecret = clientSecret
-		self.userName = userName
-		self.password = password
-		self.token = self.getToken(url,clientId,clientSecret,userName,password)
-		self.baseUrl = self.getBaseUrl(url,customerAlias,databaseAlias)
-
-	# Access Token
-	def getToken(self,url,clientId,clientSecret,userName,password):
-		tokenUrl = '/oauth/token'
-		requestUrl = url + tokenUrl
-		headers = {'Content-Type':'application/json'}
-		payload = {'client_id':clientId,'client_secret':clientSecret,'username':userName,'password':password,'grant_type':'password'}
-		r = requests.post(requestUrl,data=payload,headers=headers).json()
-		access_token = r['access_token']
-		token_expiration = self.setExpiration(r['expires_in'])
-		refresh_token = r['refresh_token']
-		token = Token(access_token,token_expiration,refresh_token)
-		return token
-
-	# Requests Base Url 
-	def getBaseUrl(self,url,customerAlias,databaseAlias):
-		baseUrl = url + '/api/v1/' + customerAlias + '/' + databaseAlias + '/'
-		return baseUrl
-
-	# Sets UTC time for vault.token.expiration
-	def setExpiration(self,expires):
-		date = datetime.datetime.utcnow()
-		expirationDate = date + datetime.timedelta(seconds=expires)
-		return expirationDate
-
-	# void method that refreshes the refresh token from the vault.token object
-	def refreshToken(self):
-		tokenUrl = '/oauth/token'
-		requestUrl = self.url + tokenUrl
-		headers = {'Content-Type':'application/json'}
-		payload = {'client_id':self.clientId,'client_secret':self.clientSecret,'refresh_token':self.token.refresh_token,'grant_type':'refresh_token'}
-		r = requests.post(requestUrl,data=payload,headers=headers).json()
-		access_token = r['access_token']
-		token_expiration = self.setExpiration(r['expires_in'])
-		refresh_token = r['refresh_token']
-		self.token = Token(access_token,token_expiration,refresh_token)
+from .utilities import get_token_expiration
+from .services.auth_service import AuthService
 
 
+class Vault:
+    def __init__(self, url, customer_alias, database_alias, client_id, client_secret):
+        """
+        :param url: string, example: https://demo.visualvault.com
+        :param customer_alias: string
+        :param database_alias: string
+        :param client_id: string UUID(version=4)
+        :param client_secret: string, example: khN18YAZPe6F3Z0tc2W0HXCb487jm0wgwe6kNffUNf0=
+        """
+        self.url = url
+        self.customer_alias = customer_alias
+        self.database_alias = database_alias
+        self.client_id = client_id
+        self.client_secret = client_secret
+        self.token = self.get_access_token()
+        self.base_url = self.get_base_url()
 
+    def get_access_token(self):
+        """
+        requests access token
+        :return: Token
+        """
+        authentication_service = AuthService(self.url, self.customer_alias, self.database_alias, self.client_id, self.client_secret)
 
+        resp = authentication_service.get_access_token()
+        access_token = resp['access_token']
+        token_expiration = get_token_expiration(resp['expires_in'])
+        refresh_token = resp['refresh_token']
+        token = Token(access_token, token_expiration, refresh_token)
 
+        return token
 
+    def get_base_url(self):
+        """
+        :return: string
+        """
+        base_url = self.url + '/api/v1/' + self.customer_alias + '/' + self.database_alias + '/'
 
+        return base_url
 
+    def refresh_access_token(self):
+        """
+        void method that refreshes Vault.token
+        :return: None
+        """
+        authentication_service = AuthService(self.url, self.customer_alias, self.database_alias, self.client_id, self.client_secret)
 
+        resp = authentication_service.refresh_access_token(self.token.refresh_token)
+        access_token = resp['access_token']
+        token_expiration = get_token_expiration(resp['expires_in'])
+        refresh_token = resp['refresh_token']
+        self.token = Token(access_token, token_expiration, refresh_token)
 
+    def get_auth_headers(self):
+        """
+        :return: dict
+        """
+        headers = {'Authorization': 'Bearer ' + self.token.access_token}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return headers
