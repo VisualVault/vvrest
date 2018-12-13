@@ -6,7 +6,21 @@ A `Python` REST client library for accessing `VisualVault`.
 pip3 install vvrest
 ```
 
-## usage
+## getting started
+* The `Vault` class handles `authentication`.
+* Services mapping to the different `endpoints` live in the `services` namespace.
+For example if one wishes to interact with the `/api/v1/documents` endpoint, 
+then import `DocumentService` or for `/api/v1/files` import `FileService`, etc.
+* Now credentials need to be defined so `VisualVault` knows who one is.
+* `url` is the base url for the instance of `VisualVault` (example below).
+NOTE: do not leave a trailing '/' at the end of the `url`.
+* `customer_alias` and `database_alias` are the customer and database 
+one wishes to connect to.
+* `client_id` and `client_secret` can be found on the users page in the
+`central admin` section of `VisualVault`. The first `APIKEY` is `client_id`
+and the second `APIKEY` is the `client_secret`.
+* Each service class in `services` takes an instance of `Vault` as a required parameter.
+* The `code example` below demonstrates requesting `documents`.
 ```
 from vvrest.vault import Vault
 from vvrest.services.document_service import DocumentService
@@ -25,7 +39,7 @@ document_service = DocumentService(vault)  # instantiate a service class (Docume
 documents = document_service.get_documents("folderPath='/test'")  # request documents
 ```
 
-* documentation coming soon. 
+* documentation coming soon.
 * refer to the `VVRestTestSuite` in the `tests` directory for more examples.
 
 For more information on any of the endpoints, data types, or anything referring to the 
