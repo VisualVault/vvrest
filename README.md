@@ -9,7 +9,7 @@ pip3 install -r requirements.txt
 
 ## usage
 * `pypi` packaging coming soon and docs to follow, so for now add the directory 
-`vvrest` into your project and refer to `tests` and `examples.py`.
+`vvrest` into your project and refer to the VVRestTestSuite in the `tests` directory.
 
 For more information on any of the endpoints, data types, or anything referring to the 
 `VisualVault` REST API please refer to the `HTTP API` section at <http://developer.visualvault.com>
@@ -20,7 +20,7 @@ where each endpoint and there parameters are covered in great detail.
 (venv) rootraider@rootRaider-Oryx-Pro:~/vvrest$ coverage run --source vvrest -m unittest tests/vvrest_test_suite.py ; echo ; coverage report -m
 ..........................................
 ----------------------------------------------------------------------
-Ran 42 tests in 40.469s
+Ran 42 tests in 34.362s
 
 OK
 
@@ -42,5 +42,6 @@ vvrest/services/user_service.py             37      7    81%   17, 60-74
 vvrest/token.py                              5      0   100%
 vvrest/utilities.py                          5      0   100%
 vvrest/vault.py                             33      0   100%
--------------------------------------------------------------
+----------------------------------------------------------------------
+TOTAL                                      561    120    79%
 ```
