@@ -1,15 +1,32 @@
 # *vvrest*
 A `Python` REST client library for accessing `VisualVault`.
 
-## requirements
-* `python3` and `requests`
+## install
 ```
-pip3 install -r requirements.txt
+pip3 install vvrest
 ```
 
 ## usage
-* `pypi` packaging coming soon and docs to follow, so for now add the directory 
-`vvrest` into your project and refer to the VVRestTestSuite in the `tests` directory.
+```
+from vvrest.vault import Vault
+from vvrest.services.document_service import DocumentService
+
+# define credentials
+url = 'https://demo.visualvault.com'
+customer_alias = 'test_customer'
+database_alias = 'test_database'
+client_id = '12344b69-cd52-4444-815a-1234ec0fb5ef'
+client_secret = 'PouE/GLZ7pjFoqRRyu9L8K3EjTXXdf56sY/FxPaaxxU='
+
+# get vault object (authenticate)
+vault = Vault(url, customer_alias, database_alias, client_id, client_secret)
+
+document_service = DocumentService(vault)  # instantiate a service class (DocumentService)
+documents = document_service.get_documents("folderPath='/test'")  # request documents
+```
+
+* documentation coming soon. 
+* refer to the `VVRestTestSuite` in the `tests` directory for more examples.
 
 For more information on any of the endpoints, data types, or anything referring to the 
 `VisualVault` REST API please refer to the `HTTP API` section at <http://developer.visualvault.com>
@@ -17,13 +34,6 @@ where each endpoint and there parameters are covered in great detail.
 
 ## unittest coverage
 ```
-(venv) rootraider@rootRaider-Oryx-Pro:~/vvrest$ coverage run --source vvrest -m unittest tests/vvrest_test_suite.py ; echo ; coverage report -m
-..........................................
-----------------------------------------------------------------------
-Ran 42 tests in 34.362s
-
-OK
-
 Name                                     Stmts   Miss  Cover   Missing
 ----------------------------------------------------------------------
 vvrest/__init__.py                           0      0   100%
