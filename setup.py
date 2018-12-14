@@ -1,11 +1,11 @@
 import setuptools
 
-with open('README.md', 'r') as fh:
-    long_description = fh.read()
+with open('README.md', 'r') as readme:
+    long_description = readme.read()
 
 setuptools.setup(
     name='vvrest',
-    version='1.0.0',
+    version='1.1.0',
     author='Jared Runyon',
     author_email='jared.runyon@visualvault.com',
     maintainer='Jared Runyon',

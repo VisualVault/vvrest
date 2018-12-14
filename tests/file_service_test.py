@@ -11,47 +11,21 @@ class FileServiceTest(unittest.TestCase):
         cls.document_id = '810013e6-50fa-e811-a9cf-8b72d90dd505'
         cls.document_revision_id = '8fefa9b6-56fa-e811-a995-a3d452a1c2f6'
         cls.file_path = os.getcwd() + '/tests/docs'
-        cls.file_name = 'test_docs.txt'
         cls.file_upload_name = 'test_file.txt'
 
-    def test_file_download(self):
+    def test_get_file_stream(self):
         """
-        tests FileService.file_download
+        tests FileService.get_file_stream
         """
-        files = os.listdir(self.file_path)  # validate file does not exist
-        self.assertNotIn(self.file_name, files)
-
         file_service = FileService(self.vault)
-        file_service.file_download(self.document_revision_id, self.file_path + '/' + self.file_name)  # download file
-
-        files = os.listdir(self.file_path)  # validate file exists
-        self.assertIn(self.file_name, files)
-
-        os.remove(self.file_path + '/' + self.file_name)  # delete file
-        files = os.listdir(self.file_path)
-        self.assertNotIn(self.file_name, files)  # validate file is deleted
-
-    def test_file_download_by_search(self):
-        """
-        tests FileService.file_download_by_search
-        """
-        files = os.listdir(self.file_path)  # validate file does not exist
-        self.assertNotIn(self.file_name, files)
-
-        file_service = FileService(self.vault)
-        file_service.file_download_by_search("id='" + self.document_revision_id + "'",
-                                             self.file_path + '/' + self.file_name)  # download file
-
-        files = os.listdir(self.file_path)  # validate file exists
-        self.assertIn(self.file_name, files)
-
-        os.remove(self.file_path + '/' + self.file_name)  # delete file
-        files = os.listdir(self.file_path)
-        self.assertNotIn(self.file_name, files)  # validate file is deleted
+        stream = file_service.get_file_stream(self.document_revision_id)
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
 
     def test_file_upload(self):
         """
-        test FileService.file_upload
+        test FileService.file_upload and FileService.get_file_stream_by_search
         """
         expected_revision = generate_random_uuid()
         file_service = FileService(self.vault)
@@ -61,3 +35,9 @@ class FileServiceTest(unittest.TestCase):
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['documentId'], self.document_id)
         self.assertEqual(resp['data']['revision'], expected_revision)
+
+        new_file_id = resp['data']['id']
+        stream = file_service.get_file_stream_by_search("[id]='" + new_file_id + "'")
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')

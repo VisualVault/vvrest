@@ -9,37 +9,31 @@ class FileService:
         """
         self.vault = vault
 
-    def file_download(self, file_id, file_location):
+    def get_file_stream(self, file_id):
         """
-        download a file by file id
+        request a file stream by file_id
         :param file_id: string uuid4
-        :param file_location: string example: /test_dir/text.txt
-        :return: None
+        :return: stream
         """
         endpoint = FILES_URL + '/' + file_id
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         stream = requests.get(request_url, headers=headers, stream=True)  # get file stream
 
-        with open(file_location, 'wb') as file:  # write file stream
-            data = stream.raw.read()
-            file.write(data)
+        return stream
 
-    def file_download_by_search(self, q, file_location):
+    def get_file_stream_by_search(self, query):
         """
-        download a file by search
-        :param q: string, example: "id='8fefa9b6-56fa-e811-a995-a3d452a1c2f6'"
-        :param file_location: string, example: /test_dir/text.txt
-        :return: None
+        request a file stream by query
+        :param query: string, example: "id='8fefa9b6-56fa-e811-a995-a3d452a1c2f6'"
+        :return: stream
         """
-        endpoint = FILES_URL + '?q=' + q
+        endpoint = FILES_URL + '?q=' + query
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         stream = requests.get(request_url, headers=headers, stream=True)  # get file stream
 
-        with open(file_location, 'wb') as file:  # write file stream
-            data = stream.raw.read()
-            file.write(data)
+        return stream
 
     def file_upload(self, document_id, name, revision, change_reason, check_in_state, index_fields, file_name, file_path):
         """
