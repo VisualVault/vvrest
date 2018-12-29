@@ -112,7 +112,6 @@ class FormServiceTest(unittest.TestCase):
         for form_instance in resp['data']:
             self.assertEqual(form_instance['dataType'], 'FormInstance')
             self.assertIn(self.form_template_field_name, form_instance)
-            self.assertEqual(form_instance[self.form_template_field_name], self.form_instance_field_value)
 
         resp = form_service.get_form_instances(self.form_template_id,
                                                query="instanceName='" + self.form_instance_name + "'",
