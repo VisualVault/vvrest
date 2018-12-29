@@ -84,32 +84,25 @@ class FormService:
 
         return resp
 
-    def get_form_instances(self, template_id, query_string=''):
+    def get_form_instances(self, template_id, query='', query_string=''):
         """
-        get all form instances for a form template
+        get all form instances for a form template,
+        search for particular instance, request form field values,
+        or all of the above
         :param template_id: string uuid4
+        :param query: string, example: instanceName='testForm-000026'
         :param query_string: string, example: 'fields=DocumentType'
         :return: dict
         """
         endpoint = FORM_TEMPLATES_URL + '/' + template_id + '/' + FORMS_URL
 
-        if query_string:
+        if query and query_string:
+            endpoint += '?q=' + query + '&' + query_string
+        elif query and not query_string:
+            endpoint += '?q=' + query
+        elif query_string and not query:
             endpoint += '?' + query_string
 
-        request_url = self.vault.base_url + endpoint
-        headers = self.vault.get_auth_headers()
-        resp = requests.get(request_url, headers=headers).json()
-
-        return resp
-
-    def get_form_instances_search(self, template_id, query):
-        """
-        get all form instances for a form template
-        :param template_id: string uuid4
-        :param query: string, example: "instanceName='testForm-000026'&fields=field1,field2"
-        :return: dict
-        """
-        endpoint = FORM_TEMPLATES_URL + '/' + template_id + '/' + FORMS_URL + '?q=' + query
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.get(request_url, headers=headers).json()
