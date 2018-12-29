@@ -1,5 +1,11 @@
 # *vvrest* release changelog
 
+## v1.2.0
+- add `unittest` coverage for `FormService`.
+- move `FormService.get_form_instances_search` functionality to `FormService.get_form_instances`.
+- remove `FormService.get_form_instances_search`.
+- add additional optional parameter `query` to `FormService.get_form_instances`.
+
 ## v1.1.0
 - update dependencies for `PyPI` packaging so `README` can be rendered
 properly as project description in `markdown`.
