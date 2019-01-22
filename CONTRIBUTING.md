@@ -9,6 +9,7 @@ when contributing to `vvrest`, developers are expected to:
 * follow the [gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow) workflow
 * only submit [Pull Requests](https://help.github.com/articles/creating-a-pull-request/) 
 (PRs) with a fully passing test suite
+* submit `test` coverage for features/issues when applicable.
 
 ### environment setup
 set up a [python virtual environment](https://docs.python.org/3/library/venv.html#module-venv) 
@@ -67,9 +68,11 @@ git pull
 git checkout -b feature/my-cool-new-feature
 ```
 commit/push all your `work` in the `feature branch` (do not commit to `develop` or `master` directly). 
-submit a `PR` (Pull Request), in the GitHub UI, and await feedback. 
-a repo maintainer will provide feedback, and handle merging the `feature branch` 
-into `develop`. the `develop` branch is where all
-the work gets placed and staged for `releases`. the `master` branch is only updated alongside `releases`
-(stays even with latest release). NOTE: for users `forking` follow this same process
-in your `forked` repository.
+submit a PR (Pull Request) in the GitHub UI setting the target branch to `develop`, and await feedback.
+you will need to override the target base branch to `develop` since the default branch is `master`.
+since this is an open source project the default branch will remain `master` 
+(so people who clone the repo only get stable releases), but internally we can still use `gitflow`.
+a repo maintainer will provide feedback, and handle merging the `feature branch` into `develop`. 
+the `develop` branch is where all the work gets placed and staged for `releases`. 
+the `master` branch is only updated alongside `releases` (stays even with latest release). 
+NOTE: for users `forking` follow this same process in your `forked` repository.
