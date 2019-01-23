@@ -65,7 +65,6 @@ class IndexFieldServiceTest(unittest.TestCase):
         self.assertEqual(resp['data'][0]['description'], updated_expected_description)
 
         # relate new index field to folder
-        index_field_service = IndexFieldService(self.vault)
         resp = index_field_service.relate_index_field_to_folder(index_field_id, self.folder_id)
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['folderId'], self.folder_id)
