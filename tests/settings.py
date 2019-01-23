@@ -1,4 +1,6 @@
 import os
 
-credentials_file = os.getcwd() + '/tests/credentials.json'
-parameters_file = os.getcwd() + '/tests/parameters.json'
+cwd = os.getcwd()
+credentials_file = cwd + '/tests/credentials.json'
+parameters_file = cwd + '/tests/parameters.json'
+test_file_path = cwd + '/tests/docs'

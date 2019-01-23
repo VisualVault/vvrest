@@ -1,7 +1,7 @@
 import unittest
-import os
 from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 from vvrest.services.file_service import FileService
+from .settings import test_file_path
 
 
 class FileServiceTest(unittest.TestCase):
@@ -11,7 +11,7 @@ class FileServiceTest(unittest.TestCase):
         test_parameters = get_parameters_json()
         cls.document_id = test_parameters['document_id']
         cls.document_revision_id = test_parameters['document_revision_id']
-        cls.file_path = os.getcwd() + '/tests/docs'
+        cls.file_path = test_file_path
         cls.file_upload_name = 'test_file.txt'
 
     def test_get_file_stream(self):

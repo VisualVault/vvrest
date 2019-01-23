@@ -8,7 +8,8 @@ from vvrest.services.index_field_service import IndexFieldService
 from vvrest.services.site_service import SiteService
 from vvrest.services.group_service import GroupService
 from vvrest.services.user_service import UserService
-from .settings import parameters_file
+from vvrest.services.file_service import FileService
+from .settings import parameters_file, test_file_path
 
 
 class SetupTestSuite(unittest.TestCase):
@@ -26,6 +27,7 @@ class SetupTestSuite(unittest.TestCase):
         site_service = SiteService(self.vault)
         group_service = GroupService(self.vault)
         user_service = UserService(self.vault)
+        file_service = FileService(self.vault)
 
         # create folder
         expected_folder_name = generate_random_uuid()
@@ -59,6 +61,17 @@ class SetupTestSuite(unittest.TestCase):
         resp = document_service.new_document(folder_id, 1, '_test_doc', '_test_doc description', '0', '_test.txt')
         self.assertEqual(resp['meta']['status'], 200)
         document_id = resp['data']['documentId']
+
+        # create document revision (file upload)
+        expected_revision = generate_random_uuid()
+        resp = file_service.file_upload(document_id, 'unittest', expected_revision, 'unittest change reason',
+                                        'Released', '', 'unittest.txt', test_file_path + '/test_file.txt')
+
+        self.assertEqual(resp['meta']['status'], 200)
+
+        # get document revision
+        resp = document_service.get_document(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
         document_revision_id = resp['data']['id']
 
         # create site
