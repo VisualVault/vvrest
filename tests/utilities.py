@@ -1,14 +1,13 @@
-import os
 import json
 from uuid import uuid4
 from vvrest.vault import Vault
+from .settings import credentials_file, parameters_file
 
 
 def get_vault_object():
     """
     :return: Vault
     """
-    credentials_file = os.getcwd() + '/tests/credentials.json'
     with open(credentials_file) as credentials_json:
         credentials = json.load(credentials_json)
 
@@ -31,8 +30,17 @@ def get_parameters_json():
     """
     :return: dict
     """
-    parameters_file = os.getcwd() + '/tests/parameters.json'
     with open(parameters_file) as parameters_json:
         parameters = json.load(parameters_json)
 
     return parameters
+
+
+def get_test_email_address():
+    """
+    :return: string
+    """
+    with open(credentials_file) as credentials_json:
+        credentials = json.load(credentials_json)
+
+    return credentials['email_address']

@@ -8,13 +8,13 @@ from vvrest.services.index_field_service import IndexFieldService
 from vvrest.services.site_service import SiteService
 from vvrest.services.group_service import GroupService
 from vvrest.services.user_service import UserService
+from .settings import parameters_file
 
 
 class SetupTestSuite(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.vault = get_vault_object()
-        cls.test_parameters = os.getcwd() + '/tests/parameters.json'
 
     def test_setup_test_suite(self):
         """
@@ -90,7 +90,7 @@ class SetupTestSuite(unittest.TestCase):
         self.assertEqual(resp['meta']['status'], 201)
 
         # setup test_parameters json
-        if os.path.isfile(self.test_parameters):
+        if os.path.isfile(parameters_file):
             parameters = get_parameters_json()
             parameters['folder_path'] = folder_path
             parameters['query_string'] = query_string
@@ -122,5 +122,5 @@ class SetupTestSuite(unittest.TestCase):
                 user_id=user_id
             )
 
-        with open(self.test_parameters, 'w+') as parameters_file:
-            json.dump(parameters, parameters_file)  # write test_parameters to parameters.json
+        with open(parameters_file, 'w+') as parameters_json:
+            json.dump(parameters, parameters_json)  # write test_parameters to parameters.json
