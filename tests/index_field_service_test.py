@@ -1,5 +1,5 @@
 import unittest
-from .utilities import get_vault_object, generate_random_uuid
+from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 from vvrest.services.index_field_service import IndexFieldService
 
 
@@ -7,8 +7,9 @@ class IndexFieldServiceTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.vault = get_vault_object()
-        cls.index_field_id = '46c4f665-56fa-e811-a9cf-8b72d90dd505'
-        cls.folder_id = '75cb5823-50fa-e811-a995-a3d452a1c2f6'
+        test_parameters = get_parameters_json()
+        cls.index_field_id = test_parameters['index_field_id']
+        cls.folder_id = test_parameters['folder_id']
 
     def test_get_index_fields(self):
         """

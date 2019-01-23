@@ -1,5 +1,5 @@
 import unittest
-from .utilities import get_vault_object, generate_random_uuid
+from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 from vvrest.services.user_service import UserService
 from uuid import UUID
 
@@ -8,8 +8,9 @@ class UserServiceTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.vault = get_vault_object()
-        cls.site_id = 'aa5377ae-97fd-e811-a995-a3d452a1c2f6'
-        cls.user_id = 'ec04ad4d-98fd-e811-a995-a3d452a1c2f6'
+        test_parameters = get_parameters_json()
+        cls.site_id = test_parameters['site_id']
+        cls.user_id = test_parameters['user_id']
 
     def test_get_users(self):
         """
