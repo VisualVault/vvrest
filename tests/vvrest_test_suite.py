@@ -1,4 +1,5 @@
 import unittest
+from .setup import SetupTestSuite
 from .auth_service_test import AuthServiceTest
 from .document_service_test import DocumentServiceTest
 from .email_service_test import EmailServiceTest
@@ -12,6 +13,10 @@ from .user_service_test import UserServiceTest
 
 
 class VVRestTestSuite(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        SetupTestSuite()  # setup VVRestTestSuite
+
     AuthServiceTest()
     DocumentServiceTest()
     EmailServiceTest()

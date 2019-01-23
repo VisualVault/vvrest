@@ -25,3 +25,14 @@ def generate_random_uuid():
     uuid = str(uuid4())
 
     return uuid
+
+
+def get_parameters_json():
+    """
+    :return: dict
+    """
+    parameters_file = os.getcwd() + '/tests/parameters.json'
+    with open(parameters_file) as parameters_json:
+        parameters = json.load(parameters_json)
+
+    return parameters
