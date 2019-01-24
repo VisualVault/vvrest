@@ -1,15 +1,20 @@
 import unittest
-from .utilities import get_vault_object, generate_random_uuid
+from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 from vvrest.services.site_service import SiteService
 
 
 class SiteServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
-        cls.site_id = 'aa5377ae-97fd-e811-a995-a3d452a1c2f6'
-        cls.group_id = '784e48e4-97fd-e811-a995-a3d452a1c2f6'
-        cls.user_id = 'ec04ad4d-98fd-e811-a995-a3d452a1c2f6'
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
+        test_parameters = get_parameters_json()
+        cls.site_id = test_parameters['site_id']
+        cls.group_id = test_parameters['group_id']
+        cls.user_id = test_parameters['user_id']
 
     def test_get_sites(self):
         """
@@ -72,3 +77,21 @@ class SiteServiceTest(unittest.TestCase):
         self.assertEqual(resp['data'][0]['id'], site_id)
         self.assertEqual(resp['data'][0]['name'], expected_site_name)
         self.assertEqual(resp['data'][0]['description'], expected_site_description)
+
+    def test_create_site_user(self):
+        """
+        tests SiteService.create_site_user
+        """
+        site_service = SiteService(self.vault)
+
+        # set fields
+        expected_user_id = generate_random_uuid()
+        first_name = 'test'
+        last_name = 'test'
+        email = 'test@visualvault.com'
+        password = 'TsT3!aB4@sY7'
+
+        resp = site_service.create_site_user(self.site_id, expected_user_id, first_name, last_name, email, password)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['dataType'], 'User')
+        self.assertEqual(resp['data']['name'], expected_user_id)

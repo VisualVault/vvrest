@@ -7,3 +7,4 @@ venv
 build
 dist
 vvrest.egg-info
+tests/parameters.json

@@ -28,10 +28,22 @@ deactivate
 ```
 
 ### running the test suite
+add a `parameters.json` file to the `/tests` directory with the following content:
+```json
+{
+  "form_template_name": "unittest",
+  "form_template_field_name": "test_field",
+  "form_template_id": "f8fd0067-7a1f-e911-8b96-0800276652db"
+}
+```
+a form template must be created named `unittest`, and must have a text box form field
+named `test_field`. the `form_template_id` will be set to the `form_template_id` (GUID)
+after form template creation in your VV environment.<br><br>
+NOTE: this is just a work around until an API update happens for form template creation.<br><br>
 add a `credentials.json` file to the `/tests` directory with the following content:
 ```json
 {
-  "url": "localhost",
+  "url": "localhost/visualvault4_1_13",
   "customer_alias": "test_customer",
   "database_alias": "test_database",
   "client_id": "your_client_id",
@@ -40,10 +52,10 @@ add a `credentials.json` file to the `/tests` directory with the following conte
 }
 ```
 these `credentials` will be used to run the `VVRestTestSuite` against the
-`VisualVault` environment in the `url` field. 
+`VisualVault` environment in the `url` field.<br><br>
 NOTE: tests should only be ran against a local or test instance of `VisualVault`
-(not a production environment).
-Now that the file is configured for the `VVRestTestSuite`, run the following cmd:
+(not a production environment). <br><br>
+Now that the files are configured for the `VVRestTestSuite`, run the following cmd:
 ```commandline
 python3 -m unittest tests/vvrest_test_suite.py
 ```
@@ -59,6 +71,10 @@ running a specific `test`:
 ```commandline
 python3 -m unittest tests.document_service_test.DocumentServiceTest.test_get_documents
 ```
+NOTE: running a specific class of tests or a specific test
+could result in failure if `setup_test_suite` has not been ran.
+to avoid this execute the entire test suite at least once before running 
+a specific class of tests or a specific test.
 
 ## contributing workflow
 check out a feature branch based off of the latest in `develop`:

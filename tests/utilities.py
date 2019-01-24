@@ -1,14 +1,14 @@
-import os
 import json
 from uuid import uuid4
 from vvrest.vault import Vault
+from .settings import credentials_file, parameters_file
+from random import choice
 
 
 def get_vault_object():
     """
     :return: Vault
     """
-    credentials_file = os.getcwd() + '/tests/credentials.json'
     with open(credentials_file) as credentials_json:
         credentials = json.load(credentials_json)
 
@@ -25,3 +25,34 @@ def generate_random_uuid():
     uuid = str(uuid4())
 
     return uuid
+
+
+def get_parameters_json():
+    """
+    :return: dict
+    """
+    with open(parameters_file) as parameters_json:
+        parameters = json.load(parameters_json)
+
+    return parameters
+
+
+def get_test_email_address():
+    """
+    :return: string
+    """
+    with open(credentials_file) as credentials_json:
+        credentials = json.load(credentials_json)
+
+    return credentials['email_address']
+
+
+def get_random_string(length):
+    """
+    :param length: int
+    :return: string
+    """
+    char_choices = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'  # TODO: use random.choices with python upgrade
+    random_string = ''.join(choice(char_choices) for i in range(length))
+
+    return random_string

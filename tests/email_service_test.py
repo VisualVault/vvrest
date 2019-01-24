@@ -1,14 +1,19 @@
 import unittest
-from .utilities import get_vault_object
+from .utilities import get_vault_object, get_test_email_address, get_parameters_json
 from vvrest.services.email_service import EmailService
 
 
 class EmailServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
-        cls.email_address = 'jared.runyon@visualvault.com'
-        cls.document_revision_id = '8fefa9b6-56fa-e811-a995-a3d452a1c2f6'
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
+        test_parameters = get_parameters_json()
+        cls.document_revision_id = test_parameters['document_revision_id']
+        cls.email_address = get_test_email_address()
 
     def test_send_email_with_out_attachments(self):
         """

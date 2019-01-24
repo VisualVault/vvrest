@@ -1,15 +1,20 @@
 import unittest
-from .utilities import get_vault_object, generate_random_uuid
+from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 from vvrest.services.group_service import GroupService
 
 
 class GroupServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
-        cls.site_id = 'aa5377ae-97fd-e811-a995-a3d452a1c2f6'
-        cls.group_id = '784e48e4-97fd-e811-a995-a3d452a1c2f6'
-        cls.user_id = 'ec04ad4d-98fd-e811-a995-a3d452a1c2f6'
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
+        test_parameters = get_parameters_json()
+        cls.site_id = test_parameters['site_id']
+        cls.group_id = test_parameters['group_id']
+        cls.user_id = test_parameters['user_id']
 
     def test_get_groups(self):
         """

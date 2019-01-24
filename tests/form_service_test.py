@@ -1,20 +1,25 @@
 import unittest
-from .utilities import get_vault_object, generate_random_uuid
+from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 from vvrest.services.form_service import FormService
 
 
 class FormServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
-        cls.form_template_id = 'ab34fcb3-870b-e911-a996-b95137116d54'
-        cls.form_template_name = 'test_template'
-        cls.form_instance_id = '328c018e-8a0b-e911-a9d0-f1f3158acf97'
-        cls.form_instance_name = 'test_tem-000001'
-        cls.form_template_field_name = 'test_field'
-        cls.form_instance_field_value = 'test_field value'
-        cls.document_revision_id = '8fefa9b6-56fa-e811-a995-a3d452a1c2f6'
-        cls.document_id = '810013e6-50fa-e811-a9cf-8b72d90dd505'
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
+        test_parameters = get_parameters_json()
+        cls.form_template_id = test_parameters['form_template_id']
+        cls.form_template_name = test_parameters['form_template_name']
+        cls.form_instance_id = test_parameters['form_instance_id']
+        cls.form_instance_name = test_parameters['form_instance_name']
+        cls.form_template_field_name = test_parameters['form_template_field_name']
+        cls.form_instance_field_value = test_parameters['form_instance_field_value']
+        cls.document_revision_id = test_parameters['document_revision_id']
+        cls.document_id = test_parameters['document_id']
 
     def test_get_form_templates(self):
         """

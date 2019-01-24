@@ -1,19 +1,24 @@
 import unittest
-from .utilities import get_vault_object, generate_random_uuid
+from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 from vvrest.services.folder_service import FolderService
 
 
 class FolderServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
-        cls.folder_name = 'test'
-        cls.folder_path = '/test'
-        cls.folder_id = '75cb5823-50fa-e811-a995-a3d452a1c2f6'
-        cls.sub_folder_id = '80bfeff9-96fc-e811-a995-a3d452a1c2f6'
-        cls.sub_folder_path = '/test/sub_test'
-        cls.document_id = '810013e6-50fa-e811-a9cf-8b72d90dd505'
-        cls.index_field_id = '46c4f665-56fa-e811-a9cf-8b72d90dd505'
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
+        test_parameters = get_parameters_json()
+        cls.folder_name = test_parameters['folder_name']
+        cls.folder_path = test_parameters['folder_path']
+        cls.folder_id = test_parameters['folder_id']
+        cls.sub_folder_id = test_parameters['sub_folder_id']
+        cls.sub_folder_path = test_parameters['sub_folder_path']
+        cls.document_id = test_parameters['document_id']
+        cls.index_field_id = test_parameters['index_field_id']
 
     def test_get_folder_search(self):
         """

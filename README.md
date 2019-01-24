@@ -61,11 +61,11 @@ vvrest/services/folder_service.py           73     11    85%   99-104, 192-205
 vvrest/services/form_service.py            119     16    87%   178-183, 220-225, 234-238, 250, 268
 vvrest/services/group_service.py            49      1    98%   17
 vvrest/services/index_field_service.py      30      0   100%
-vvrest/services/site_service.py             35      6    83%   76-90
-vvrest/services/user_service.py             37      7    81%   17, 60-74
+vvrest/services/site_service.py             35      0   100%
+vvrest/services/user_service.py             37      1    97%   17
 vvrest/token.py                              5      0   100%
 vvrest/utilities.py                          5      0   100%
 vvrest/vault.py                             33      0   100%
 ----------------------------------------------------------------------
-TOTAL                                      553     41    93%
+TOTAL                                      553     29    95%
 ```

@@ -62,15 +62,19 @@ class SiteService:
 
         return resp
 
-    def create_site_user(self, site_id, user_id, first_name, last_name, email, password):
+    def create_site_user(self, site_id, user_id, first_name, last_name, email, password, must_change_password=False,
+                         send_email=False, password_never_expires=True):
         """
-        creates a new user for a site TODO: add name, write unit test, report possible bug
+        creates a new user for a site
         :param site_id: string uuid4
         :param user_id: string uuid4
         :param first_name: string
         :param last_name: string
         :param email: string
         :param password: string
+        :param must_change_password: bool, default False
+        :param send_email: bool, default False
+        :param password_never_expires: bool, default True
         :return: dict
         """
         endpoint = SITES_URL + '/' + site_id + '/' + USERS_URL
@@ -81,8 +85,11 @@ class SiteService:
             'userId': user_id,
             'firstName': first_name,
             'lastName': last_name,
-            'email': email,
-            'password': password
+            'emailAddress': email,
+            'password': password,
+            'mustChangePassword': must_change_password,
+            'sendEmail': send_email,
+            'passwordNeverExpires': password_never_expires
         }
 
         resp = requests.post(request_url, headers=headers, data=payload).json()

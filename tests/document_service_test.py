@@ -1,19 +1,24 @@
 import unittest
-from .utilities import get_vault_object, generate_random_uuid
+from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 from vvrest.services.document_service import DocumentService
 
 
 class DocumentServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
-        cls.folder_path = '/test'
-        cls.query_string = "folderPath='/test'"
-        cls.document_id = '810013e6-50fa-e811-a9cf-8b72d90dd505'
-        cls.revision_id = '8fefa9b6-56fa-e811-a995-a3d452a1c2f6'
-        cls.index_field_id = '46c4f665-56fa-e811-a9cf-8b72d90dd505'
-        cls.index_field_name = 'test'
-        cls.folder_id = '75cb5823-50fa-e811-a995-a3d452a1c2f6'
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
+        test_parameters = get_parameters_json()
+        cls.folder_path = test_parameters['folder_path']
+        cls.query_string = test_parameters['query_string']
+        cls.document_id = test_parameters['document_id']
+        cls.revision_id = test_parameters['document_revision_id']
+        cls.index_field_id = test_parameters['index_field_id']
+        cls.index_field_name = test_parameters['index_field_name']
+        cls.folder_id = test_parameters['folder_id']
 
     def test_get_documents(self):
         """
@@ -110,7 +115,7 @@ class DocumentServiceTest(unittest.TestCase):
         resp = document_service.update_document_index_fields(self.document_id, fields_dict)
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(len(resp['data']), 1)
-        self.assertEqual(resp['data'][0]['fieldId'], self.index_field_id)
+        self.assertEqual(resp['data'][0]['fieldId'], self.index_field_id)  # TODO: report issue with UUID label
         # self.assertEqual(resp['data'][0]['value'], expected_value)  # TODO: uncomment when API resolves bug
         new_value = document_service.get_document_index_field(self.document_id, self.index_field_id)['data']['value']
         self.assertEqual(new_value, expected_value)
