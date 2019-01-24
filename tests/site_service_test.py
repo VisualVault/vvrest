@@ -77,3 +77,21 @@ class SiteServiceTest(unittest.TestCase):
         self.assertEqual(resp['data'][0]['id'], site_id)
         self.assertEqual(resp['data'][0]['name'], expected_site_name)
         self.assertEqual(resp['data'][0]['description'], expected_site_description)
+
+    def test_create_site_user(self):
+        """
+        tests SiteService.create_site_user
+        """
+        site_service = SiteService(self.vault)
+
+        # set fields
+        expected_user_id = generate_random_uuid()
+        first_name = 'test'
+        last_name = 'test'
+        email = 'test@visualvault.com'
+        password = 'TsT3!aB4@sY7'
+
+        resp = site_service.create_site_user(self.site_id, expected_user_id, first_name, last_name, email, password)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['dataType'], 'User')
+        self.assertEqual(resp['data']['name'], expected_user_id)
