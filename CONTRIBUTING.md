@@ -71,6 +71,10 @@ running a specific `test`:
 ```commandline
 python3 -m unittest tests.document_service_test.DocumentServiceTest.test_get_documents
 ```
+NOTE: running a specific class of tests or a specific test
+could result in failure if `setup_test_suite` has not been ran.
+to avoid this execute the entire test suite at least once before running 
+a specific class of tests or a specific test.
 
 ## contributing workflow
 check out a feature branch based off of the latest in `develop`:
