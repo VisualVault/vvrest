@@ -4,9 +4,13 @@ from vvrest.services.form_service import FormService
 
 
 class FormServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
         test_parameters = get_parameters_json()
         cls.form_template_id = test_parameters['form_template_id']
         cls.form_template_name = test_parameters['form_template_name']

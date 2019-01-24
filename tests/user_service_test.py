@@ -5,9 +5,13 @@ from uuid import UUID
 
 
 class UserServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
         test_parameters = get_parameters_json()
         cls.site_id = test_parameters['site_id']
         cls.user_id = test_parameters['user_id']

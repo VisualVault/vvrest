@@ -5,9 +5,13 @@ from .settings import test_file_path
 
 
 class FileServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
         test_parameters = get_parameters_json()
         cls.document_id = test_parameters['document_id']
         cls.document_revision_id = test_parameters['document_revision_id']

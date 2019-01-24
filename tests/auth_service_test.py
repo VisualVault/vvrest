@@ -3,9 +3,12 @@ from .utilities import get_vault_object
 
 
 class AuthServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
+        if not cls.vault:
+            cls.vault = get_vault_object()
 
     def test_access_token(self):
         """

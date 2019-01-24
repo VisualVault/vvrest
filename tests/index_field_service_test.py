@@ -4,9 +4,13 @@ from vvrest.services.index_field_service import IndexFieldService
 
 
 class IndexFieldServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
         test_parameters = get_parameters_json()
         cls.index_field_id = test_parameters['index_field_id']
         cls.folder_id = test_parameters['folder_id']

@@ -4,9 +4,13 @@ from vvrest.services.folder_service import FolderService
 
 
 class FolderServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
         test_parameters = get_parameters_json()
         cls.folder_name = test_parameters['folder_name']
         cls.folder_path = test_parameters['folder_path']

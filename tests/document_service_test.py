@@ -4,9 +4,13 @@ from vvrest.services.document_service import DocumentService
 
 
 class DocumentServiceTest(unittest.TestCase):
+    vault = None
+
     @classmethod
     def setUpClass(cls):
-        cls.vault = get_vault_object()
+        if not cls.vault:
+            cls.vault = get_vault_object()
+
         test_parameters = get_parameters_json()
         cls.folder_path = test_parameters['folder_path']
         cls.query_string = test_parameters['query_string']
@@ -111,7 +115,7 @@ class DocumentServiceTest(unittest.TestCase):
         resp = document_service.update_document_index_fields(self.document_id, fields_dict)
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(len(resp['data']), 1)
-        self.assertEqual(resp['data'][0]['fieldId'], self.index_field_id)
+        self.assertEqual(resp['data'][0]['fieldId'], self.index_field_id)  # TODO: report issue with UUID label
         # self.assertEqual(resp['data'][0]['value'], expected_value)  # TODO: uncomment when API resolves bug
         new_value = document_service.get_document_index_field(self.document_id, self.index_field_id)['data']['value']
         self.assertEqual(new_value, expected_value)
