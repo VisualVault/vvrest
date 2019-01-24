@@ -1,5 +1,17 @@
 # *vvrest* release changelog
 
+## v1.2.1
+- fix issue where user creation was failing in
+`SiteService.create_site_user`, and `UserService.create_user`.
+- additional `SiteService` and `UserService` unittests.
+- add `setup_test_suite` to allow `VVRestTestSuite` to be ran against
+any VisualVault environment.
+- add `settings.py` to `tests`.
+- add additional test utilities to `tests/utilities.py`.
+- refactor all unittests to get test parameters from `parameters.json`.
+- unittest `coverage` increase.
+- add `CONTRIBUTING.md`.
+
 ## v1.2.0
 - add `unittest` coverage for `FormService`.
 - move `FormService.get_form_instances_search` functionality to `FormService.get_form_instances`.
