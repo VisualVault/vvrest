@@ -74,3 +74,21 @@ class UserServiceTest(unittest.TestCase):
         self.assertEqual(resp['data']['id'], self.user_id)
         self.assertEqual(resp['data']['dataType'], 'User')
         self.assertEqual(resp['data']['lastName'], expected_last_name)
+
+    def test_create_user(self):
+        """
+        tests UserService.create_user
+        """
+        user_service = UserService(self.vault)
+
+        # set fields
+        expected_user_id = generate_random_uuid()
+        first_name = 'test'
+        last_name = 'test'
+        email = 'test@visualvault.com'
+        password = 'TsT3!aB4@sY7'
+
+        resp = user_service.create_user(self.site_id, expected_user_id, first_name, last_name, email, password)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['dataType'], 'User')
+        self.assertEqual(resp['data']['name'], expected_user_id)
