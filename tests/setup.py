@@ -3,6 +3,7 @@ import json
 from .utilities import get_vault_object, generate_random_uuid, get_parameters_json, get_random_string
 from vvrest.services.document_service import DocumentService
 from vvrest.services.folder_service import FolderService
+from vvrest.services.form_service import FormService
 from vvrest.services.index_field_service import IndexFieldService
 from vvrest.services.site_service import SiteService
 from vvrest.services.group_service import GroupService
@@ -19,6 +20,7 @@ def setup_test_suite():
 
     document_service = DocumentService(vault)
     folder_service = FolderService(vault)
+    form_service = FormService(vault)
     index_field_service = IndexFieldService(vault)
     site_service = SiteService(vault)
     group_service = GroupService(vault)
@@ -98,6 +100,21 @@ def setup_test_suite():
     resp = group_service.add_user_to_group(group_id, user_id)
     assert resp['meta']['status'] == 201
 
+    # get form params TODO: remove with API update
+    parameters_json = get_parameters_json()
+    form_template_id = parameters_json['form_template_id']
+    form_instance_field_name = parameters_json['form_template_field_name']
+    form_template_name = parameters_json['form_template_name']
+
+    # create form instance
+    form_instance_field_value = generate_random_uuid()
+    payload = {form_instance_field_name: form_instance_field_value}
+
+    resp = form_service.create_form_instance(form_template_id, payload)
+    assert resp['meta']['status'] == 201
+    form_instance_id = resp['data']['revisionId']
+    form_instance_name = resp['data']['instanceName']
+
     # setup test_parameters json
     if os.path.isfile(parameters_file):
         parameters = get_parameters_json()
@@ -114,6 +131,9 @@ def setup_test_suite():
         parameters['site_id'] = site_id
         parameters['group_id'] = group_id
         parameters['user_id'] = user_id
+        parameters['form_instance_name'] = form_instance_name
+        parameters['form_instance_id'] = form_instance_id
+        parameters['form_instance_field_value'] = form_instance_field_value
     else:
         parameters = dict(
             folder_path=folder_path,
@@ -128,7 +148,10 @@ def setup_test_suite():
             sub_folder_path=sub_folder_path,
             site_id=site_id,
             group_id=group_id,
-            user_id=user_id
+            user_id=user_id,
+            form_instance_name=form_instance_name,
+            form_instance_id=form_instance_id,
+            form_instance_field_value=form_instance_field_value
         )
 
     with open(parameters_file, 'w+') as parameters_json:
