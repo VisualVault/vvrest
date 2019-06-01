@@ -6,8 +6,9 @@ from .services.auth_service import AuthService
 class Vault:
     def __init__(self, url, customer_alias, database_alias, client_id, client_secret, user_web_token=None):
         """
-        if a valid user_web_token is passed in (not None), then user impersonation will be performed,
-        otherwise default authentication will be executed
+        if user_web_token is passed in, then vv will authenticate on behalf of the user that
+        the web_token belongs to. if user_web_token is not passed in (default=None), then
+        vv will authenticate on behalf of the user that the client_id and client_secret belong to.
         :param url: string, example: https://demo.visualvault.com
         :param customer_alias: string
         :param database_alias: string

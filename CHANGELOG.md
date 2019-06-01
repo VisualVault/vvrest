@@ -1,5 +1,14 @@
 # *vvrest* release changelog
 
+## v1.3.0
+- user impersonation feature.
+- add optional parameter `user_web_token` to `Vault`. if passed in, this
+optional parameter will be used to authenticate on behalf of the user
+that the `user_web_token` belongs to (user impersonation). if not passed in, 
+then vv will authenticate on behalf of the user that the `client_id` and 
+`client_secret` belong to.
+- enhance `UserService` unittest with user impersonation.
+
 ## v1.2.1
 - fix issue where user creation was failing in
 `SiteService.create_site_user`, and `UserService.create_user`.
