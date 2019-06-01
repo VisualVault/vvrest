@@ -4,19 +4,23 @@ from .services.auth_service import AuthService
 
 
 class Vault:
-    def __init__(self, url, customer_alias, database_alias, client_id, client_secret):
+    def __init__(self, url, customer_alias, database_alias, client_id, client_secret, user_web_token=None):
         """
+        if a valid user_web_token is passed in (not None), then user impersonation will be performed,
+        otherwise default authentication will be executed
         :param url: string, example: https://demo.visualvault.com
         :param customer_alias: string
         :param database_alias: string
         :param client_id: string UUID(version=4)
         :param client_secret: string, example: khN18YAZPe6F3Z0tc2W0HXCb487jm0wgwe6kNffUNf0=
+        :param user_web_token: string UUID(version=4), passed in if authentication is user impersonation
         """
         self.url = url
         self.customer_alias = customer_alias
         self.database_alias = database_alias
         self.client_id = client_id
         self.client_secret = client_secret
+        self.user_web_token = user_web_token
         self.token = self.get_access_token()
         self.base_url = self.get_base_url()
 
@@ -25,7 +29,8 @@ class Vault:
         requests access token
         :return: Token
         """
-        authentication_service = AuthService(self.url, self.customer_alias, self.database_alias, self.client_id, self.client_secret)
+        authentication_service = AuthService(self.url, self.customer_alias, self.database_alias, self.client_id,
+                                             self.client_secret, self.user_web_token)
 
         resp = authentication_service.get_access_token()
         access_token = resp['access_token']
@@ -48,7 +53,8 @@ class Vault:
         void method that refreshes Vault.token
         :return: None
         """
-        authentication_service = AuthService(self.url, self.customer_alias, self.database_alias, self.client_id, self.client_secret)
+        authentication_service = AuthService(self.url, self.customer_alias, self.database_alias, self.client_id,
+                                             self.client_secret, self.user_web_token)
 
         resp = authentication_service.refresh_access_token(self.token.refresh_token)
         access_token = resp['access_token']

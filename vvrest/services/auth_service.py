@@ -3,19 +3,21 @@ import requests
 
 
 class AuthService:
-    def __init__(self, url, customer_alias, database_alias, client_id, client_secret):
+    def __init__(self, url, customer_alias, database_alias, client_id, client_secret, user_web_token):
         """
-        :param url:
-        :param customer_alias:
-        :param database_alias:
-        :param client_id:
-        :param client_secret:
+        :param url: string, example: https://demo.visualvault.com
+        :param customer_alias: string
+        :param database_alias: string
+        :param client_id: string UUID(version=4)
+        :param client_secret: string, example: khN18YAZPe6F3Z0tc2W0HXCb487jm0wgwe6kNffUNf0=
+        :param user_web_token: string UUID(version=4), passed in if authentication is user impersonation
         """
         self.url = url
         self.customer_alias = customer_alias
         self.database_alias = database_alias
         self.client_id = client_id
         self.client_secret = client_secret
+        self.user_web_token = user_web_token
 
     def get_access_token(self):
         """
@@ -28,10 +30,15 @@ class AuthService:
         payload = {
             'client_id': self.client_id,
             'client_secret': self.client_secret,
-            'username': self.client_id,
-            'password': self.client_secret,
             'grant_type': GRANT_TYPE_PASSWORD
         }
+
+        if self.user_web_token:  # impersonation
+            payload['username'] = self.user_web_token
+            payload['password'] = self.user_web_token
+        else:
+            payload['username'] = self.client_id
+            payload['password'] = self.client_secret
 
         resp = requests.post(request_url, data=payload, headers=headers).json()
 
