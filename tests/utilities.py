@@ -5,15 +5,16 @@ from .settings import credentials_file, parameters_file
 from random import choice
 
 
-def get_vault_object():
+def get_vault_object(user_web_token=None):
     """
+    :param user_web_token: string UUID(version=4), used for user impersonation
     :return: Vault
     """
     with open(credentials_file) as credentials_json:
         credentials = json.load(credentials_json)
 
     vault = Vault(credentials['url'], credentials['customer_alias'], credentials['database_alias'],
-                  credentials['client_id'], credentials['client_secret'])
+                  credentials['client_id'], credentials['client_secret'], user_web_token)
 
     return vault
 

@@ -48,7 +48,18 @@ class UserServiceTest(unittest.TestCase):
 
         self.assertEqual(resp['meta']['status'], 200)
         self.assertIn('webToken', resp['data'])
-        UUID(resp['data']['webToken'], version=4)  # validate webToken is a valid uuid4
+        user_web_token = resp['data']['webToken']
+        UUID(user_web_token, version=4)  # validate webToken is a valid uuid4
+
+        # validate user impersonation
+        vault_impersonation = get_vault_object(user_web_token)
+        user_service = UserService(vault_impersonation)
+        resp = user_service.get_users()
+
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertGreater(len(resp['data']), 0)
+        for user in resp['data']:
+            self.assertEqual(user['dataType'], 'User')
 
     def test_update_user(self):
         """
