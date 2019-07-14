@@ -1,4 +1,6 @@
 import datetime
+from .constants import TOKEN_EXPIRY_TIMEZONE
+from pytz import timezone
 
 
 def get_token_expiration(expires):
@@ -6,7 +8,8 @@ def get_token_expiration(expires):
     :param expires: int, seconds value
     :return: datetime
     """
-    date = datetime.datetime.utcnow()
-    expiration_date = date + datetime.timedelta(seconds=expires)
+    tz = timezone(TOKEN_EXPIRY_TIMEZONE)
+    utc_now = datetime.datetime.now(tz)
+    expiration_date = utc_now + datetime.timedelta(seconds=expires)
 
     return expiration_date

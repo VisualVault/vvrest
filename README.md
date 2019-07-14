@@ -51,7 +51,7 @@ where each endpoint and there parameters are covered in great detail.
 Name                                     Stmts   Miss  Cover   Missing
 ----------------------------------------------------------------------
 vvrest/__init__.py                           0      0   100%
-vvrest/constants.py                         30      0   100%
+vvrest/constants.py                         31      0   100%
 vvrest/services/__init__.py                  0      0   100%
 vvrest/services/auth_service.py             27      0   100%
 vvrest/services/document_service.py         80      0   100%
@@ -64,8 +64,8 @@ vvrest/services/index_field_service.py      30      0   100%
 vvrest/services/site_service.py             35      0   100%
 vvrest/services/user_service.py             37      1    97%   17
 vvrest/token.py                              5      0   100%
-vvrest/utilities.py                          5      0   100%
+vvrest/utilities.py                          8      0   100%
 vvrest/vault.py                             34      0   100%
 ----------------------------------------------------------------------
-TOTAL                                      560     29    95%
+TOTAL                                      564     29    95%
 ```

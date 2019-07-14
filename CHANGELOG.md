@@ -1,5 +1,10 @@
 # *vvrest* release changelog
 
+## v1.3.1
+- `Token.token_expiration` is now timezone aware (UTC).
+- update `AuthServiceTest` unittests.
+- add `pytz` to package dependencies.
+
 ## v1.3.0
 - user impersonation feature.
 - add optional parameter `user_web_token` to `Vault`. if passed in, this

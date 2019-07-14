@@ -1,5 +1,6 @@
 import unittest
 from .utilities import get_vault_object
+from pytz import timezone
 
 
 class AuthServiceTest(unittest.TestCase):
@@ -16,6 +17,8 @@ class AuthServiceTest(unittest.TestCase):
         """
         self.assertIsNotNone(self.vault.token.access_token)
         self.assertGreater(len(self.vault.token.access_token), 0)
+        self.assertGreater(len(self.vault.token.refresh_token), 0)
+        self.assertEqual(self.vault.token.token_expiration.tzinfo, timezone('UTC'))
 
     def test_refresh_access_token(self):
         """
@@ -26,3 +29,5 @@ class AuthServiceTest(unittest.TestCase):
         self.vault.refresh_access_token()
         self.assertGreater(len(self.vault.token.access_token), 0)
         self.assertNotEqual(access_token, self.vault.token.access_token)
+        self.assertGreater(len(self.vault.token.refresh_token), 0)
+        self.assertEqual(self.vault.token.token_expiration.tzinfo, timezone('UTC'))
