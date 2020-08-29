@@ -42,7 +42,13 @@ class FileServiceTest(unittest.TestCase):
         self.assertEqual(resp['data']['revision'], expected_revision)
 
         new_file_id = resp['data']['id']
-        stream = file_service.get_file_stream_by_search("[id]='" + new_file_id + "'")
+        stream = file_service.get_file_stream(new_file_id)
         stream_stats = vars(stream)
         self.assertEqual(stream_stats['status_code'], 200)
         self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+
+        # TODO: functionality change in vv 5.0?
+        # stream = file_service.get_file_stream_by_search("[id]='" + new_file_id + "'")
+        # stream_stats = vars(stream)
+        # self.assertEqual(stream_stats['status_code'], 200)
+        # self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
