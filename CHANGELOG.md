@@ -1,5 +1,11 @@
 # *vvrest* release changelog
 
+## v1.4.0
+- add optional parameter `jwt` to `Vault`. if passed in, this
+optional parameter will be used as the `Token.access_token`
+- new service: `UserService.get_user_jwt`
+- `unittest` additions/edits
+
 ## v1.3.1
 - `Token.token_expiration` is now timezone aware (UTC).
 - update `AuthServiceTest` unittests.
