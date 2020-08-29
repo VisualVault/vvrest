@@ -1,6 +1,8 @@
 import unittest
-from .utilities import get_vault_object
+
 from pytz import timezone
+
+from .utilities import get_vault_object, get_random_string
 
 
 class AuthServiceTest(unittest.TestCase):
@@ -31,3 +33,13 @@ class AuthServiceTest(unittest.TestCase):
         self.assertNotEqual(access_token, self.vault.token.access_token)
         self.assertGreater(len(self.vault.token.refresh_token), 0)
         self.assertEqual(self.vault.token.token_expiration.tzinfo, timezone('UTC'))
+
+    def test_authentication_uses_jwt(self):
+        """
+        tests a Vault object will use JWT if JWT is passed in
+        """
+        jwt = get_random_string(1120)
+        vault = get_vault_object(jwt=jwt)
+        self.assertEqual(vault.token.access_token, jwt)
+        self.assertIsNone(vault.token.token_expiration)
+        self.assertIsNone(vault.token.refresh_token)

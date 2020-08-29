@@ -103,3 +103,11 @@ class UserServiceTest(unittest.TestCase):
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['dataType'], 'User')
         self.assertEqual(resp['data']['name'], expected_user_id)
+
+    def test_get_user_jwt(self):
+        user_service = UserService(self.vault)
+
+        resp = user_service.get_user_jwt()
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertIn('token', resp['data'])
+        self.assertIn('expires', resp['data'])

@@ -4,17 +4,18 @@ from .services.auth_service import AuthService
 
 
 class Vault:
-    def __init__(self, url, customer_alias, database_alias, client_id, client_secret, user_web_token=None):
+    def __init__(self, url, customer_alias, database_alias, client_id, client_secret, user_web_token=None, jwt=None):
         """
         if user_web_token is passed in, then vv will authenticate on behalf of the user that
         the web_token belongs to. if user_web_token is not passed in (default=None), then
         vv will authenticate on behalf of the user that the client_id and client_secret belong to.
         :param url: string, example: https://demo.visualvault.com
-        :param customer_alias: string
-        :param database_alias: string
-        :param client_id: string UUID(version=4)
-        :param client_secret: string, example: khN18YAZPe6F3Z0tc2W0HXCb487jm0wgwe6kNffUNf0=
-        :param user_web_token: string UUID(version=4), passed in if authentication is user impersonation
+        :param customer_alias: str
+        :param database_alias: str
+        :param client_id: str, UUID(version=4)
+        :param client_secret: str, example: khN18YAZPe6F3Z0tc2W0HXCb487jm0wgwe6kNffUNf0=
+        :param user_web_token: str UUID(version=4), passed in if authentication is user impersonation
+        :param jwt: string, JSON Web Token
         """
         self.url = url
         self.customer_alias = customer_alias
@@ -22,6 +23,7 @@ class Vault:
         self.client_id = client_id
         self.client_secret = client_secret
         self.user_web_token = user_web_token
+        self.jwt = jwt
         self.token = self.get_access_token()
         self.base_url = self.get_base_url()
 
@@ -33,10 +35,16 @@ class Vault:
         authentication_service = AuthService(self.url, self.customer_alias, self.database_alias, self.client_id,
                                              self.client_secret, self.user_web_token)
 
-        resp = authentication_service.get_access_token()
-        access_token = resp['access_token']
-        token_expiration = get_token_expiration(resp['expires_in'])
-        refresh_token = resp['refresh_token']
+        if not self.jwt:
+            resp = authentication_service.get_access_token()
+            access_token = resp['access_token']
+            token_expiration = get_token_expiration(resp['expires_in'])
+            refresh_token = resp['refresh_token']
+        else:
+            access_token = self.jwt
+            token_expiration = None
+            refresh_token = None
+
         token = Token(access_token, token_expiration, refresh_token)
 
         return token

@@ -1,5 +1,5 @@
 import requests
-from ..constants import USERS_URL, WEB_TOKEN_URL, SITE_ID_URL
+from ..constants import USERS_URL, WEB_TOKEN_URL, SITE_ID_URL, JWT_URL
 
 
 class UserService:
@@ -91,5 +91,18 @@ class UserService:
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.put(request_url, headers=headers, data=fields_dict).json()
+
+        return resp
+
+    def get_user_jwt(self):
+        """
+        get a users JWT by userId
+        refreshes a users JWT if JWT is passed into Vault object
+        :return: dict
+        """
+        endpoint = USERS_URL + '/' + JWT_URL
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.get(request_url, headers=headers).json()
 
         return resp

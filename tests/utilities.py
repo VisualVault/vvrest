@@ -1,20 +1,23 @@
 import json
 from uuid import uuid4
-from vvrest.vault import Vault
-from .settings import credentials_file, parameters_file
 from random import choice
 
+from vvrest.vault import Vault
 
-def get_vault_object(user_web_token=None):
+from .settings import credentials_file, parameters_file
+
+
+def get_vault_object(user_web_token=None, jwt=None):
     """
     :param user_web_token: string UUID(version=4), used for user impersonation
+    :param jwt: str, JSON Web Token
     :return: Vault
     """
     with open(credentials_file) as credentials_json:
         credentials = json.load(credentials_json)
 
     vault = Vault(credentials['url'], credentials['customer_alias'], credentials['database_alias'],
-                  credentials['client_id'], credentials['client_secret'], user_web_token)
+                  credentials['client_id'], credentials['client_secret'], user_web_token, jwt)
 
     return vault
 
