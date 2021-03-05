@@ -52,3 +52,60 @@ class FileServiceTest(unittest.TestCase):
         # stream_stats = vars(stream)
         # self.assertEqual(stream_stats['status_code'], 200)
         # self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+
+    def test_file_upload_check_in(self):
+        """
+        validate FileService.file_upload check_in functionality
+        """
+        # validate default checkIn
+        expected_revision = generate_random_uuid()
+        file_service = FileService(self.vault)
+        resp = file_service.file_upload(self.document_id, 'unittest', expected_revision, 'unittest change reason',
+                                        'Released', '', 'unittest.txt', self.file_path + '/' + self.file_upload_name)
+
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], self.document_id)
+        self.assertEqual(resp['data']['revision'], expected_revision)
+        self.assertEqual(resp['data']['checkInStatus'], 0)
+
+        new_file_id = resp['data']['id']
+        stream = file_service.get_file_stream(new_file_id)
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+
+        # validate checkIn True
+        expected_revision = generate_random_uuid()
+        file_service = FileService(self.vault)
+        resp = file_service.file_upload(self.document_id, 'unittest', expected_revision, 'unittest change reason',
+                                        'Released', '', 'unittest.txt', self.file_path + '/' + self.file_upload_name,
+                                        check_in=True)
+
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], self.document_id)
+        self.assertEqual(resp['data']['revision'], expected_revision)
+        self.assertEqual(resp['data']['checkInStatus'], 0)
+
+        new_file_id = resp['data']['id']
+        stream = file_service.get_file_stream(new_file_id)
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+
+        # validate checkIn False
+        expected_revision = generate_random_uuid()
+        file_service = FileService(self.vault)
+        resp = file_service.file_upload(self.document_id, 'unittest', expected_revision, 'unittest change reason',
+                                        'Released', '', 'unittest.txt', self.file_path + '/' + self.file_upload_name,
+                                        check_in=False)
+
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], self.document_id)
+        self.assertEqual(resp['data']['revision'], expected_revision)
+        self.assertEqual(resp['data']['checkInStatus'], 1)
+
+        new_file_id = resp['data']['id']
+        stream = file_service.get_file_stream(new_file_id)
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
