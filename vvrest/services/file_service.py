@@ -35,7 +35,8 @@ class FileService:
 
         return stream
 
-    def file_upload(self, document_id, name, revision, change_reason, check_in_state, index_fields, file_name, file_path):
+    def file_upload(self, document_id, name, revision, change_reason, check_in_state, index_fields, file_name,
+                    file_path, check_in=True):
         """
         :param document_id: string uuid4
         :param name: string
@@ -45,23 +46,25 @@ class FileService:
         :param index_fields: string dict, example: "{'testFIELD': 'the value'}"
         :param file_name: string
         :param file_path: string
+        :param check_in: bool, default: True
         :return: dict
         """
         request_url = self.vault.base_url + FILES_URL
         headers = self.vault.get_auth_headers()
 
-        params = {
+        payload = {
             'documentId': document_id,
             'name': name,
             'revision': revision,
             'changeReason': change_reason,
             'checkInDocumentState': check_in_state,
             'indexFields': index_fields,
-            'fileName': file_name
+            'fileName': file_name,
+            'checkIn': check_in
         }
 
         with open(file_path, 'rb') as file_stream:  # open file stream
             files = {'fileUpload': (file_name, file_stream, 'application/octet-stream')}
-            resp = requests.post(request_url, headers=headers, data=params, files=files).json()
+            resp = requests.post(request_url, headers=headers, data=payload, files=files).json()
 
         return resp

@@ -1,5 +1,8 @@
 # *vvrest* release changelog
 
+## v1.5.0
+- add optional parameter `check_in` to `FileService.file_upload`
+
 ## v1.4.0
 - add optional parameter `jwt` to `Vault`. if passed in, this
 optional parameter will be used as the `Token.access_token`
