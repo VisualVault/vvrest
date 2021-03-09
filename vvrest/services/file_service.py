@@ -52,7 +52,7 @@ class FileService:
         request_url = self.vault.base_url + FILES_URL
         headers = self.vault.get_auth_headers()
 
-        params = {
+        payload = {
             'documentId': document_id,
             'name': name,
             'revision': revision,
@@ -65,6 +65,6 @@ class FileService:
 
         with open(file_path, 'rb') as file_stream:  # open file stream
             files = {'fileUpload': (file_name, file_stream, 'application/octet-stream')}
-            resp = requests.post(request_url, headers=headers, data=params, files=files).json()
+            resp = requests.post(request_url, headers=headers, data=payload, files=files).json()
 
         return resp
