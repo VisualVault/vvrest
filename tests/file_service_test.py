@@ -79,7 +79,7 @@ class FileServiceTest(unittest.TestCase):
         file_service = FileService(self.vault)
         resp = file_service.file_upload(self.document_id, 'unittest', expected_revision, 'unittest change reason',
                                         'Released', '', 'unittest.txt', self.file_path + '/' + self.file_upload_name,
-                                        check_in=True)
+                                        check_in=0)
 
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['documentId'], self.document_id)
@@ -97,7 +97,7 @@ class FileServiceTest(unittest.TestCase):
         file_service = FileService(self.vault)
         resp = file_service.file_upload(self.document_id, 'unittest', expected_revision, 'unittest change reason',
                                         'Released', '', 'unittest.txt', self.file_path + '/' + self.file_upload_name,
-                                        check_in=False)
+                                        check_in=1)
 
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['documentId'], self.document_id)
