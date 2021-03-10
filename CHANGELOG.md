@@ -1,5 +1,9 @@
 # *vvrest* release changelog
 
+# v1.6.0
+- add `file_stream_upload` to `FileService` allowing a file stream (bytes/BufferedReader)
+to be provided to `vvrest` instead of a file path for file upload.
+
 ## v1.5.0
 - add optional parameter `check_in` to `FileService.file_upload`
 
