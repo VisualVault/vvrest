@@ -1,6 +1,9 @@
 import unittest
-from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
+
+from io import BytesIO
 from vvrest.services.file_service import FileService
+
+from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 from .settings import test_file_path
 
 
@@ -103,6 +106,66 @@ class FileServiceTest(unittest.TestCase):
         self.assertEqual(resp['data']['documentId'], self.document_id)
         self.assertEqual(resp['data']['revision'], expected_revision)
         self.assertEqual(resp['data']['checkInStatus'], 1)
+
+        new_file_id = resp['data']['id']
+        stream = file_service.get_file_stream(new_file_id)
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+
+    def test_file_stream_upload(self):
+        """
+        test FileService.file_stream_upload
+        """
+        file_service = FileService(self.vault)
+
+        # test sending a file stream through with open
+        expected_revision = generate_random_uuid()
+        with open(self.file_path + '/' + self.file_upload_name, 'rb') as file_stream:
+            resp = file_service.file_stream_upload(self.document_id, 'unittest', expected_revision, 'unittest change reason',
+                                                   'Released', '', 'unittest.txt', file_stream, True)
+
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], self.document_id)
+        self.assertEqual(resp['data']['revision'], expected_revision)
+
+        new_file_id = resp['data']['id']
+        stream = file_service.get_file_stream(new_file_id)
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+
+        # test sending an in memory file stream (BytesIO) written from open
+        expected_revision = generate_random_uuid()
+        with open(self.file_path + '/' + self.file_upload_name, 'rb') as file_stream:
+            with BytesIO() as memory_stream:
+                memory_stream.writelines(file_stream)
+                resp = file_service.file_stream_upload(self.document_id, 'unittest', expected_revision, 'unittest change reason',
+                                                       'Released', '', 'unittest.txt', memory_stream.getvalue(), True)
+
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], self.document_id)
+        self.assertEqual(resp['data']['revision'], expected_revision)
+
+        new_file_id = resp['data']['id']
+        stream = file_service.get_file_stream(new_file_id)
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+
+        # test sending an in memory file stream (BytesIO) written from stream url
+        expected_revision = generate_random_uuid()
+        with file_service.get_file_stream(new_file_id) as file_stream:
+            stream_stats = vars(file_stream)
+            self.assertEqual(stream_stats['status_code'], 200)
+            self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+            with BytesIO(file_stream.content) as memory_stream:
+                resp = file_service.file_stream_upload(self.document_id, 'unittest', expected_revision, 'unittest change reason',
+                                                       'Released', '', 'unittest.txt', memory_stream.getvalue(), True)
+
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], self.document_id)
+        self.assertEqual(resp['data']['revision'], expected_revision)
 
         new_file_id = resp['data']['id']
         stream = file_service.get_file_stream(new_file_id)

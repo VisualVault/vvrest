@@ -38,6 +38,7 @@ class FileService:
     def file_upload(self, document_id, name, revision, change_reason, check_in_state, index_fields, file_name,
                     file_path, check_in=True):
         """
+        use a file path to upload the file stream
         :param document_id: string uuid4
         :param name: string
         :param revision: string
@@ -66,5 +67,39 @@ class FileService:
         with open(file_path, 'rb') as file_stream:  # open file stream
             files = {'fileUpload': (file_name, file_stream, 'application/octet-stream')}
             resp = requests.post(request_url, headers=headers, data=payload, files=files).json()
+
+        return resp
+
+    def file_stream_upload(self, document_id, name, revision, change_reason, check_in_state, index_fields, file_name,
+                           file_stream, check_in):
+        """
+        provide the file stream for the file upload
+        :param document_id: string uuid4
+        :param name: string
+        :param revision: string
+        :param change_reason: string
+        :param check_in_state: string
+        :param index_fields: string dict, example: "{'testFIELD': 'the value'}"
+        :param file_name: string
+        :param file_stream: bytes or BufferedReader (BytesIO.getvalue(), or open)
+        :param check_in: bool
+        :return: dict
+        """
+        request_url = self.vault.base_url + FILES_URL
+        headers = self.vault.get_auth_headers()
+
+        payload = {
+            'documentId': document_id,
+            'name': name,
+            'revision': revision,
+            'changeReason': change_reason,
+            'checkInDocumentState': check_in_state,
+            'indexFields': index_fields,
+            'fileName': file_name,
+            'checkIn': check_in
+        }
+
+        files = {'fileUpload': (file_name, file_stream, 'application/octet-stream')}
+        resp = requests.post(request_url, headers=headers, data=payload, files=files).json()
 
         return resp

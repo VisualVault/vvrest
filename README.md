@@ -56,7 +56,7 @@ vvrest/services/__init__.py                  0      0   100%
 vvrest/services/auth_service.py             27      0   100%
 vvrest/services/document_service.py         80      0   100%
 vvrest/services/email_service.py            11      0   100%
-vvrest/services/file_service.py             25      5    80%   31-36
+vvrest/services/file_service.py             32      5    84%   31-36
 vvrest/services/folder_service.py           73     11    85%   99-104, 192-205
 vvrest/services/form_service.py            119     16    87%   178-183, 220-225, 234-238, 250, 268
 vvrest/services/group_service.py            49      1    98%   17
@@ -67,5 +67,5 @@ vvrest/token.py                              5      0   100%
 vvrest/utilities.py                          8      0   100%
 vvrest/vault.py                             39      0   100%
 ----------------------------------------------------------------------
-TOTAL                                      576     34    94%
+TOTAL                                      583     34    94%
 ```
