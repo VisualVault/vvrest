@@ -1,5 +1,9 @@
 # *vvrest* release changelog
 
+# v1.7.0
+- add `update_document_check_in_status` to `DocumentService`
+- add `audience` param to `UserService.get_user_jwt`
+
 # v1.6.0
 - add `file_stream_upload` to `FileService` allowing a file stream (bytes/BufferedReader)
 to be provided to `vvrest` instead of a file path for file upload.
