@@ -1,5 +1,6 @@
 import requests
-from ..constants import DOCUMENTS_URL, REVISIONS_URL, INDEX_FIELDS_URL
+
+from ..constants import DOCUMENTS_URL, REVISIONS_URL, INDEX_FIELDS_URL, STATUS_URL
 
 
 class DocumentService:
@@ -190,5 +191,20 @@ class DocumentService:
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.delete(request_url, headers=headers).json()
+
+        return resp
+
+    def update_document_check_in_status(self, document_id, check_in):
+        """
+        accepted values: 0 (Checked In), 1 (Checked Out)
+        :param document_id: uuid4 formatted str
+        :param check_in: int
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + document_id + '/' + STATUS_URL
+        params = dict(checkIn=check_in)
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.put(request_url, headers=headers, json=params).json()
 
         return resp

@@ -157,3 +157,27 @@ class DocumentServiceTest(unittest.TestCase):
         # validate document does not exist in VV
         # resp = document_service.get_document(document_id)
         # self.assertEqual(resp['meta']['status'], 404)  # TODO: review
+
+    def test_update_document_check_in_status(self):
+        """
+        tests DocumentService.update_document_check_in_status
+        """
+        document_service = DocumentService(self.vault)
+
+        # validate document checked in
+        resp = document_service.get_document(self.document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], self.document_id)
+        self.assertEqual(resp['data']['checkInStatus'], 0)
+
+        # check out document in VV
+        resp = document_service.update_document_check_in_status(self.document_id, 1)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], self.document_id)
+        self.assertEqual(resp['data']['checkInStatus'], 1)
+
+        # check in document in VV
+        resp = document_service.update_document_check_in_status(self.document_id, 0)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], self.document_id)
+        self.assertEqual(resp['data']['checkInStatus'], 0)
