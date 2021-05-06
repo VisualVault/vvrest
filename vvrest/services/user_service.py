@@ -94,15 +94,21 @@ class UserService:
 
         return resp
 
-    def get_user_jwt(self):
+    def get_user_jwt(self, audience=None):
         """
         get a users JWT by userId
         refreshes a users JWT if JWT is passed into Vault object
+        :param audience: str
         :return: dict
         """
         endpoint = USERS_URL + '/' + JWT_URL
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
-        resp = requests.get(request_url, headers=headers).json()
+
+        params = dict()
+        if audience:
+            params['audience'] = audience
+
+        resp = requests.get(request_url, headers=headers, params=params).json()
 
         return resp
