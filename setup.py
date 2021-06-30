@@ -5,7 +5,7 @@ with open('README.md', 'r') as readme:
 
 setuptools.setup(
     name='vvrest',
-    version='1.7.0',
+    version='1.8.0',
     author='Jared Runyon',
     author_email='jared.runyon@visualvault.com',
     maintainer='Jared Runyon',

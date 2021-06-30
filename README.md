@@ -48,9 +48,9 @@ where each endpoint and there parameters are covered in great detail.
 
 ## unittest coverage
 ```
-.........................................................
+..........................................................
 ----------------------------------------------------------------------
-Ran 57 tests in 68.308s
+Ran 58 tests in 72.792s
 
 OK
 
@@ -60,7 +60,7 @@ vvrest/__init__.py                           0      0   100%
 vvrest/constants.py                         33      0   100%
 vvrest/services/__init__.py                  0      0   100%
 vvrest/services/auth_service.py             27      0   100%
-vvrest/services/document_service.py         87      0   100%
+vvrest/services/document_service.py         93      0   100%
 vvrest/services/email_service.py            11      0   100%
 vvrest/services/file_service.py             32      5    84%   31-36
 vvrest/services/folder_service.py           73     11    85%   99-104, 192-205
@@ -73,5 +73,5 @@ vvrest/token.py                              5      0   100%
 vvrest/utilities.py                          8      0   100%
 vvrest/vault.py                             39      0   100%
 ----------------------------------------------------------------------
-TOTAL                                      594     34    94%
+TOTAL                                      600     34    94%                                   594     34    94%
 ```

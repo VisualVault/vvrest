@@ -1,5 +1,9 @@
 # *vvrest* release changelog
 
+# v1.8.0
+- add `delete_document_revision` to `DocumentService`
+- update `DocumentService`.`delete_document`
+
 # v1.7.0
 - add `update_document_check_in_status` to `DocumentService`
 - add `audience` param to `UserService.get_user_jwt`
