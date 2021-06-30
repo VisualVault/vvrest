@@ -195,6 +195,19 @@ class DocumentService:
 
         return resp
 
+    def delete_document_revision(self, revision_id):
+        """
+        NOTE: cannot delete newest document revision_id
+        :param revision_id: string uuid4
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + REVISIONS_URL + '/' + revision_id
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.delete(request_url, headers=headers).json()
+
+        return resp
+
     def update_document_check_in_status(self, document_id, check_in):
         """
         accepted values: 0 (Checked In), 1 (Checked Out)
