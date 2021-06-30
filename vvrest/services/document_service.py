@@ -182,12 +182,26 @@ class DocumentService:
 
         return resp
 
-    def delete_document(self, document_id):
+    def delete_document(self, revision_id):
         """
-        :param document_id: string uuid4
+        newest revision_id deletes the entire document
+        :param revision_id: string uuid4
         :return: dict
         """
-        endpoint = DOCUMENTS_URL + '/' + document_id
+        endpoint = DOCUMENTS_URL + '/' + revision_id
+        request_url = self.vault.base_url + endpoint
+        headers = self.vault.get_auth_headers()
+        resp = requests.delete(request_url, headers=headers).json()
+
+        return resp
+
+    def delete_document_revision(self, revision_id):
+        """
+        NOTE: cannot delete newest document revision_id
+        :param revision_id: string uuid4
+        :return: dict
+        """
+        endpoint = DOCUMENTS_URL + '/' + REVISIONS_URL + '/' + revision_id
         request_url = self.vault.base_url + endpoint
         headers = self.vault.get_auth_headers()
         resp = requests.delete(request_url, headers=headers).json()

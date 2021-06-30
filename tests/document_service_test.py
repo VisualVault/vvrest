@@ -1,6 +1,10 @@
 import unittest
-from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
+
 from vvrest.services.document_service import DocumentService
+from vvrest.services.file_service import FileService
+
+from .settings import test_file_path
+from .utilities import get_vault_object, generate_random_uuid, get_parameters_json
 
 
 class DocumentServiceTest(unittest.TestCase):
@@ -149,14 +153,115 @@ class DocumentServiceTest(unittest.TestCase):
         resp = document_service.get_document(document_id)
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['documentId'], document_id)
+        self.assertEqual(resp['data']['archive'], 0)  # document not in recycle bin
 
         # delete document
-        resp = document_service.delete_document(revision_id)  # TODO: possibly update API docs
+        resp = document_service.delete_document(revision_id)
         self.assertEqual(resp['meta']['status'], 200)
 
         # validate document does not exist in VV
-        # resp = document_service.get_document(document_id)
-        # self.assertEqual(resp['meta']['status'], 404)  # TODO: review
+        resp = document_service.get_document(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['archive'], 2)  # document in recycle bin
+
+    def test_delete_document_revision(self):
+        """
+        tests DocumentService.delete_document_revision
+        """
+        document_service = DocumentService(self.vault)
+
+        # new document
+        resp = document_service.new_document(self.folder_id, 1, '_test_doc', '_test_doc description', '0', '_test.txt')
+        self.assertEqual(resp['meta']['status'], 200)
+        document_id = resp['data']['documentId']
+        empty_revision_id = resp['data']['id']
+
+        # validate document exists in VV
+        resp = document_service.get_document(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], document_id)
+        self.assertEqual(resp['data']['archive'], 0)  # document not in recycle bin
+
+        # upload first revision
+        file_upload_name = 'test_file.txt'
+        expected_revision = generate_random_uuid()
+        file_service = FileService(self.vault)
+        resp = file_service.file_upload(document_id, 'unittest', expected_revision, 'unittest change reason',
+                                        'Released', '', 'unittest.txt', test_file_path + '/' + file_upload_name)
+
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], document_id)
+        self.assertEqual(resp['data']['revision'], expected_revision)
+
+        new_file_id = resp['data']['id']
+        stream = file_service.get_file_stream(new_file_id)
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+
+        # get new revision
+        resp = document_service.get_document(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], document_id)
+        new_revision = resp['data']['id']
+
+        # upload second revision
+        expected_revision = generate_random_uuid()
+        file_service = FileService(self.vault)
+        resp = file_service.file_upload(document_id, 'unittest', expected_revision, 'unittest change reason',
+                                        'Released', '', 'unittest.txt', test_file_path + '/' + file_upload_name)
+
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], document_id)
+        self.assertEqual(resp['data']['revision'], expected_revision)
+
+        new_file_id = resp['data']['id']
+        stream = file_service.get_file_stream(new_file_id)
+        stream_stats = vars(stream)
+        self.assertEqual(stream_stats['status_code'], 200)
+        self.assertEqual(stream_stats['headers']['Content-Type'], 'application/octet-stream')
+
+        # get new revision
+        resp = document_service.get_document(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], document_id)
+        newest_revision = resp['data']['id']
+
+        # validate newest revision has changed
+        self.assertNotEqual(new_revision, newest_revision)
+
+        # validate document is not deleted
+        resp = document_service.get_document_revision(document_id, new_revision)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['archive'], 0)  # document not in recycle bin
+
+        # validate number of revisions
+        resp = document_service.get_document_revisions(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(len(resp['data']), 3)
+        revisions = [document['id'] for document in resp['data']]
+        self.assertIn(empty_revision_id, revisions)
+        self.assertIn(new_revision, revisions)
+        self.assertIn(newest_revision, revisions)
+
+        # delete document
+        resp = document_service.delete_document_revision(new_revision)
+        self.assertEqual(resp['meta']['status'], 200)
+
+        # validate document is deleted
+        resp = document_service.get_document_revisions(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(len(resp['data']), 2)
+        revisions = [document['id'] for document in resp['data']]
+        self.assertIn(empty_revision_id, revisions)
+        self.assertNotIn(new_revision, revisions)
+        self.assertIn(newest_revision, revisions)
+
+        # validate newest document is still newest_revision
+        resp = document_service.get_document(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['documentId'], document_id)
+        self.assertEqual(resp['data']['id'], newest_revision)
 
     def test_update_document_check_in_status(self):
         """
