@@ -263,6 +263,15 @@ class DocumentServiceTest(unittest.TestCase):
         self.assertEqual(resp['data']['documentId'], document_id)
         self.assertEqual(resp['data']['id'], newest_revision)
 
+        # delete document
+        resp = document_service.delete_document(newest_revision)
+        self.assertEqual(resp['meta']['status'], 200)
+
+        # validate document does not exist in VV
+        resp = document_service.get_document(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['archive'], 2)  # document in recycle bin
+
     def test_update_document_check_in_status(self):
         """
         tests DocumentService.update_document_check_in_status
