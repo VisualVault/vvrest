@@ -149,14 +149,16 @@ class DocumentServiceTest(unittest.TestCase):
         resp = document_service.get_document(document_id)
         self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(resp['data']['documentId'], document_id)
+        self.assertEqual(resp['data']['archive'], 0)  # document not in recycle bin
 
         # delete document
-        resp = document_service.delete_document(revision_id)  # TODO: possibly update API docs
+        resp = document_service.delete_document(revision_id)
         self.assertEqual(resp['meta']['status'], 200)
 
         # validate document does not exist in VV
-        # resp = document_service.get_document(document_id)
-        # self.assertEqual(resp['meta']['status'], 404)  # TODO: review
+        resp = document_service.get_document(document_id)
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['data']['archive'], 2)  # document in recycle bin
 
     def test_update_document_check_in_status(self):
         """
