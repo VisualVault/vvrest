@@ -151,7 +151,7 @@ class DocumentService:
 
         return resp
 
-    def new_document(self, folder_id, document_state, name, description, revision, file_name):
+    def new_document(self, folder_id, document_state, name, description, revision, file_name, index_fields):
         """
         creates a document object with no file attached. first step in file upload process.
         :param folder_id: string uuid4
@@ -160,6 +160,7 @@ class DocumentService:
         :param description: string
         :param revision: string
         :param file_name: string
+        :param index_fields: string
         :return:
         """
         endpoint = DOCUMENTS_URL
@@ -174,7 +175,7 @@ class DocumentService:
             'allowNoFile': True,
             'fileLength': 0,
             'fileName': file_name,
-            'indexFields': '{}'
+            'indexFields': index_fields
         }
 
         headers = self.vault.get_auth_headers()
