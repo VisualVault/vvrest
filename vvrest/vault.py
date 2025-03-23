@@ -1,6 +1,7 @@
 from .token import Token
 from .utilities import get_token_expiration
 from .services.auth_service import AuthService
+from .services.config_service import ConfigService
 
 
 class Vault:
@@ -26,6 +27,15 @@ class Vault:
         self.jwt = jwt
         self.token = self.get_access_token()
         self.base_url = self.get_base_url()
+        self.docapi_url = None
+
+        # if docapi is enabled set docapi_url
+        config_service = ConfigService(self)
+        if self.jwt:
+            docapi_config = config_service.get_docapi_config()
+            if 'data' in docapi_config:
+                if docapi_config['data']['isEnabled']:
+                    self.docapi_url = docapi_config['data']['apiUrl']
 
     def get_access_token(self):
         """

@@ -3,6 +3,7 @@ from uuid import uuid4
 from random import choice
 
 from vvrest.vault import Vault
+from vvrest.services.user_service import UserService
 
 from .settings import credentials_file, parameters_file
 
@@ -60,3 +61,13 @@ def get_random_string(length):
     random_string = ''.join(choice(char_choices) for i in range(length))
 
     return random_string
+
+
+def get_jwt(vault):
+    """
+    fetches jwt for a user
+    """
+    user_service = UserService(vault)
+    resp = user_service.get_user_jwt()
+
+    return resp['data']['token']
