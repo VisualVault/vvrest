@@ -76,7 +76,13 @@ could result in failure if `setup_test_suite` has not been ran.
 to avoid this execute the entire test suite at least once before running 
 a specific class of tests or a specific test.
 
-## contributing workflow
+the `vvrest` test suite can/should be ran with the provided Dockerfile
+```
+docker build -t vvresttestsuite:latest -f VVRestTestSuite.Dockerfile .
+docker run vvresttestsuite:latest
+```
+
+### contributing workflow
 check out a feature branch based off of the latest in `develop`:
 ```commandline
 git checkout develop

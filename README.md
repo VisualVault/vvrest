@@ -38,8 +38,10 @@ vault = Vault(url, customer_alias, database_alias, client_id, client_secret)
 document_service = DocumentService(vault)  # instantiate a service class (DocumentService)
 documents = document_service.get_documents("folderPath='/test'")  # request documents
 ```
-
-* documentation coming soon.
+vault constructor has three optional parameters:
+* `web_token`: if present auth token is fetched with impersonation.
+* `jwt`: if provided `jwt` will be used in auth headers.
+* `auto_jwt`: if True then `jwt` will be fetched and populated in auth headers.
 * refer to the `VVRestTestSuite` in the `tests` directory for more examples.
 
 For more information on any of the endpoints, data types, or anything referring to the 
@@ -48,30 +50,42 @@ where each endpoint and there parameters are covered in great detail.
 
 ## unittest coverage
 ```
-..........................................................
+............................................F....................
+======================================================================
+FAIL: test_relate_document (tests.form_service_test.FormServiceTest.test_relate_document)
+tests the following FormService methods:
 ----------------------------------------------------------------------
-Ran 58 tests in 72.792s
+Traceback (most recent call last):
+  File "/app/tests/form_service_test.py", line 220, in test_relate_document
+    self.assertEqual(len(resp['data']), 1)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 0 != 1
 
-OK
+----------------------------------------------------------------------
+Ran 65 tests in 128.796s
 
-Name                                     Stmts   Miss  Cover   Missing
-----------------------------------------------------------------------
-vvrest/__init__.py                           0      0   100%
-vvrest/constants.py                         33      0   100%
-vvrest/services/__init__.py                  0      0   100%
-vvrest/services/auth_service.py             27      0   100%
-vvrest/services/document_service.py         93      0   100%
-vvrest/services/email_service.py            11      0   100%
-vvrest/services/file_service.py             32      5    84%   31-36
-vvrest/services/folder_service.py           73     11    85%   99-104, 192-205
-vvrest/services/form_service.py            119     16    87%   178-183, 220-225, 234-238, 250, 268
-vvrest/services/group_service.py            49      1    98%   17
-vvrest/services/index_field_service.py      30      0   100%
-vvrest/services/site_service.py             35      0   100%
-vvrest/services/user_service.py             46      1    98%   17
-vvrest/token.py                              5      0   100%
-vvrest/utilities.py                          8      0   100%
-vvrest/vault.py                             39      0   100%
-----------------------------------------------------------------------
-TOTAL                                      600     34    94%                                   594     34    94%
+FAILED (failures=1)
+Name                                         Stmts   Miss  Cover
+----------------------------------------------------------------
+vvrest/__init__.py                               0      0   100%
+vvrest/constants.py                             35      0   100%
+vvrest/services/__init__.py                      0      0   100%
+vvrest/services/auth_service.py                 27      0   100%
+vvrest/services/config_service.py               10      0   100%
+vvrest/services/doc_api_file_service.py         13      0   100%
+vvrest/services/docapi_document_service.py      13      0   100%
+vvrest/services/document_service.py             93      0   100%
+vvrest/services/email_service.py                11      0   100%
+vvrest/services/file_service.py                 32      5    84%
+vvrest/services/folder_service.py               73     11    85%
+vvrest/services/form_service.py                119     21    82%
+vvrest/services/group_service.py                49      1    98%
+vvrest/services/index_field_service.py          30      0   100%
+vvrest/services/site_service.py                 35      0   100%
+vvrest/services/user_service.py                 46      1    98%
+vvrest/token.py                                  5      0   100%
+vvrest/utilities.py                              8      0   100%
+vvrest/vault.py                                 54      0   100%
+----------------------------------------------------------------
+TOTAL                                          653     39    94%
 ```

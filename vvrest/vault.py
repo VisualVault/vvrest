@@ -2,10 +2,11 @@ from .token import Token
 from .utilities import get_token_expiration
 from .services.auth_service import AuthService
 from .services.config_service import ConfigService
+from .services.user_service import UserService
 
 
 class Vault:
-    def __init__(self, url, customer_alias, database_alias, client_id, client_secret, user_web_token=None, jwt=None):
+    def __init__(self, url, customer_alias, database_alias, client_id, client_secret, user_web_token=None, jwt=None, auto_jwt=False):
         """
         if user_web_token is passed in, then vv will authenticate on behalf of the user that
         the web_token belongs to. if user_web_token is not passed in (default=None), then
@@ -17,6 +18,7 @@ class Vault:
         :param client_secret: str, example: khN18YAZPe6F3Z0tc2W0HXCb487jm0wgwe6kNffUNf0=
         :param user_web_token: str UUID(version=4), passed in if authentication is user impersonation
         :param jwt: string, JSON Web Token
+        :param auto_jwt: bool, if True jwt will be fetched for user and used in auth headers
         """
         self.url = url
         self.customer_alias = customer_alias
@@ -28,6 +30,14 @@ class Vault:
         self.token = self.get_access_token()
         self.base_url = self.get_base_url()
         self.docapi_url = None
+        self.auto_jwt = auto_jwt
+
+        # get jwt for user + reset auth headers if is auto_jwt
+        if self.auto_jwt:
+            user_service = UserService(self)
+            resp = user_service.get_user_jwt()
+            self.jwt = resp['data']['token']
+            self.token = self.get_access_token()
 
         # if docapi is enabled set docapi_url
         config_service = ConfigService(self)

@@ -5,7 +5,7 @@ with open('README.md', 'r') as readme:
 
 setuptools.setup(
     name='vvrest',
-    version='1.8.0',
+    version='2.0.0',
     author='Jared Runyon',
     author_email='jared.runyon@visualvault.com',
     maintainer='Jared Runyon',
@@ -15,7 +15,7 @@ setuptools.setup(
     long_description_content_type='text/markdown',
     url='https://github.com/VisualVault/vvrest',
     packages=setuptools.find_packages(exclude=['tests']),
-    install_requires=['requests'],
+    install_requires=['requests', 'pytz'],
     classifiers=[
         'Intended Audience :: Developers',
         'Programming Language :: Python',
@@ -26,6 +26,7 @@ setuptools.setup(
         'Programming Language :: Python :: 3.7',
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.12',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
         'Topic :: Internet :: WWW/HTTP',

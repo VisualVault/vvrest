@@ -2,7 +2,7 @@ import unittest
 
 from vvrest.services.docapi_document_service import DocApiDocumentService
 
-from .utilities import get_vault_object, get_jwt, get_parameters_json
+from .utilities import get_vault_object, get_parameters_json
 
 
 class DocApiDocumentServiceTest(unittest.TestCase):
@@ -16,7 +16,7 @@ class DocApiDocumentServiceTest(unittest.TestCase):
         test_parameters = get_parameters_json()
         cls.document_id = test_parameters['document_id']
         cls.document_revision_id = test_parameters['document_revision_id']
-        cls.jwt = get_jwt(cls.vault)
+        cls.vault_jwt = get_vault_object(user_web_token=None, jwt=None, auto_jwt=True)
 
     def test_docapi_not_enabled(self):
         """
@@ -31,8 +31,7 @@ class DocApiDocumentServiceTest(unittest.TestCase):
         """
         validates 404 is returned if not a valid dhid
         """
-        vault = get_vault_object(user_web_token=None, jwt=self.jwt)
-        doc_service = DocApiDocumentService(vault)
+        doc_service = DocApiDocumentService(self.vault_jwt)
         resp = doc_service.get_document_revision(self.document_id)
         self.assertIsNone(resp['data'])
         self.assertEqual(resp['meta']['status'], 404)
@@ -41,8 +40,7 @@ class DocApiDocumentServiceTest(unittest.TestCase):
         """
         validates successful doc api doc rev call
         """
-        vault = get_vault_object(user_web_token=None, jwt=self.jwt)
-        doc_service = DocApiDocumentService(vault)
+        doc_service = DocApiDocumentService(self.vault_jwt)
         resp = doc_service.get_document_revision(self.document_revision_id)
         self.assertIsNotNone(resp['data'])
         self.assertEqual(resp['meta']['status'], 200)
