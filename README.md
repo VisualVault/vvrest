@@ -62,11 +62,11 @@ Traceback (most recent call last):
 AssertionError: 0 != 1
 
 ----------------------------------------------------------------------
-Ran 65 tests in 128.796s
+Ran 65 tests in 129.945s
 
 FAILED (failures=1)
-Name                                         Stmts   Miss  Cover
-----------------------------------------------------------------
+Name                                         Stmts   Miss  Cover   Missing
+--------------------------------------------------------------------------
 vvrest/__init__.py                               0      0   100%
 vvrest/constants.py                             35      0   100%
 vvrest/services/__init__.py                      0      0   100%
@@ -76,16 +76,16 @@ vvrest/services/doc_api_file_service.py         13      0   100%
 vvrest/services/docapi_document_service.py      13      0   100%
 vvrest/services/document_service.py             93      0   100%
 vvrest/services/email_service.py                11      0   100%
-vvrest/services/file_service.py                 32      5    84%
-vvrest/services/folder_service.py               73     11    85%
-vvrest/services/form_service.py                119     21    82%
-vvrest/services/group_service.py                49      1    98%
+vvrest/services/file_service.py                 32      5    84%   31-36
+vvrest/services/folder_service.py               73     11    85%   99-104, 192-205
+vvrest/services/form_service.py                119     21    82%   178-183, 206-211, 220-225, 234-238, 250, 268
+vvrest/services/group_service.py                49      1    98%   17
 vvrest/services/index_field_service.py          30      0   100%
 vvrest/services/site_service.py                 35      0   100%
-vvrest/services/user_service.py                 46      1    98%
+vvrest/services/user_service.py                 46      1    98%   17
 vvrest/token.py                                  5      0   100%
 vvrest/utilities.py                              8      0   100%
 vvrest/vault.py                                 54      0   100%
-----------------------------------------------------------------
-TOTAL                                          653     39    94%
+--------------------------------------------------------------------------
+TOTAL      
 ```
