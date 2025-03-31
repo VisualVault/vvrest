@@ -16,8 +16,8 @@ class DocApiFileServiceTest(unittest.TestCase):
         test_parameters = get_parameters_json()
         cls.document_id = test_parameters['document_id']
         cls.document_revision_id = test_parameters['document_revision_id']
-        cls.vault_jwt = get_vault_object(user_web_token=None, jwt=None, auto_jwt=True)
-        cls.vault_jwt_not_enabled = get_vault_object(user_web_token=None, jwt=None, auto_jwt=True, docapi_enabled=False)
+        cls.vault_jwt = get_vault_object(user_web_token=None, jwt=None)
+        cls.vault_jwt_not_enabled = get_vault_object(user_web_token=None, jwt=None, docapi_enabled=False)
 
     def test_docapi_file_not_enabled(self):
         """

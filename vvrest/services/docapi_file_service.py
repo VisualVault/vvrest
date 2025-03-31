@@ -22,7 +22,7 @@ class DocApiFileService:
         """
         endpoint = FILES_URL + '/' + REVISIONS_URL + '/' + file_id
         request_url = self.vault.docapi_url + '/api/v1/' + endpoint
-        headers = self.vault.get_auth_headers()
+        headers = self.vault.get_jwt_auth_headers()
         resp = requests.get(request_url, headers=headers, stream=True)
 
         return resp

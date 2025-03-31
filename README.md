@@ -41,7 +41,6 @@ documents = document_service.get_documents("folderPath='/test'")  # request docu
 vault constructor has three optional parameters:
 * `web_token`: if present auth token is fetched with impersonation.
 * `jwt`: if provided `jwt` will be used in auth headers.
-* `auto_jwt`: if True then `jwt` will be fetched and populated in auth headers.
 * refer to the `VVRestTestSuite` in the `tests` directory for more examples.
 
 For more information on any of the endpoints, data types, or anything referring to the 

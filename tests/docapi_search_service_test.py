@@ -19,8 +19,8 @@ class DocApiSearchServiceTest(unittest.TestCase):
         cls.folder_id = test_parameters['folder_id']
         cls.bad_folder_id = 'notauuid'
         cls.invalid_folder_id = '123f98aa-4cc4-4dd4-9cab-12350ccc5e73'
-        cls.vault_jwt = get_vault_object(user_web_token=None, jwt=None, auto_jwt=True)
-        cls.vault_jwt_not_enabled = get_vault_object(user_web_token=None, jwt=None, auto_jwt=True, docapi_enabled=False)
+        cls.vault_jwt = get_vault_object(user_web_token=None, jwt=None)
+        cls.vault_jwt_not_enabled = get_vault_object(user_web_token=None, jwt=None, docapi_enabled=False)
 
     def test_docapi_not_enabled(self):
         """

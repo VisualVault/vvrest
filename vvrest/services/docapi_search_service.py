@@ -29,7 +29,7 @@ class DocApiSearchService:
         """
         endpoint = f'{SEARCH_URL}/folder/{folder_id}'
         request_url = f'{self.vault.docapi_url}/api/v1/{endpoint}'
-        headers = self.vault.get_auth_headers()
+        headers = self.vault.get_jwt_auth_headers()
         
         params = {
             "archiveType": archive_type,
