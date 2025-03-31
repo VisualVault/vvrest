@@ -50,7 +50,7 @@ where each endpoint and there parameters are covered in great detail.
 
 ## unittest coverage
 ```
-............................................F....................
+....................................................F....................
 ======================================================================
 FAIL: test_relate_document (tests.form_service_test.FormServiceTest.test_relate_document)
 tests the following FormService methods:
@@ -62,18 +62,19 @@ Traceback (most recent call last):
 AssertionError: 0 != 1
 
 ----------------------------------------------------------------------
-Ran 65 tests in 129.945s
+Ran 73 tests in 103.621s
 
 FAILED (failures=1)
 Name                                         Stmts   Miss  Cover   Missing
 --------------------------------------------------------------------------
 vvrest/__init__.py                               0      0   100%
-vvrest/constants.py                             35      0   100%
+vvrest/constants.py                             36      0   100%
 vvrest/services/__init__.py                      0      0   100%
 vvrest/services/auth_service.py                 27      0   100%
 vvrest/services/config_service.py               10      0   100%
-vvrest/services/doc_api_file_service.py         13      0   100%
 vvrest/services/docapi_document_service.py      13      0   100%
+vvrest/services/docapi_file_service.py          13      0   100%
+vvrest/services/docapi_search_service.py        15      0   100%
 vvrest/services/document_service.py             93      0   100%
 vvrest/services/email_service.py                11      0   100%
 vvrest/services/file_service.py                 32      5    84%   31-36
@@ -87,5 +88,5 @@ vvrest/token.py                                  5      0   100%
 vvrest/utilities.py                              8      0   100%
 vvrest/vault.py                                 54      0   100%
 --------------------------------------------------------------------------
-TOTAL                                          653     39    94%
+TOTAL                                          669     39    94%
 ```

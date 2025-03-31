@@ -28,7 +28,7 @@ class DocApiDocumentServiceTest(unittest.TestCase):
 
         self.assertEqual(str(ex.exception), 'docapi is not enabled for this vv environment')
     
-    def test_doc_api_get_document_404(self):
+    def test_docapi_get_document_404(self):
         """
         validates 404 is returned if not a valid dhid
         """
@@ -37,7 +37,7 @@ class DocApiDocumentServiceTest(unittest.TestCase):
         self.assertIsNone(resp['data'])
         self.assertEqual(resp['meta']['status'], 404)
 
-    def test_doc_api_get_document_revision(self):
+    def test_docapi_get_document_revision(self):
         """
         validates successful doc api doc rev call
         """

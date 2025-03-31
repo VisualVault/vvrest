@@ -1,6 +1,6 @@
 import unittest
 
-from vvrest.services.doc_api_file_service import DocApiFileService
+from vvrest.services.docapi_file_service import DocApiFileService
 
 from .utilities import get_vault_object, get_parameters_json
 
@@ -28,7 +28,7 @@ class DocApiFileServiceTest(unittest.TestCase):
 
         self.assertEqual(str(ex.exception), 'docapi is not enabled for this vv environment')
 
-    def test_doc_api_get_file_404(self):
+    def test_docapi_get_file_404(self):
         """
         validates 404 is returned if not a valid dhid
         """
@@ -36,7 +36,7 @@ class DocApiFileServiceTest(unittest.TestCase):
         resp = file_service.get_file_stream(self.document_id)
         self.assertEqual(resp.status_code, 404)
 
-    def test_doc_api_get_file_stream(self):
+    def test_docapi_get_file_stream(self):
         """
         validates successful doc api file stream call
         """

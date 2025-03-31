@@ -31,44 +31,51 @@ class DocApiSearchServiceTest(unittest.TestCase):
 
         self.assertEqual(str(ex.exception), 'docapi is not enabled for this vv environment')
     
-    def test_doc_api_get_document_invalid(self):
+    def test_docapi_get_document_invalid(self):
         """
         validates 400 is returned if not a valid folder id
         """
         doc_service = DocApiSearchService(self.vault_jwt)
+        
+        # valid uuid but does not exist returns zero docs
         resp = doc_service.get_documents_by_folder(self.invalid_folder_id)
-        self.assertLessEqual(resp['meta']['status'], 200)
+        self.assertEqual(resp['meta']['status'], 200)
         self.assertEqual(len(resp['data']['documents']), 0)
 
+        # invalid uuid returns developer error
         doc_service = DocApiSearchService(self.vault_jwt)
         bad_resp = doc_service.get_documents_by_folder(self.bad_folder_id)
-        self.assertLessEqual(bad_resp['meta']['status'], 400)
+        self.assertEqual(bad_resp['meta']['status'], 400)
 
-    def test_doc_api_get_documents_by_folder(self):
+    def test_docapi_get_documents_by_folder(self):
         """
         validates successful retrieval of documents by folder
         """
         doc_service = DocApiSearchService(self.vault_jwt)
 
+        # get all docs
         resp_all_docs = doc_service.get_documents_by_folder(self.folder_id)
         self.assertIsNotNone(resp_all_docs['data'])
         self.assertEqual(resp_all_docs['meta']['status'], 200)
-        self.assertGreaterEqual(len(resp_all_docs['data']['documents']), 5)
+        self.assertGreaterEqual(len(resp_all_docs['data']['documents']), 1)
 
-        resp = doc_service.get_documents_by_folder(self.folder_id, take=5, page=0)
+        # get first page
+        resp = doc_service.get_documents_by_folder(self.folder_id, take=1, page=0)
         self.assertIsNotNone(resp['data'])
         self.assertEqual(resp['meta']['status'], 200)
-        self.assertLessEqual(len(resp['data']['documents']), 5)
+        self.assertLessEqual(len(resp['data']['documents']), 1)
 
-        resp_p2 = doc_service.get_documents_by_folder(self.folder_id, take=5, page=1)
+        # get second page
+        resp_p2 = doc_service.get_documents_by_folder(self.folder_id, take=1, page=1)
         self.assertIsNotNone(resp_p2['data'])
         self.assertEqual(resp_p2['meta']['status'], 200)
-        self.assertLessEqual(len(resp_p2['data']['documents']), 5)
+        self.assertLessEqual(len(resp_p2['data']['documents']), 1)
         
+        # assure not the same rev is returned
         self.assertNotEqual(resp['data']['documents'][0]['dhRev'], resp_p2['data']['documents'][0]['dhRev'])
 
 
-    def test_doc_api_get_documents_by_folder_with_sort(self):
+    def test_docapi_get_documents_by_folder_with_sort(self):
         """
         validates retrieval of documents with sorting parameters
         """
@@ -88,7 +95,7 @@ class DocApiSearchServiceTest(unittest.TestCase):
         
         self.assertNotEqual(resp['data']['documents'][0]['dhRev'], desc_resp['data']['documents'][0]['dhRev'])
     
-    def test_doc_api_get_documents_by_folder_with_archive_type(self):
+    def test_docapi_get_documents_by_folder_with_archive_type(self):
         """
         validates retrieval of documents with archiveType parameter
         """
@@ -103,7 +110,7 @@ class DocApiSearchServiceTest(unittest.TestCase):
         self.assertEqual(resp_archived['meta']['status'], 200)
         self.assertEqual(len(resp_archived['data']['documents']), 0)
 
-    def test_doc_api_get_documents_by_folder_with_role_security(self):
+    def test_docapi_get_documents_by_folder_with_role_security(self):
         """
         validates retrieval of documents with roleSecurity parameter
         """
@@ -113,7 +120,7 @@ class DocApiSearchServiceTest(unittest.TestCase):
         self.assertEqual(resp['meta']['status'], 200)
         self.assertGreater(len(resp['data']['documents']), 0)
     
-    def test_doc_api_get_documents_by_folder_without_role_security(self):
+    def test_docapi_get_documents_by_folder_without_role_security(self):
         """
         validates retrieval of documents without roleSecurity parameter
         """
@@ -123,7 +130,7 @@ class DocApiSearchServiceTest(unittest.TestCase):
         self.assertEqual(resp['meta']['status'], 200)
         self.assertGreater(len(resp['data']['documents']), 0)
     
-    def test_doc_api_get_documents_by_folder_with_search_query(self):
+    def test_docapi_get_documents_by_folder_with_search_query(self):
         """
         validates retrieval of documents using search query
         """
