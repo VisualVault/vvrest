@@ -17,13 +17,14 @@ class DocApiDocumentServiceTest(unittest.TestCase):
         cls.document_id = test_parameters['document_id']
         cls.document_revision_id = test_parameters['document_revision_id']
         cls.vault_jwt = get_vault_object(user_web_token=None, jwt=None, auto_jwt=True)
+        cls.vault_jwt_not_enabled = get_vault_object(user_web_token=None, jwt=None, auto_jwt=True, docapi_enabled=False)
 
     def test_docapi_not_enabled(self):
         """
         validates docapi calls will not be made w/o a jwt
         """
         with self.assertRaises(Exception) as ex:
-            DocApiDocumentService(self.vault)
+            DocApiDocumentService(self.vault_jwt_not_enabled)
 
         self.assertEqual(str(ex.exception), 'docapi is not enabled for this vv environment')
     

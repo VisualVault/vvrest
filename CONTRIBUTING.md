@@ -31,9 +31,9 @@ deactivate
 add a `parameters.json` file to the `/tests` directory with the following content:
 ```json
 {
-  "form_template_name": "unittest",
-  "form_template_field_name": "test_field",
-  "form_template_id": "f8fd0067-7a1f-e911-8b96-0800276652db"
+    "form_template_name": "unittest",
+    "form_template_field_name": "test_field",
+    "form_template_id": "f8fd0067-7a1f-e911-8b96-0800276652db"
 }
 ```
 a form template must be created named `unittest`, and must have a text box form field
@@ -43,13 +43,22 @@ NOTE: this is just a work around until an API update happens for form template c
 add a `credentials.json` file to the `/tests` directory with the following content:
 ```json
 {
-  "url": "localhost/visualvault4_1_13",
-  "customer_alias": "test_customer",
-  "database_alias": "test_database",
-  "client_id": "your_client_id",
-  "client_secret": "your_client_secret",
-  "email_address": "myemail@mydomain.com"
+    "url": "localhost/visualvault4_1_13",
+    "customer_alias": "test_customer",
+    "database_alias": "test_database",
+    "client_id": "your_client_id",
+    "client_secret": "your_client_secret",
+    "email_address": "myemail@mydomain.com",
+    "docapi_not_enabled": {
+        "url": "localhost/visualvault4_1_13",
+        "customer_alias": "test_customer",
+        "database_alias": "test_database",
+        "client_id": "your_client_id",
+        "client_secret": "your_client_secret",
+        "email_address": "myemail@mydomain.com"
+    }
 }
+NOTE: `docapi_not_enabled` environment credentials must be added for full test suite to pass
 ```
 these `credentials` will be used to run the `VVRestTestSuite` against the
 `VisualVault` environment in the `url` field.<br><br>

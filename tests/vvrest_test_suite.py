@@ -5,6 +5,7 @@ from .auth_service_test import AuthServiceTest
 from .config_service_test import ConfigServiceTest
 from .docapi_document_service_test import DocApiDocumentServiceTest
 from .docapi_file_service_test import DocApiFileServiceTest
+from .docapi_search_service_test import DocApiSearchServiceTest
 from .document_service_test import DocumentServiceTest
 from .email_service_test import EmailServiceTest
 from .file_service_test import FileServiceTest
@@ -22,6 +23,7 @@ AuthServiceTest.vault = vault
 ConfigServiceTest.vault = vault
 DocApiDocumentServiceTest.vault = vault
 DocApiFileServiceTest.vault = vault
+DocApiSearchServiceTest.vault = vault
 DocumentServiceTest.vault = vault
 EmailServiceTest.vault = vault
 FileServiceTest.vault = vault
