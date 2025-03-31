@@ -38,10 +38,11 @@ vault = Vault(url, customer_alias, database_alias, client_id, client_secret)
 document_service = DocumentService(vault)  # instantiate a service class (DocumentService)
 documents = document_service.get_documents("folderPath='/test'")  # request documents
 ```
-vault constructor has three optional parameters:
+vault constructor has optional parameters:
 * `web_token`: if present auth token is fetched with impersonation.
 * `jwt`: if provided `jwt` will be used in auth headers.
 * refer to the `VVRestTestSuite` in the `tests` directory for more examples.
+* if `jwt` is not provided one will automatically be populated and used in auth headers for `docapi` requests
 
 For more information on any of the endpoints, data types, or anything referring to the 
 `VisualVault` REST API please refer to the `HTTP API` section at <http://developer.visualvault.com>

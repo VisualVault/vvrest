@@ -58,8 +58,9 @@ add a `credentials.json` file to the `/tests` directory with the following conte
         "email_address": "myemail@mydomain.com"
     }
 }
-NOTE: `docapi_not_enabled` environment credentials must be added for full test suite to pass
 ```
+NOTE: `docapi_not_enabled` environment credentials must be added for full test suite to pass
+
 these `credentials` will be used to run the `VVRestTestSuite` against the
 `VisualVault` environment in the `url` field.<br><br>
 NOTE: tests should only be ran against a local or test instance of `VisualVault`
