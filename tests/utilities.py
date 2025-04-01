@@ -7,17 +7,22 @@ from vvrest.vault import Vault
 from .settings import credentials_file, parameters_file
 
 
-def get_vault_object(user_web_token=None, jwt=None):
+def get_vault_object(user_web_token=None, jwt=None, docapi_enabled=True):
     """
     :param user_web_token: string UUID(version=4), used for user impersonation
     :param jwt: str, JSON Web Token
+    :param auto_jwt: bool
     :return: Vault
     """
     with open(credentials_file) as credentials_json:
         credentials = json.load(credentials_json)
 
-    vault = Vault(credentials['url'], credentials['customer_alias'], credentials['database_alias'],
-                  credentials['client_id'], credentials['client_secret'], user_web_token, jwt)
+    if docapi_enabled:
+        vault = Vault(credentials['url'], credentials['customer_alias'], credentials['database_alias'],
+                      credentials['client_id'], credentials['client_secret'], user_web_token, jwt)
+    else:
+        vault = Vault(credentials['docapi_not_enabled']['url'], credentials['docapi_not_enabled']['customer_alias'], credentials['docapi_not_enabled']['database_alias'],
+                      credentials['docapi_not_enabled']['client_id'], credentials['docapi_not_enabled']['client_secret'], user_web_token, jwt)
 
     return vault
 

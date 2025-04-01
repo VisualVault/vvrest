@@ -1,6 +1,8 @@
 from .token import Token
 from .utilities import get_token_expiration
 from .services.auth_service import AuthService
+from .services.config_service import ConfigService
+from .services.user_service import UserService
 
 
 class Vault:
@@ -26,6 +28,20 @@ class Vault:
         self.jwt = jwt
         self.token = self.get_access_token()
         self.base_url = self.get_base_url()
+        self.docapi_url = None
+
+        # get jwt for user if not provided
+        if not self.jwt:
+            user_service = UserService(self)
+            resp = user_service.get_user_jwt()
+            self.jwt = resp['data']['token']
+
+        # if docapi is enabled set docapi_url
+        config_service = ConfigService(self)
+        docapi_config = config_service.get_docapi_config()
+        if 'data' in docapi_config:
+            if docapi_config['data']['isEnabled']:
+                self.docapi_url = docapi_config['data']['apiUrl']
 
     def get_access_token(self):
         """
@@ -76,5 +92,13 @@ class Vault:
         :return: dict
         """
         headers = {'Authorization': 'Bearer ' + self.token.access_token}
+
+        return headers
+    
+    def get_jwt_auth_headers(self):
+        """
+        :return: dict
+        """
+        headers = {'Authorization': 'Bearer ' + self.jwt}
 
         return headers
