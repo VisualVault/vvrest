@@ -108,3 +108,20 @@ a repo maintainer will provide feedback, and handle merging the `feature branch`
 the `develop` branch is where all the work gets placed and staged for `releases`. 
 the `master` branch is only updated alongside `releases` (stays even with latest release). 
 NOTE: for users `forking` follow this same process in your `forked` repository.
+
+
+### publishing vvrest
+* ensure `setup.py` version is set + updated
+* update `CHANGELOG.md` to for release notes
+* from inside the `vvrest` test suite `docker` container run the following:
+``` 
+python setup.py sdist bdist_wheel
+```
+* push to `test.pypi`
+```
+twine upload --repository testpypi -u __token__ -p {TOKEN} dist/*
+```
+* push to `pypi`
+```
+twine upload -u __token__ -p {TOKEN} dist/*
+```
