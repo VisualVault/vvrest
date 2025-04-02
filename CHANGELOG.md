@@ -1,10 +1,13 @@
 # *vvrest* release changelog
 
 # v2.0.0
+- add `docapi` support for project
 - add `docapi_document_service.DocApiDocumentService`
 - add `docapi_file_service.DocApiFileService`
 - add `docapi_search_service.DocApiSearchService`
-- add auto fetching `jwt` on `vault` instantiation for `docapi`
+- add `config_service.ConfigService`
+- add `unittest` coverage for `DocApiDocumentService`, `DocApiFileService`, `DocApiSearchService`, and `ConfigService`
+- update `Vault.jwt` on `Vault` init to new `jwt` if not provided
 
 # v1.8.0
 - add `delete_document_revision` to `DocumentService`
