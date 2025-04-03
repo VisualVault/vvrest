@@ -50,7 +50,7 @@ where each endpoint and there parameters are covered in great detail.
 
 ## unittest coverage
 ```
-....................................................F....................
+.....................................................F....................
 ======================================================================
 FAIL: test_relate_document (tests.form_service_test.FormServiceTest.test_relate_document)
 tests the following FormService methods:
@@ -62,7 +62,7 @@ Traceback (most recent call last):
 AssertionError: 0 != 1
 
 ----------------------------------------------------------------------
-Ran 73 tests in 103.621s
+Ran 74 tests in 109.488s
 
 FAILED (failures=1)
 Name                                         Stmts   Miss  Cover   Missing
@@ -71,7 +71,7 @@ vvrest/__init__.py                               0      0   100%
 vvrest/constants.py                             36      0   100%
 vvrest/services/__init__.py                      0      0   100%
 vvrest/services/auth_service.py                 27      0   100%
-vvrest/services/config_service.py               10      0   100%
+vvrest/services/config_service.py               15      0   100%
 vvrest/services/docapi_document_service.py      13      0   100%
 vvrest/services/docapi_file_service.py          13      0   100%
 vvrest/services/docapi_search_service.py        15      0   100%
@@ -88,5 +88,5 @@ vvrest/token.py                                  5      0   100%
 vvrest/utilities.py                              8      0   100%
 vvrest/vault.py                                 54      0   100%
 --------------------------------------------------------------------------
-TOTAL                                          669     39    94%
+TOTAL                                          674     39    94%
 ```

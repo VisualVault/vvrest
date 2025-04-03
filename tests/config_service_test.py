@@ -11,6 +11,15 @@ class ConfigServiceTest(unittest.TestCase):
     def setUpClass(cls):
         if not cls.vault:
             cls.vault = get_vault_object()
+    
+    def test_get_config(self):
+        """
+        tests ConfigService.get_config
+        """
+        config_service = ConfigService(self.vault)
+        resp = config_service.get_config()
+        self.assertEqual(resp['meta']['status'], 200)
+        self.assertIsNotNone(resp['data'])
 
     def test_docapi_config_enabled(self):
         """
