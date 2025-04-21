@@ -6,7 +6,7 @@ from .services.user_service import UserService
 
 
 class Vault:
-    def __init__(self, url, customer_alias, database_alias, client_id, client_secret, user_web_token=None, jwt=None):
+    def __init__(self, url, customer_alias, database_alias, client_id, client_secret, user_web_token=None, jwt=None, audience=None):
         """
         if user_web_token is passed in, then vv will authenticate on behalf of the user that
         the web_token belongs to. if user_web_token is not passed in (default=None), then
@@ -15,9 +15,10 @@ class Vault:
         :param customer_alias: str
         :param database_alias: str
         :param client_id: str, UUID(version=4)
-        :param client_secret: str, example: khN18YAZPe6F3Z0tc2W0HXCb487jm0wgwe6kNffUNf0=
+        :param client_secret: str
         :param user_web_token: str UUID(version=4), passed in if authentication is user impersonation
         :param jwt: string, JSON Web Token
+        :param audience: string
         """
         self.url = url
         self.customer_alias = customer_alias
@@ -29,11 +30,12 @@ class Vault:
         self.token = self.get_access_token()
         self.base_url = self.get_base_url()
         self.docapi_url = None
+        self.audience = audience
 
         # get jwt for user if not provided
         if not self.jwt:
             user_service = UserService(self)
-            resp = user_service.get_user_jwt()
+            resp = user_service.get_user_jwt(self.audience)
             self.jwt = resp['data']['token']
 
         # if docapi is enabled set docapi_url

@@ -60,6 +60,10 @@ def setup_test_suite():
     assert resp['meta']['status'] == 200
     document_id = resp['data']['documentId']
 
+    # create additional document
+    resp = document_service.new_document(folder_id, 1, '_test_doc2', '_test_doc description2', '0', '_test2.txt')
+    assert resp['meta']['status'] == 200
+
     # create document revision (file upload)
     expected_revision = generate_random_uuid()
     resp = file_service.file_upload(document_id, 'unittest', expected_revision, 'unittest change reason',

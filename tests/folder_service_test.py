@@ -62,9 +62,9 @@ class FolderServiceTest(unittest.TestCase):
         resp = folder_service.get_folder_documents(self.folder_id)
 
         self.assertEqual(resp['meta']['status'], 200)
-        self.assertEqual(len(resp['data']), 1)
-        self.assertEqual(resp['data'][0]['documentId'], self.document_id)
-        self.assertEqual(resp['data'][0]['folderPath'], self.folder_path)
+        self.assertEqual(len(resp['data']), 2)
+        self.assertEqual(resp['data'][1]['documentId'], self.document_id)
+        self.assertEqual(resp['data'][1]['folderPath'], self.folder_path)
 
     def test_get_folder_index_fields(self):
         """
