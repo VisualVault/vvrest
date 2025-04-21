@@ -16,13 +16,18 @@ def get_vault_object(user_web_token=None, jwt=None, docapi_enabled=True):
     """
     with open(credentials_file) as credentials_json:
         credentials = json.load(credentials_json)
+    
+    audience = None
+    if 'audience' in credentials:
+        if credentials['audience'] not in ["", "null"]:
+            audience = credentials['audience']
 
     if docapi_enabled:
         vault = Vault(credentials['url'], credentials['customer_alias'], credentials['database_alias'],
-                      credentials['client_id'], credentials['client_secret'], user_web_token, jwt)
+                      credentials['client_id'], credentials['client_secret'], user_web_token, jwt, audience)
     else:
         vault = Vault(credentials['docapi_not_enabled']['url'], credentials['docapi_not_enabled']['customer_alias'], credentials['docapi_not_enabled']['database_alias'],
-                      credentials['docapi_not_enabled']['client_id'], credentials['docapi_not_enabled']['client_secret'], user_web_token, jwt)
+                      credentials['docapi_not_enabled']['client_id'], credentials['docapi_not_enabled']['client_secret'], user_web_token, jwt, audience)
 
     return vault
 

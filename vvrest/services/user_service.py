@@ -1,5 +1,5 @@
 import requests
-from ..constants import USERS_URL, WEB_TOKEN_URL, SITE_ID_URL, JWT_URL
+from ..constants import USERS_URL, WEB_TOKEN_URL, SITE_ID_URL, JWT_URL, AUDIENCE
 
 
 class UserService:
@@ -107,7 +107,7 @@ class UserService:
 
         params = dict()
         if audience:
-            params['audience'] = audience
+            params[AUDIENCE] = audience
 
         resp = requests.get(request_url, headers=headers, params=params).json()
 

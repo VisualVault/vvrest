@@ -62,13 +62,13 @@ Traceback (most recent call last):
 AssertionError: 0 != 1
 
 ----------------------------------------------------------------------
-Ran 73 tests in 103.621s
+Ran 73 tests in 97.996s
 
 FAILED (failures=1)
 Name                                         Stmts   Miss  Cover   Missing
 --------------------------------------------------------------------------
 vvrest/__init__.py                               0      0   100%
-vvrest/constants.py                             36      0   100%
+vvrest/constants.py                             37      0   100%
 vvrest/services/__init__.py                      0      0   100%
 vvrest/services/auth_service.py                 27      0   100%
 vvrest/services/config_service.py               10      0   100%
@@ -86,7 +86,7 @@ vvrest/services/site_service.py                 35      0   100%
 vvrest/services/user_service.py                 46      1    98%   17
 vvrest/token.py                                  5      0   100%
 vvrest/utilities.py                              8      0   100%
-vvrest/vault.py                                 54      0   100%
+vvrest/vault.py                                 55      0   100%
 --------------------------------------------------------------------------
-TOTAL                                          669     39    94%
+TOTAL                                          671     39    94%
 ```
